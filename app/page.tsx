@@ -1,10 +1,12 @@
 import Image from "next/image";
 import NavBar from "./componentes/navbar/navBar";
+import Footer from "./componentes/general/Footer";
 
 export default function Home() {
   return (
     <div>
       <NavBar />
+      <Footer /> {/* por ver */}
       {/*
       <p className="font-questrial text-4xl font-bold text-principal-rosa">HACK4HER</p>
       <p className="font-questrial text-4xl font-bold text-principal-rosa-50">HACK4HER</p>
