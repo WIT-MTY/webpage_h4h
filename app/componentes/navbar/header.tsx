@@ -6,21 +6,24 @@ import Logo from "../general/Logo";
 
 const Header = () => {
   return (
-    <header className="fixed top-0 w-full bg-principal-morado shadow-md z-50">
-      <nav className="container mx-auto px-4 py-3">
+    <header className="fixed top-0 w-full shadow-md z-50"
+      style={{
+        background: 'linear-gradient(180deg, #A72A8E 0%, #A12989 33%, #411037 100%)'
+      }}>
+      <nav className="px-6 py-3 font-montserrat font-semibold text-base">
         <div className="flex justify-between items-center">
 
           <Logo image_logo="/images/wit_logos/logo_wit_blanco.png"/>
           
-          <div className="space-x-6">  
+          <div className="space-x-6 pr-[120px]">
             <Link href="#acerca" className="hover:text-secundario-morado-700 transition-colors"
               scroll={true}>
               Acerca de
             </Link>
 
-            <Link href="#desafios" className="hover:text-secundario-morado-700 transition-colors"
+            <Link href="#halloffame" className="hover:text-secundario-morado-700 transition-colors"
               scroll={true}>
-              Desafíos
+              Salón De La Fama 
             </Link>
 
             <Link href="#calendario" className="hover:text-secundario-morado-700 transition-colors"
@@ -28,9 +31,9 @@ const Header = () => {
               Calendario
             </Link>
 
-            <Link href="#colaboradores" className="hover:text-secundario-morado-700 transition-colors"
+            <Link href="#patrocinador" className="hover:text-secundario-morado-700 transition-colors"
               scroll={true}>
-              Colaboradores
+              Patrocinador
             </Link>
 
             <Link href="#faq" className="hover:text-secundario-morado-700 transition-colors"

@@ -10,7 +10,7 @@ const Logo: React.FC<LogoProps> = ({
 }) => {
     return (
         <Link href="https://witmty.com/">
-            <img src={image_logo} alt="Logo" className="w-20 cursor-pointer" />
+            <img src={image_logo} alt="Logo" className="w-18 cursor-pointer" />
         </Link>
     );
 };

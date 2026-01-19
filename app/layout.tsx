@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
-import { Questrial } from 'next/font/google'
+import { Questrial, Montserrat } from 'next/font/google'
 import './globals.css'
 
 // Fuentes H4H - WIT
 
-const questrial = Questrial({ 
+const questrial = Questrial({
   subsets: ['latin'],
   weight: '400',
   variable: '--font-questrial',
+})
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-montserrat',
 })
 
 export default function RootLayout({
@@ -16,8 +22,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" 
-      className={`${questrial.variable}`}>
+    <html lang="en"
+      className={`${questrial.variable} ${montserrat.variable}`}>
       <body className={questrial.className}>{children}</body>
     </html>
   )
