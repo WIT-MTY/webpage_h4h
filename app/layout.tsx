@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Questrial, Montserrat } from 'next/font/google'
+import localFont from 'next/font/local'
 import './globals.css'
 
 // Fuentes H4H - WIT
@@ -14,8 +15,10 @@ const montserrat = Montserrat({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-montserrat',
+})
+
 const highCruiser = localFont({
-  src: '../public/fonts/highcruiser-personal-use-only.otf', 
+  src: '../public/fonts/High Cruiser Regular.ttf',
   weight: '400',
   style: 'normal',
   variable: '--font-high-cruiser',
@@ -29,7 +32,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en"
-      className={`${questrial.variable} ${montserrat.variable}`}>
+      className={`${questrial.variable} ${montserrat.variable} ${highCruiser.variable}`}>
       <body className={questrial.className}>{children}</body>
     </html>
   )

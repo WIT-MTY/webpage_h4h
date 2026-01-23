@@ -15,7 +15,9 @@ const Header = () => {
         <div className="flex justify-between items-center">
 
           <Logo image_logo="/images/wit_logos/logo_wit_blanco.png"/>
+          <Logo image_logo="/images/h4h_logos/logo_h4h_corto_blanco.png" className="-ml-85"/>
           
+
           <div className="space-x-6 pr-[120px]">
             <Link href="#acerca" className="hover:text-secundario-morado-700 transition-colors"
               scroll={true}>
@@ -45,12 +47,7 @@ const Header = () => {
             <Link href="#ubicacion" className="hover:text-secundario-morado-700 transition-colors"
               scroll={true}>
               Ubicación
-            </Link>
-
-            <Link href="#calendario" className="hover:text-secundario-morado-700 transition-colors"
-              scroll={true}>
-              Calendario
-            </Link>
+            </Link> 
 
             <Link href="#equipo" className="hover:text-secundario-morado-700 transition-colors"
               scroll={true}>

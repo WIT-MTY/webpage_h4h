@@ -29,17 +29,6 @@ const NavBar = () => {
             alt="Major League Hacking 2025 Hackathon Season" 
             style={{width:"100%"}} />
         </a>
-        */}
-        <HomeSection />
-        <AcercaSection />
-        <ColaboradoresSection /> {/* Patrocinador*/}
-        <GanadorasSection />
-        <UbicacionSection />
-        <CalendarioSection />
-        <FAQSection />
-        <EquipoSection />
-        <ContactanosSection />
-
     </>
     )
 }
