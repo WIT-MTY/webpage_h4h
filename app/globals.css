@@ -108,6 +108,9 @@
 .font-montserrat {
   font-family: var(--font-montserrat);
 }
+.font-high-cruiser {
+    font-family: var(--font-high-cruiser);
+  }
 
 @media (prefers-color-scheme: dark) {
   :root {

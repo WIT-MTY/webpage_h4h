@@ -2,11 +2,13 @@ import Link from "next/link";
 import React, {ReactNode} from "react";
 
 interface LogoProps {
-    image_logo: string;
+    image_logo?: string;
+    w_logo?: string;
 }
 
 const Logo: React.FC<LogoProps> = ({
-    image_logo,
+    image_logo="/images/h4h_logos/logo_h4h_corto.svg",
+    w_logo="w-20",
 }) => {
     return (
         <Link href="https://witmty.com/">

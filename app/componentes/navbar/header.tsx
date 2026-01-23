@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Logo from "../general/Logo";
+import LogoWIT from "../general/LogoWIT";
 
 const Header = () => {
   return (
@@ -39,6 +40,16 @@ const Header = () => {
             <Link href="#faq" className="hover:text-secundario-morado-700 transition-colors"
               scroll={true}>
               FAQ
+            </Link>
+
+            <Link href="#ubicacion" className="hover:text-secundario-morado-700 transition-colors"
+              scroll={true}>
+              Ubicación
+            </Link>
+
+            <Link href="#calendario" className="hover:text-secundario-morado-700 transition-colors"
+              scroll={true}>
+              Calendario
             </Link>
 
             <Link href="#equipo" className="hover:text-secundario-morado-700 transition-colors"

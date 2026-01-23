@@ -14,6 +14,12 @@ const montserrat = Montserrat({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-montserrat',
+const highCruiser = localFont({
+  src: '../public/fonts/highcruiser-personal-use-only.otf', 
+  weight: '400',
+  style: 'normal',
+  variable: '--font-high-cruiser',
+  display: 'swap',
 })
 
 export default function RootLayout({
