@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #EECAD7;
   --foreground: #171717;
+  --background-figma-rosa: #EECAD7;
 }
 
-@theme { 
-  /* Palera H4H */
+@theme {
+  /* Paleta H4H */
 
   /* Principales */
   --color-principal-morado: #911876;
@@ -91,6 +92,11 @@
   --color-neutro-blanco: #FFFFFF;
 }
 
+/* Custom background class for figma rosa */
+.bg-figma-rosa {
+  background-color: var(--background-figma-rosa);
+}
+
 /* Fuentes */
 
 /* subtitulos */
@@ -98,6 +104,10 @@
   font-family: var(--font-questrial);
 }
 
+/* navbar */
+.font-montserrat {
+  font-family: var(--font-montserrat);
+}
 .font-high-cruiser {
     font-family: var(--font-high-cruiser);
   }
