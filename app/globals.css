@@ -1,9 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #EECAD7;
+  --background: #ffffff;
   --foreground: #171717;
-  --background-figma-rosa: #EECAD7;
 }
 
 @theme {
@@ -21,6 +20,7 @@
   --color-principal-morado-700: #dc29b4;
   --color-principal-morado-800: #c1209d;
   
+ 
   --color-principal-rosa: #ff2871;
   --color-principal-rosa-50: #fff5f8;
   --color-principal-rosa-100: #ffebf2;
@@ -90,11 +90,6 @@
   --color-neutro-gris-800: #504e4e;
   
   --color-neutro-blanco: #FFFFFF;
-}
-
-/* Custom background class for figma rosa */
-.bg-figma-rosa {
-  background-color: var(--background-figma-rosa);
 }
 
 /* Fuentes */

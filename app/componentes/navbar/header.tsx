@@ -11,11 +11,11 @@ const Header = () => {
       style={{
         background: 'linear-gradient(180deg, #A72A8E 0%, #A12989 33%, #411037 100%)'
       }}>
-      <nav className="px-6 py-3 font-montserrat font-semibold text-base">
+      <nav className="px-6 py-3 font-questrial text-base">
         <div className="flex justify-between items-center">
 
           <Logo image_logo="/images/wit_logos/logo_wit_blanco.png"/>
-          <Logo image_logo="/images/h4h_logos/logo_h4h_corto_blanco.png" className="-ml-85"/>
+          <Logo image_logo="/images/h4h_logos/logo_h4h_corto_blanco.png" className="-ml-90 pb-2"/>
           
 
           <div className="space-x-6 pr-[120px]">
@@ -26,17 +26,17 @@ const Header = () => {
 
             <Link href="#halloffame" className="hover:text-secundario-morado-700 transition-colors"
               scroll={true}>
-              Salón De La Fama 
-            </Link>
-
-            <Link href="#calendario" className="hover:text-secundario-morado-700 transition-colors"
-              scroll={true}>
-              Calendario
+              Salón de la Fama 
             </Link>
 
             <Link href="#patrocinador" className="hover:text-secundario-morado-700 transition-colors"
               scroll={true}>
               Patrocinador
+            </Link>
+
+            <Link href="#calendario" className="hover:text-secundario-morado-700 transition-colors"
+              scroll={true}>
+              Calendario
             </Link>
 
             <Link href="#faq" className="hover:text-secundario-morado-700 transition-colors"

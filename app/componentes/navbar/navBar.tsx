@@ -7,15 +7,17 @@ import FAQSection from "@/app/pages/faqSection";
 import EquipoSection from "@/app/pages/equipoSection";
 import ContactanosSection from "@/app/pages/contactanosSection";
 import PatrocinadorSection from "@/app/pages/patrocinadorSection";
+import HomeSection from "@/app/pages/homeSection";
 
 const NavBar = () => {
     return (
     <>
         <Header />
+        <HomeSection />
         <AcercaSection />
         <HallOfFameSection />
-        <CalendarioSection />
         <PatrocinadorSection />
+        <CalendarioSection />
         <FAQSection />
         <EquipoSection />
         <ContactanosSection />
