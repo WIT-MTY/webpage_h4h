@@ -5,8 +5,8 @@
   --foreground: #171717;
 }
 
-@theme {
-  /* Paleta H4H */
+@theme { 
+  /* Palera H4H */
 
   /* Principales */
   --color-principal-morado: #911876;
@@ -20,7 +20,6 @@
   --color-principal-morado-700: #dc29b4;
   --color-principal-morado-800: #c1209d;
   
- 
   --color-principal-rosa: #ff2871;
   --color-principal-rosa-50: #fff5f8;
   --color-principal-rosa-100: #ffebf2;
@@ -99,10 +98,10 @@
   font-family: var(--font-questrial);
 }
 
-/* navbar */
 .font-montserrat {
   font-family: var(--font-montserrat);
 }
+
 .font-high-cruiser {
     font-family: var(--font-high-cruiser);
   }
