@@ -88,7 +88,8 @@
   --color-neutro-gris-700: #656262;
   --color-neutro-gris-800: #504e4e;
   
-  --color-neutro-blanco: #FFFFFF;
+  --color-blanco: #FFFFFF;
+  --color-neutro-blanco: #E1DDDD;
 }
 
 /* Fuentes */
