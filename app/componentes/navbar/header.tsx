@@ -11,7 +11,7 @@ const Header = () => {
       style={{
         background: 'linear-gradient(180deg, #A72A8E 0%, #A12989 33%, #411037 100%)'
       }}>
-      <nav className="px-6 py-3 font-montserrat font-semibold text-base">
+      <nav className="px-7 py-4 font-montserrat font-semibold text-base">
         <div className="flex justify-between items-center">
 
           <Logo image_logo="/images/wit_logos/logo_wit_blanco.png"/>

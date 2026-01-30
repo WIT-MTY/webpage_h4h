@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #EECAD7;
   --foreground: #171717;
 }
 
@@ -20,7 +20,6 @@
   --color-principal-morado-700: #dc29b4;
   --color-principal-morado-800: #c1209d;
   
- 
   --color-principal-rosa: #ff2871;
   --color-principal-rosa-50: #fff5f8;
   --color-principal-rosa-100: #ffebf2;
@@ -105,7 +104,7 @@
 }
 .font-high-cruiser {
     font-family: var(--font-high-cruiser);
-  }
+}
 
 @media (prefers-color-scheme: dark) {
   :root {
