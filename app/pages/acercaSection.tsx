@@ -4,7 +4,7 @@ import Section from "../componentes/general/Section";
 const AcercaSection = () => {
     return (
         <Section id="acerca" backgroundColor="bg-secundario-rosa-50" className="h-full flex flex-col items-center justify-center">
-        <p className="text-secundario-morado text-2xl">Sección 1</p>
+        <p className="text-secundario-morado text-2xl">Sección 2</p>
         <h2 className="font-questrial text-4xl font-bold text-principal-rosa">Acerca de</h2>
         <h1 className="font-high-cruiser text-6xl text-morado-700">Otra fuente [High Cruiser] AA Aa aa</h1>
         <p> Subtitulos [Questrial] (por default)</p>

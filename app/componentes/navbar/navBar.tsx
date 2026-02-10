@@ -1,25 +1,46 @@
 import React from "react";
 import Header from "./header";
-import AcercaSection from "../../pages/acercaSection";
-import HallOfFameSection from "@/app/pages/halloffameSection";
-import CalendarioSection from "@/app/pages/calendarioSection";
-import FAQSection from "@/app/pages/faqSection";
-import EquipoSection from "@/app/pages/equipoSection";
-import ContactanosSection from "@/app/pages/contactanosSection";
-import PatrocinadorSection from "@/app/pages/patrocinadorSection";
+
+{/*Secciones de la pagina*/}
+{/* -- 1 -- */}
 import HomeSection from "@/app/pages/homeSection";
+{/* -- 2 -- */}
+import AcercaSection from "../../pages/acercaSection";
+{/* -- 3 -- */}
+import QueEsSection from "@/app/pages/queesSection";
+{/* -- 4 -- */}
+import UbicacionSection from "@/app/pages/ubicacionSection";
+{/* -- 5 -- */}
+import CalendarioSection from "@/app/pages/calendarioSection";
+{/* -- 6 -- */}
+import RetosSection from "@/app/pages/retosSection";
+{/* -- 7 -- */}
+import EquipoSection from "@/app/pages/equipoSection";
+{/* -- 8 -- */}
+import PatrocinadorSection from "@/app/pages/patrocinadorSection";
+{/* -- 9 -- */}
+import GaleriaSection from "@/app/pages/galeriaSection";
+{/* -- 10 -- */}
+import FAQSection from "@/app/pages/faqSection";
+{/* -- 11 -- */}
+import ContactanosSection from "@/app/pages/contactanosSection";
+
 
 const NavBar = () => {
     return (
     <>
         <Header />
+
         <HomeSection />
         <AcercaSection />
-        <HallOfFameSection />
-        <PatrocinadorSection />
+        <QueEsSection />
+        <UbicacionSection />
         <CalendarioSection />
-        <FAQSection />
+        <RetosSection />
         <EquipoSection />
+        <PatrocinadorSection /> {/* colaborador */}
+        <GaleriaSection />
+        <FAQSection />
         <ContactanosSection />
 
         {/* Badge de MLH */}
