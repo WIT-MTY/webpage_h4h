@@ -3,7 +3,7 @@ import Section from "../componentes/general/Section";
 
 const RetosSection = () => {
     return (
-        <Section id="retos" backgroundColor="bg-secundario-rosa-300" className="h-full flex flex-col items-center justify-center">
+        <Section id="retos" className="h-full flex flex-col items-center justify-center" bg_color="#4A0C32">
         <p className="text-secundario-morado text-2xl">Sección 6</p>
         <h2 className="text-3xl font-bold mt-4">Retos</h2>
       </Section>

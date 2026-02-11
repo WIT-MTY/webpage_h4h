@@ -38,7 +38,7 @@ const NavBar = () => {
         <CalendarioSection />
         <RetosSection />
         <EquipoSection />
-        <PatrocinadorSection /> {/* colaborador */}
+        <PatrocinadorSection />
         <GaleriaSection />
         <FAQSection />
         <ContactanosSection />

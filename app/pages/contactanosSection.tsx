@@ -3,8 +3,8 @@ import Section from "../componentes/general/Section";
 
 const ContactanosSection = () => {
     return (
-        <Section id="contactanos" backgroundColor="bg-secundario-rosa-700" className="h-full flex flex-col items-center justify-center">
-        <p className="text-secundario-morado text-2xl">Sección 8</p>
+      <Section id="contactanos" className="h-full flex flex-col items-center justify-center" bg_color="#4A0C32">
+        <p className="text-secundario-morado text-2xl">Sección 11</p>
         <h2 className="text-3xl font-bold mt-4">Contáctanos</h2>
       </Section>
     )
