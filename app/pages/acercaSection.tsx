@@ -10,7 +10,7 @@ const AcercaSection = () => {
         <h2 className="font-questrial text-4xl font-bold text-principal-rosa">Acerca de</h2>
         <h1 className="font-high-cruiser text-6xl text-morado-700">Otra fuente [High Cruiser] AA Aa aa</h1>
         <p> Subtitulos [Questrial] (por default)</p>
-        <AdaGuia w_ada="w-200"/>
+       
       </Section>
     )
 }

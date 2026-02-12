@@ -1,5 +1,8 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Header from "./header";
+import AdaGuia from "../general/AdaGuia";
+import BadgeMLH from "../general/BadgeMLH";
 
 {/*Secciones de la pagina*/}
 {/* -- 1 -- */}
@@ -26,10 +29,13 @@ import FAQSection from "@/app/pages/faqSection";
 import ContactanosSection from "@/app/pages/contactanosSection";
 
 
+
 const NavBar = () => {
+    const [activeSection, setActiveSection] = useState("home");
+
     return (
     <>
-        <Header />
+        <Header onSectionChange={setActiveSection} />
 
         <HomeSection />
         <AcercaSection />
@@ -43,15 +49,13 @@ const NavBar = () => {
         <FAQSection />
         <ContactanosSection />
 
+        <AdaGuia 
+            w_ada="w-96 md:w-96" 
+            activeSection={activeSection}
+        />
+
         {/* Badge de MLH */}
-        <a id="mlh-trust-badge"
-            className="fixed top-0 right-6 max-w-[100px] min-w-[60px] w-[10%] z-50"
-            href="https://mlh.io/na?utm_source=na-hackathon&utm_medium=TrustBadge&utm_campaign=2025-season&utm_content=white" 
-            target="_blank">
-            <img src="https://s3.amazonaws.com/logged-assets/trust-badge/2025/mlh-trust-badge-2025-white.svg" 
-            alt="Major League Hacking 2025 Hackathon Season" 
-            style={{width:"100%"}} />
-        </a>
+        <BadgeMLH />
     </>
     )
 }

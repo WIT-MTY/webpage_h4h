@@ -1,16 +1,18 @@
-// app/header.tsx
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Logo from "../general/Logo";
 
-const Header = () => {
+interface HeaderProps {
+    onSectionChange?: (section: string) => void; 
+}
+
+const Header = ({ onSectionChange }: HeaderProps) => {
   const [activeSection, setActiveSection] = useState("home");
   const isHome = activeSection === "home";
 
   useEffect(() => {
     const handleScroll = () => {
-      
       const sections = [
         "home",
         "acerca",
@@ -25,7 +27,7 @@ const Header = () => {
         "contactanos"
       ];
 
-      const scrollPosition = window.scrollY + 100;
+      const scrollPosition = window.scrollY + 200; 
 
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -36,6 +38,7 @@ const Header = () => {
             scrollPosition < offsetTop + offsetHeight
           ) {
             setActiveSection(section);
+            onSectionChange?.(section); 
             break;
           }
         }
@@ -46,7 +49,7 @@ const Header = () => {
     handleScroll(); 
     
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [onSectionChange]);
 
   return (
     <header className="fixed top-0 w-full z-50 transition-all duration-300">
@@ -55,17 +58,12 @@ const Header = () => {
         {isHome && <Logo image_logo="/images/wit_logos/logo_wit_blanco.png" w_logo="w-40" />}
         
         <div 
-          className={`absolute left-1/2 transform -translate-x-1/2 p-6 py-1 rounded-r-4xl rounded-s-4xl transition-all duration-300 ${
-            isHome 
-              ? "" 
-              : "" 
-          }`} 
+          className={`absolute left-1/2 transform -translate-x-1/2 p-6 py-1 rounded-r-4xl rounded-s-4xl transition-all duration-300`} 
           style={{ 
-            backgroundColor: isHome ? "" : "#703D5C"
+            backgroundColor: isHome ? "transparent" : "#703D5C"
           }}
         >
           <div className="space-x-6 py-6 items-center">
-            
             <Link href="#home" className="hover:text-secundario-morado-700 transition-colors" scroll={true}>
               Inicio
             </Link>
@@ -91,7 +89,6 @@ const Header = () => {
               Contáctanos
             </Link>
           </div>
-
         </div>
       </nav>
     </header>
