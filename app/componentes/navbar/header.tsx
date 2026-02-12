@@ -64,9 +64,12 @@ const Header = ({ onSectionChange }: HeaderProps) => {
           }}
         >
           <div className="space-x-6 py-6 items-center">
-            <Link href="#home" className="hover:text-secundario-morado-700 transition-colors" scroll={true}>
-              Inicio
-            </Link>
+            {!isHome && (
+              <Link href="#home" className="hover:text-secundario-morado-700 transition-colors" scroll={true}>
+                Inicio
+              </Link>
+            )}
+            
             <Link href="#acerca" className="hover:text-secundario-morado-700 transition-colors" scroll={true}>
               Acerca de
             </Link>
