@@ -42,9 +42,12 @@ const EquipoSection = () => {
                 <DoodleFuerte top_position="-30%" left_position="62%" rotation="130" width="w-200"/> 
                 <DoodleRosa top_position="70%" left_position="2%" rotation="100" width="w-140"/>
             </div>
-        
-            <h1 className="font-high-cruiser text-6xl text-white relative z-10">EQUIPO</h1>
 
+            <div className="text-center max-w-4xl mx-auto px-4 md:px-6 mb-8 md:mb-12">
+              <h1 className="font-high-cruiser text-5xl md:text-6xl lg:text-7xl text-white mb-4 md:mb-6 relative z-10">
+                EQUIPO
+              </h1>
+            </div>
             
             <div className="grid grid-cols-3 lg:grid-cols-6 xl:grid-cols-6 w-full max-w-5xl px-10 relative z-10">
                 {equipo.map((miembro: Miembro, index: number) => (

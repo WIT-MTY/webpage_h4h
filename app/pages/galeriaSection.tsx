@@ -8,7 +8,7 @@ const GaleriaSection = () => {
           
             {/* Contenedor de texto centrado */}
             <div className="text-center max-w-4xl mx-auto px-4 md:px-6 mb-8 md:mb-12">
-                <h1 className="font-high-cruiser text-5xl md:text-6xl lg:text-7xl text-white mb-4 md:mb-6">
+                <h1 className="font-high-cruiser text-5xl md:text-6xl lg:text-7xl text-white mb-4 md:mb-6 relative z-10">
                     GALERÍA
                 </h1>
                 
