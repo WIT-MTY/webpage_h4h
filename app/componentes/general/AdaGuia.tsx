@@ -35,8 +35,8 @@ const AdaGuia: React.FC<AdaGuiaProps> = ({
         calendario: {top: '60%', left: '25%', rotation: -15, size: 'w-36 md:w-44'},
         retos: {top: '55%', left: '85%', rotation: 25, size: 'w-40 md:w-48'},
         equipo: {top: '80%', left: '85%', rotation: 35, size: 'w-32 md:w-100'},
-        patrocinador: {top: '65%', left: '60%', rotation: 10, size: 'w-28 md:w-36'},
-        galeria: {top: '30%', left: '78%', rotation: 25, size: 'w-50 md:w-100'},
+        patrocinador: {top: '60%', left: '15%', rotation: -1, size: 'w-100 md:w-120'},
+        galeria: {top: '25%', left: '80%', rotation: 40, size: 'w-20 md:w-70'},
         faq: {top: '75%', left: '80%', rotation: 30, size: 'w-32 md:w-40'},
         contactanos: {top: '40%', left: '15%', rotation: -30, size: 'w-40 md:w-48'}
     };

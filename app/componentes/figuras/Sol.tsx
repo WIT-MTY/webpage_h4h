@@ -1,19 +1,19 @@
 'use client'
 
-interface EstrellaProps {
+interface SolProps {
     top_position: string;
     left_position: string;
     width?: string;
 }
 
-const Estrella = (props: EstrellaProps) => {
+const Sol = (props: SolProps) => {
     const widthClass = props.width || "w-100";
     
     return (
         <div className="">
             <img 
-                src="/images/figuras/estrella.svg" 
-                alt="Estrella" 
+                src="/images/figuras/sol.svg" 
+                alt="Sol" 
                 className={`${widthClass} animate-spin [animation-duration:25s] absolute`} 
                 style={{top: props.top_position, left: props.left_position}} 
             />
@@ -21,4 +21,4 @@ const Estrella = (props: EstrellaProps) => {
     )
 }
 
-export default Estrella;
+export default Sol;

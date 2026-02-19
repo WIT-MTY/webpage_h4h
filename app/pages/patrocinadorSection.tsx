@@ -1,12 +1,38 @@
 import React from "react";
 import Section from "../componentes/general/Section";
+import Flor from "../componentes/figuras/Flor";
+import Sol from "../componentes/figuras/Sol";
 
 const PatrocinadorSection = () => {
-    return (
-        <Section id="patrocinador" className="h-full flex flex-col items-center justify-center" bg_color="#4A0C32">
-        <h1 className="font-high-cruiser text-6xl text-white">COLABORADOR</h1>
-      </Section>
-    )
+  return (
+    <Section id="patrocinador" className="h-full flex flex-col items-center justify-center relative" bg_color="#4A0C32">
+      <h1 className="font-high-cruiser text-5xl md:text-7xl text-white text-center mb-6 z-10">COLABORADOR</h1>
+
+      <div className="absolute inset-0 z-0">
+        <Sol top_position="1%" left_position="2%" width="w-100"/>    
+        <Flor top_position="70%" left_position="75%" width="w-60"/>          
+      </div>
+
+      <div className="max-w-4xl px-6 md:px-8 text-center space-y-6 mb-12 z-10">
+        <p className="text-xl md:text-2xl lg:text-2xl text-white leading-relaxed font-light">
+          Arca Continental, uno de los embotelladores de Coca-Cola más grandes del mundo con presencia en 5 países.
+        </p>
+        <p className="text-xl md:text-2xl lg:text-2xl text-white leading-relaxed font-light">
+          El AC Digital Nest, es el equipo del desarrollo digital de la fuerza de ventas de Arca Continental y más de un millón de tiendas de abarrotes y pequeños comercios en Latinoamérica.
+        </p>
+      </div>
+    
+      <div className="flex justify-center w-full z-10">
+        <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg md:max-w-xl lg:max-w-2xl p-8 md:p-10 hover:scale-105 transition-transform duration-300 mx-auto">
+          <img 
+            src="/images/colaborador_images/ACDigitalNest.png" 
+            alt="Logo de Arca Continental"
+            className="w-full h-auto object-contain"
+            />
+        </div>
+      </div>
+    </Section>
+  )
 }
 
 export default PatrocinadorSection;
