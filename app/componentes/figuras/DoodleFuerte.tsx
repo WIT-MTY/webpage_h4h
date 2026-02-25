@@ -17,7 +17,7 @@ const DoodleFuerte = (props: DoodleFuerteProps) => {
                 src="/images/figuras/doodle_fuerte.svg" 
                 alt="Doodle Fuerte" 
                 className={`${widthClass} float absolute`} 
-                style={{top: props.top_position, left: props.left_position, rotate: `${rotationValue}deg`, animation: ''}} 
+                style={{top: props.top_position, left: props.left_position, rotate: `${rotationValue}deg`, animation: 'floatVertical 3s ease-in-out infinite'}} 
             /> 
         </div>
     )
