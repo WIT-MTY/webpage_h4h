@@ -31,13 +31,13 @@ const AdaGuia: React.FC<AdaGuiaProps> = ({
         home: {top: '50%', left: '50%', rotation: -90, size: 'w-96 md:w-96'},
         acerca: {top: '50%', left: '80%', rotation: 15, size: 'w-28 md:w-36'},
         quees: {top: '70%', left: '15%', rotation: -10, size: 'w-32 md:w-40'},
-        ubicacion: {top: '40%', left: '75%', rotation: 20, size: 'w-24 md:w-32'},
-        calendario: {top: '60%', left: '25%', rotation: -15, size: 'w-36 md:w-44'},
+        ubicacion: {top: '40%', left: '85%', rotation: 20, size: 'w-50 md:w-70'},
+        calendario: {top: '60%', left: '10%', rotation: -15, size: 'w-50 md:w-70'},
         retos: {top: '55%', left: '85%', rotation: 25, size: 'w-40 md:w-48'},
         equipo: {top: '45%', left: '20%', rotation: -20, size: 'w-32 md:w-40'},
         patrocinador: {top: '65%', left: '70%', rotation: 10, size: 'w-28 md:w-36'},
         galeria: {top: '50%', left: '30%', rotation: -25, size: 'w-36 md:w-44'},
-        faq: {top: '75%', left: '80%', rotation: 30, size: 'w-32 md:w-40'},
+        faq: {top: '55%', left: '50%', rotation: 30, size: 'w-70 md:w-90'},
         contactanos: {top: '40%', left: '15%', rotation: -30, size: 'w-40 md:w-48'}
     };
 
