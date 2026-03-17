@@ -2,18 +2,30 @@ import React from "react";
 import Section from "../componentes/general/Section";
 import Flor from "../componentes/figuras/Flor";
 import Sol from "../componentes/figuras/Sol";
+import Estrella from "../componentes/figuras/Estrella";
+import DoodleFuerte from "../componentes/figuras/DoodleFuerte";
+import DoodleRosa from "../componentes/figuras/DoodleRosa";
 
 const PatrocinadorSection = () => {
   return (
-    <Section id="patrocinador" className="h-full flex flex-col items-center justify-center relative" bg_color="#4A0C32">
-      <h1 className="font-high-cruiser text-5xl md:text-7xl text-white text-center mb-6 z-10">COLABORADOR</h1>
+    <Section id="patrocinador" bg_color="#4A0C32">
 
       <div className="absolute inset-0 z-0">
-        <Sol top_position="1%" left_position="2%" width="w-100"/>    
-        <Flor top_position="70%" left_position="75%" width="w-60"/>          
+        <Estrella top_position="10%" left_position="5%" width="w-20"/>
+        <Flor top_position="70%" left_position="60%" width="w-20"/>
+        <DoodleFuerte top_position="10%" left_position="80%" rotation="130" width="w-20"/> 
+        <DoodleRosa top_position="70%" left_position="2%" rotation="100" width="w-20"/>
       </div>
 
-      <div className="max-w-4xl px-6 md:px-8 text-center space-y-6 mb-12 z-10">
+      <div className="text-center max-w-4xl mx-auto px-4 md:px-6 mb-8 md:mb-12">
+        <h1 className="font-high-cruiser text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white text-center mb-6 z-10">
+          COLABORADOR
+        </h1>
+      </div>
+
+
+
+      <div className="max-w-4xl px-6 md:px-8 text-center space-y-6 mb-12 z-10 relative">
         <p className="text-xl md:text-2xl lg:text-2xl text-white leading-relaxed font-light">
           Arca Continental, uno de los embotelladores de Coca-Cola más grandes del mundo con presencia en 5 países.
         </p>
@@ -22,7 +34,7 @@ const PatrocinadorSection = () => {
         </p>
       </div>
     
-      <div className="flex justify-center w-full z-10">
+      <div className="flex justify-center w-full z-10 relative">
         <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg md:max-w-xl lg:max-w-2xl p-8 md:p-10 hover:scale-105 transition-transform duration-300 mx-auto">
           <img 
             src="/images/colaborador_images/ACDigitalNest.png" 

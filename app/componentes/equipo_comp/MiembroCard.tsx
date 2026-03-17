@@ -22,11 +22,21 @@ const MiembroCard = (props: MiembroCardProps) => {
                     <img 
                     src={props.foto_m}
                     alt={props.nombre_m}
-                    className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 object-cover rounded-full mx-auto mb-2" 
+                    className="w-24 h-24 sm:w-28 sm:h-40 md:w-40 md:h-32 lg:w-50 lg:h-36 object-cover rounded-full mx-auto mb-2" 
                     />
-        
                     <h1 className="font-high-cruiser text-white text-center font-bold text-xl sm:text-2xl">Contacto</h1>
-                    <p className="text-white text-center text-xs sm:text-sm md:text-base">LinkedIn: {props.contacto_m?.linkedin_m}</p>
+                    {props.contacto_m?.linkedin_m && (
+                        <p className="text-white text-center text-xs sm:text-sm md:text-base underline">
+                            <a href={props.contacto_m.linkedin_m} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="hover:underline hover:text-pink-300 transition-colors font-medium"
+                            >
+                                Ver perfil de LinkedIn
+                            </a>
+        
+                        </p>
+                    )}
                     <p className="text-white text-center text-xs sm:text-sm md:text-base">Correo: {props.contacto_m?.correo_m}</p>
                 </div>
             </div>
