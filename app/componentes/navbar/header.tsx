@@ -50,7 +50,7 @@ const Header = ({ onSectionChange }: HeaderProps) => {
           {isHome && <Logo image_logo="/images/wit_logos/logo_wit_blanco.png" w_logo="w-40" />}
         </div>
 
-        <button onClick={() => setIsMenuOpen(!isMenuOpen)}className="lg:hidden text-white focus:outline-none z-50">
+        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden text-white focus:outline-none z-50">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {isMenuOpen ? (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -63,8 +63,12 @@ const Header = ({ onSectionChange }: HeaderProps) => {
         <div 
           className={`${isMenuOpen ? "flex" : "hidden"}
             lg:flex lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:p-6 lg:py-1 
-            lg:rounded-r-4xl lg:rounded-s-4xl lg:transition-all lg:duration-300`}
-            style={{backgroundColor: isHome ? "transparent": (isHome ? "transparent" : "#703D5C")}}
+            lg:rounded-r-4xl lg:rounded-s-4xl lg:transition-all lg:duration-300
+            fixed left-0 mx-20 p-6 rounded-2xl shadow-lg
+            flex-col items-center space-y-5
+            lg:flex-row lg:space-y-0 lg:space-x-6 lg:mx-0 lg:top-auto lg:shadow-none`}
+            
+            style={{backgroundColor: isHome && !isMenuOpen ? "transparent" : "#703D5C"}}
         >
           <div className="flex flex-col lg:flex-row items-center space-y-8 lg:space-y-0 lg:space-x-6">
             {!isHome && (
