@@ -18,22 +18,22 @@ const PatrocinadorSection = () => {
       </div>
 
       <div className="text-center max-w-4xl mx-auto px-4 md:px-6 mb-8 md:mb-12">
-        <h1 className="font-high-cruiser text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white text-center mb-6 z-10">
+        <h1 className="font-high-cruiser text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl text-white text-center mb-6 z-10">
           COLABORADOR
         </h1>
       </div>
 
-
-
-      <div className="max-w-4xl px-6 md:px-8 text-center space-y-6 mb-12 z-10 relative">
-        <p className="text-xl md:text-2xl lg:text-2xl text-white leading-relaxed font-light">
-          Arca Continental, uno de los embotelladores de Coca-Cola más grandes del mundo con presencia en 5 países.
-        </p>
-        <p className="text-xl md:text-2xl lg:text-2xl text-white leading-relaxed font-light">
-          El AC Digital Nest, es el equipo del desarrollo digital de la fuerza de ventas de Arca Continental y más de un millón de tiendas de abarrotes y pequeños comercios en Latinoamérica.
-        </p>
+      <div className="flex justify-center w-full z-10 relative">
+        <div className="max-w-4xl px-6 md:px-8 text-center space-y-6 mb-12 z-10 relative">
+          <p className="text-xl md:text-2xl lg:text-2xl text-white leading-relaxed font-light">
+            Arca Continental, uno de los embotelladores de Coca-Cola más grandes del mundo con presencia en 5 países.
+          </p>
+          <p className="text-xl md:text-2xl lg:text-2xl text-white leading-relaxed font-light">
+            El AC Digital Nest, es el equipo del desarrollo digital de la fuerza de ventas de Arca Continental y más de un millón de tiendas de abarrotes y pequeños comercios en Latinoamérica.
+          </p>
+        </div>
       </div>
-    
+      
       <div className="flex justify-center w-full z-10 relative">
         <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg md:max-w-xl lg:max-w-2xl p-8 md:p-10 hover:scale-105 transition-transform duration-300 mx-auto">
           <img 
@@ -43,6 +43,7 @@ const PatrocinadorSection = () => {
             />
         </div>
       </div>
+      
     </Section>
   )
 }
