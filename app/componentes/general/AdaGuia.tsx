@@ -43,9 +43,9 @@ const AdaGuia: React.FC<AdaGuiaProps> = ({
         ubicacion: {top: '40%', left: '75%', rotation: 20, size: 'w-24 md:w-32', mess: 'Mess ubicación', up_mess: 20, left_mess: 50},
         calendario: {top: '60%', left: '25%', rotation: -15, size: 'w-36 md:w-44', mess: 'Mess calendario', up_mess: 140, left_mess: 50},
         retos: {top: '55%', left: '85%', rotation: 25, size: 'w-40 md:w-48', mess: 'Mess Retos', up_mess: 10, left_mess: 50},
-        equipo: {top: '80%', left: '85%', rotation: 35, size: 'w-32 md:w-100', mess: '!Conoce al equipo detrás de H4H!', up_mess: 170, left_mess: 70},
-        patrocinador: {top: '60%', left: '15%', rotation: -1, size: 'w-100 md:w-120', mess: 'Mess Patrocinador', up_mess: 140, left_mess: 50},
-        galeria: {top: '25%', left: '80%', rotation: 40, size: 'w-20 md:w-70', mess: 'Mess Galería', up_mess: 140, left_mess: 50},
+        equipo: {top: '85%', left: '84%', rotation: 35, size: 'w-32 md:w-100', mess: '!Conoce al equipo detrás de H4H!', up_mess: 180, left_mess: 50},
+        patrocinador: {top: '60%', left: '15%', rotation: -1, size: 'w-100 md:w-120', mess: '!Conoce a nuestro patrocinador!', up_mess: 200, left_mess: 60},
+        galeria: {top: '35%', left: '80%', rotation: 40, size: 'w-20 md:w-70', mess: '¡Revive el H4H!', up_mess: 140, left_mess: 50},
         faq: {top: '75%', left: '80%', rotation: 30, size: 'w-32 md:w-40', mess: 'Mess FAQ', up_mess: 140, left_mess: 50},
         contactanos: {top: '40%', left: '15%', rotation: -30, size: 'w-40 md:w-48', mess: 'Mess Contactanos', up_mess: 140, left_mess: 50}
     };
