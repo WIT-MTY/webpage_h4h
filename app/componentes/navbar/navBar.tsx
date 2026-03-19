@@ -49,10 +49,12 @@ const NavBar = () => {
         <FAQSection />
         <ContactanosSection />
 
-        <AdaGuia 
-            w_ada="w-96 md:w-96" 
-            activeSection={activeSection}
-        />
+        {activeSection !== "home" && (
+            <AdaGuia
+                w_ada="w-96 md:w-96"
+                activeSection={activeSection}
+            />
+        )}
 
         {/* Badge de MLH */}
         <BadgeMLH />
