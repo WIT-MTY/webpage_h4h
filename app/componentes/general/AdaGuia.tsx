@@ -29,7 +29,7 @@ const AdaGuia: React.FC<AdaGuiaProps> = ({
         left: '50%',
         rotation: -90,
         size: w_ada,
-        mess: 'Ten un buen día',
+        mess: 'Test',
         up_mess: 140,
         left_mess: 50
     });
@@ -47,7 +47,7 @@ const AdaGuia: React.FC<AdaGuiaProps> = ({
         patrocinador: {top: '60%', left: '15%', rotation: -1, size: 'w-100 md:w-120', mess: '!Conoce a nuestro patrocinador!', up_mess: 200, left_mess: 60},
         galeria: {top: '35%', left: '80%', rotation: 40, size: 'w-20 md:w-70', mess: '¡Revive el H4H!', up_mess: 140, left_mess: 50},
         faq: {top: '75%', left: '80%', rotation: 30, size: 'w-32 md:w-40', mess: 'Mess FAQ', up_mess: 140, left_mess: 50},
-        contactanos: {top: '40%', left: '15%', rotation: -30, size: 'w-40 md:w-48', mess: 'Mess Contactanos', up_mess: 140, left_mess: 50}
+        contactanos: {top: '40%', left: '50%', rotation: 20, size: 'w-120 md:w-120', mess: '¿Tienes dudas, comentarios o sugerencias?', up_mess: 140, left_mess: 50}
     };
 
     useEffect(() => {

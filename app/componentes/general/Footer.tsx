@@ -6,7 +6,7 @@ import LogoWIT from "./LogoWIT";
 const Footer = () => {
 
     return (
-        <div className="w-full border-t flex space-x-40 flex-row items-center justify-center py-10 text-3xl gap-3">
+        <div className="w-full border-t flex space-x-40 flex-row items-center justify-center py-10 text-4xl gap-3">
             
             
             {/* Redes de H4H */}
