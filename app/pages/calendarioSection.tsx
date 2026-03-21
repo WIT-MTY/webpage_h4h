@@ -8,11 +8,16 @@ const CalendarioSection = () => {
   const [eventoSeleccionado, setEventoSeleccionado] = useState<string | null>(null);
   const imageCounters = useRef<Record<string, number>>({});
 
-  const abrirEvento = (eventoId: string, totalImagenes: number) => {
-    const current = imageCounters.current[eventoId] ?? 0;
-    imageCounters.current[eventoId] = (current + 1) % totalImagenes;
-    setEventoSeleccionado(eventoId);
-  };
+const abrirEvento = (eventoId: string, totalImagenes: number) => {
+  const current = imageCounters.current[eventoId] ?? 0;
+  imageCounters.current[eventoId] = (current + 1) % totalImagenes;
+  setEventoSeleccionado(eventoId);
+  document.body.style.overflow = 'hidden'; 
+};
+const cerrarEvento = () => {
+  setEventoSeleccionado(null);
+  document.body.style.overflow = '';
+};
 
   const eventosSabado: Evento[] = [
     {
@@ -206,7 +211,7 @@ const CalendarioSection = () => {
             ? imageCounters.current[eventoSeleccionado] ?? 0
             : 0
         }
-        onClose={() => setEventoSeleccionado(null)}
+        onClose={cerrarEvento}
       />
     </section>
   );

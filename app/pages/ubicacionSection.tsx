@@ -19,7 +19,7 @@ useEffect(() => {
 }, []);
 
 const googleMapsUrl =
-    "https://www.google.com/maps/dir//Centro+Estudiantil,+Av.+Eugenio+Garza+Sada+2501,+Tecnologico,+Distrito+Tec,+64700+Monterrey,+N.L./@25.649068,-100.2914857,981m/data=!3m1!1e3!4m9!4m8!1m0!1m5!1m1!1s0x8662bfb96c0b2719:0x3792e1a98d3a4b06!2m2!1d-100.2897698!2d25.6488054!3e0?entry=ttu&g_ep=EgoyMDI2MDIyMi4wIKXMDSoASAFQAw%3D%3D";
+    "https://www.google.com/maps/dir//Arena+Borregos+%7C+Gimnasio+Deportivo+ITESM,+Tecnologico,+Distrito+Tec,+64700+Monterrey,+N.L./@25.6770048,-100.450304,3737m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0x8662bfbf27fbf617:0x15b097506b6ef1db!2m2!1d-100.2873348!2d25.6506473?entry=ttu&g_ep=EgoyMDI2MDMxNS4wIKXMDSoASAFQAw%3D%3D";
 
 return (
     <Section
@@ -95,15 +95,16 @@ return (
             </div>
             </a>
 
-            {/* Info de ubicacion */}
+            {/* Info de Ubi */}
             <div className="flex flex-col gap-5 flex-1">
             <h3 className="font-montserrat font-black text-neutro-blanco text-3xl leading-snug">
                 Tecnológico de Monterrey
             </h3>
             <p className="font-questrial text-neutro-blanco text-lg leading-relaxed opacity-90">
-                Av. Eugenio Garza Sada 2501 Sur, Tecnológico,
-                <br />
-                Distrito Tec, 64700 Monterrey, N.L.
+                Arena Borregos | Gimnasio Deportivo ITESM
+                <br/>
+                <br/>
+                Av. Eugenio Garza Sada 2501 Sur, Tecnológico,Distrito Tec, 64700 Monterrey, N.L.
             </p>
             </div>
         </div>
