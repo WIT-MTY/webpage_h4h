@@ -46,7 +46,7 @@ const AdaGuia: React.FC<AdaGuiaProps> = ({
         equipo: {top: '85%', left: '84%', rotation: 35, size: 'w-32 md:w-100', mess: '!Conoce al equipo detrás de H4H!', up_mess: 180, left_mess: 50},
         patrocinador: {top: '60%', left: '15%', rotation: -1, size: 'w-100 md:w-120', mess: '!Conoce a nuestro patrocinador!', up_mess: 200, left_mess: 60},
         galeria: {top: '35%', left: '80%', rotation: 40, size: 'w-20 md:w-70', mess: '¡Revive el H4H!', up_mess: 140, left_mess: 50},
-        faq: {top: '55%', left: '50%', rotation: 30, size: 'w-70 md:w-90', mess: 'Las dudas más frecuentes', up_mess: 140, left_mess: 50},
+        faq: {top: '35%', left: '86%', rotation: 30, size: 'w-50 md:w-70', mess: 'Las dudas más frecuentes', up_mess: 140, left_mess: 50},
         contactanos: {top: '40%', left: '15%', rotation: -30, size: 'w-40 md:w-48', mess: 'Mess Contactanos', up_mess: 140, left_mess: 50}
     };
 

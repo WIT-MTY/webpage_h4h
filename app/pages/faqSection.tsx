@@ -94,7 +94,7 @@ return (
     <BackgroundDecor />
 
       {/* ── Contenido ── */}
-    <div className="relative z-50 max-w-5xl mx-auto">
+    <div className="relative z-10 max-w-5xl mx-auto">
         <div className="text-center mb-14">
         <h2 className="font-high-cruiser text-7xl font-black text-neutro-blanco uppercase leading-tight tracking-tight">
             Preguntas<br />Frecuentes
