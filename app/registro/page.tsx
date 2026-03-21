@@ -20,11 +20,11 @@ export default function PageFormulario() {
                         <h2 className="text-white text-xl font-semibold mb-4">Datos de cuenta</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <p className="text-white mb-2">Correo Electrónico</p>
+                                <p className="text-white mb-2">Correo Electrónico <span className="text-red-400">*</span></p>
                                 <input type="email" className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa tu correo" />
                             </div>
                             <div>
-                                <p className="text-white mb-2">Contraseña</p>
+                                <p className="text-white mb-2">Contraseña <span className="text-red-400">*</span></p>
                                 <input type="password" className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa una contraseña" />
                             </div>
                         </div>
@@ -35,23 +35,23 @@ export default function PageFormulario() {
                         <h2 className="text-white text-xl font-semibold mb-4">Datos personales</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <p className="text-white mb-2">Nombre(s)</p>
+                                <p className="text-white mb-2">Nombre(s) <span className="text-red-400">*</span></p>
                                 <input type="text" className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa tu nombre" />
                             </div>
                             <div>
-                                <p className="text-white mb-2">Apellidos</p>
+                                <p className="text-white mb-2">Apellidos <span className="text-red-400">*</span></p>
                                 <input type="text" className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa tus apellidos" />
                             </div>
                             <div>
-                                <p className="text-white mb-2">Género</p>
+                                <p className="text-white mb-2">Género <span className="text-red-400">*</span></p>
                                 <input type="text" className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa tu género" />
                             </div>
                             <div>
-                                <p className="text-white mb-2">Fecha de nacimiento</p>
+                                <p className="text-white mb-2">Fecha de nacimiento <span className="text-red-400">*</span></p>
                                 <input type="date" className="w-full p-3 rounded-md bg-white text-black" />
                             </div>
                             <div>
-                                <p className="text-white mb-2">Permiso menor de edad</p>
+                                <p className="text-white mb-2">Permiso menor de edad <span className="text-red-400">*</span></p>
                                 <select className="w-full p-3 rounded-md bg-white text-black">
                                     <option value="">Selecciona una opción</option>
                                     <option value="si">Sí, tengo permiso</option>
@@ -59,7 +59,7 @@ export default function PageFormulario() {
                                 </select>
                             </div>
                             <div>
-                                <p className="text-white mb-2">Teléfono</p>
+                                <p className="text-white mb-2">Teléfono <span className="text-red-400">*</span></p>
                                 <input type="tel" className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa tu teléfono" />
                             </div>
                         </div>
@@ -70,7 +70,7 @@ export default function PageFormulario() {
                         <h2 className="text-white text-xl font-semibold mb-4">Datos académicos</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="relative">
-                                <p className="text-white mb-2">Ubicación de tu universidad</p>
+                                <p className="text-white mb-2">Ubicación de tu universidad <span className="text-red-400">*</span></p>
                                 <button
                                     type="button"
                                     onClick={() => setIsOpen(!isOpen)}
@@ -92,7 +92,7 @@ export default function PageFormulario() {
                             </div>
 
                             <div className="relative">
-                                <p className="text-white mb-2">Universidad (en México)</p>
+                                <p className="text-white mb-2">Universidad (en México) <span className="text-red-400">*</span></p>
                                 <button
                                     type="button"
                                     onClick={() => setIsUniversityOpen(!isUniversityOpen)}
@@ -115,12 +115,12 @@ export default function PageFormulario() {
                             </div>
 
                             <div>
-                                <p className="text-white mb-2">Nombre de universidad extranjera</p>
+                                <p className="text-white mb-2">Nombre de universidad extranjera <span className="text-red-400">*</span></p>
                                 <input type="text" className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa el nombre de tu universidad" />
                             </div>
 
                             <div>
-                                <p className="text-white mb-2">Semestre</p>
+                                <p className="text-white mb-2">Semestre <span className="text-red-400">*</span></p>
                                 <select className="w-full p-3 rounded-md bg-white text-black">
                                     <option value="">Selecciona tu semestre</option>
                                     <option value="1">1er semestre</option>
@@ -136,7 +136,7 @@ export default function PageFormulario() {
                             </div>
 
                             <div className="md:col-span-2">
-                                <p className="text-white mb-2">Carrera</p>
+                                <p className="text-white mb-2">Carrera <span className="text-red-400">*</span></p>
                                 <input type="text" className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa tu carrera" />
                             </div>
                         </div>
@@ -147,7 +147,7 @@ export default function PageFormulario() {
                         <h2 className="text-white text-xl font-semibold mb-4">Preferencias alimentarias</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <p className="text-white mb-2">¿Eres vegano/a?</p>
+                                <p className="text-white mb-2">¿Eres vegano/a? <span className="text-red-400">*</span></p>
                                 <div className="flex space-x-4">
                                     <label className="flex items-center space-x-2">
                                         <input type="radio" name="vegano" value="si" className="text-pink-600" />
@@ -161,7 +161,7 @@ export default function PageFormulario() {
                             </div>
 
                             <div>
-                                <p className="text-white mb-2">¿Tienes alguna restriccipon alimentaría?</p>
+                                <p className="text-white mb-2">¿Tienes alguna restriccipon alimentaría? <span className="text-red-400">*</span></p>
                                 <div className="flex space-x-4">
                                     <label className="flex items-center space-x-2">
                                         <input type="radio" name="vegano" value="si" className="text-pink-600" />
@@ -204,7 +204,7 @@ export default function PageFormulario() {
                                     >
                                         Código de Conducta de MLH
                                     </a>
-                                    .
+                                    . <span className="text-red-400">*</span>
                                 </label>
                             </div>
 
@@ -244,7 +244,7 @@ export default function PageFormulario() {
                                     >
                                         Política de Privacidad de MLH
                                     </a>
-                                    .
+                                    . <span className="text-red-400">*</span>
                                 </label>
                             </div>
 

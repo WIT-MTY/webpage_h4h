@@ -13,7 +13,7 @@ interface MiembroCardProps {
 
 const MiembroCard = (props: MiembroCardProps) => {
     return (
-        <div className="bg-white w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-4xl rounded-2xl flex flex-col md:flex-row items-center mx-auto" style={{background: "#815776"}}>
+        <div className="bg-[#815776] hover:bg-[#743965] transition-colors duration-200 w-full rounded-md px-4 py-2 mb-1 flex flex-col md:flex-row items-center mx-auto">
 
             {/* Lado izquierdo */}
             <div className="w-full md:w-1/2 p-4 md:p-6 flex flex-col items-center">
