@@ -12,11 +12,22 @@ const abrirEvento = (eventoId: string, totalImagenes: number) => {
   const current = imageCounters.current[eventoId] ?? 0;
   imageCounters.current[eventoId] = (current + 1) % totalImagenes;
   setEventoSeleccionado(eventoId);
-  document.body.style.overflow = 'hidden'; 
+  const scrollY = window.scrollY;
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${scrollY}px`;
+  document.body.style.width = '100%';
+  document.body.classList.add('modal-open');
+  document.body.dispatchEvent(new Event('modalopen'));
 };
 const cerrarEvento = () => {
   setEventoSeleccionado(null);
-  document.body.style.overflow = '';
+  const scrollY = document.body.style.top;
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.width = '';
+  window.scrollTo(0, parseInt(scrollY || '0') * -1);
+  document.body.classList.remove('modal-open');
+  document.body.dispatchEvent(new Event('modalclose'));
 };
 
   const eventosSabado: Evento[] = [
@@ -129,9 +140,9 @@ const cerrarEvento = () => {
       {/* ── Contenido ── */}
       <div className="relative z-10 max-w-5xl mx-auto">
         <div className="text-center mb-14">
-          <h3 className="font-high-cruiser text-7xl font-black uppercase text-neutro-blanco tracking-tight mb-4">
+          <h1 className="font-high-cruiser text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white text-center mb-6 z-10">
             Cronograma
-          </h3>
+          </h1>
           <div className="flex items-center justify-center gap-3">
             <div className="h-0.5 w-16 bg-principal-rosa" />
             <p className="font-montserrat text-principal-rosa font-bold text-lg tracking-widest uppercase">

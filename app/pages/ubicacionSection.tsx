@@ -41,9 +41,9 @@ const googleMapsUrl =
         paddingRight: "2rem",
         }}
     >
-        <h2 className="font-high-cruiser text-8xl font-black text-neutro-blanco text-center mb-10 tracking-tight uppercase">
+        <h1 className="font-high-cruiser text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white text-center mb-6 z-10">
         Ubicación
-        </h2>
+        </h1>
 
         {/* Panel */}
         <div
