@@ -38,48 +38,78 @@ const HomeSection = () => {
     }, []);
 
     return (
-        <Section id="home" className="h-full flex flex-col items-center justify-center relative overflow-hidden" bg_color="linear-gradient(180deg, #AC1C75, #761450)">
-            {/* Background figures */}
-            <DoodleRosaInicio top_position="2%" left_position="3%" width="w-[600px]" />
-            <Sol top_position="5%" left_position="75%" width="w-[600px]" />
-            <Estrella top_position="65%" left_position="5%" width="w-96" />
-            <DoodleFuerte top_position="70%" left_position="78%" width="w-[400px]" />
+        <Section id="home" className="h-full flex flex-col items-center justify-start" bg_color="linear-gradient(180deg, #AC1C75, #761450)" overflow="overflow-visible" verticalAlign="justify-start">
+            {/* Background figures - positioned absolutely relative to section */}
+            <div className="absolute inset-0 w-full h-full pointer-events-none">
+                <DoodleRosaInicio
+                    top_position="-2%"
+                    left_position="-3%"
+                    width="800px"
+                    height="800px"
+                    rotation="-1"
+                    opacity={1}
+                />
+                <Sol
+                    top_position="-11%"
+                    left_position="37%"
+                    width="600px"
+                    height="600px"
+                    rotation="-1"
+                    opacity={5}
+                />
+                <Estrella
+                    top_position="50%"
+                    left_position="-1%"
+                    width="500px"
+                    height="500px"
+                    rotation="0"
+                    opacity={1}
+                />
+                <DoodleFuerte
+                    top_position="0%"
+                    left_position="30%"
+                    width="1150px"
+                    height="1150px"
+                    rotation="0"
+                    opacity={1}
+                />
+            </div>
 
             {/* Content */}
-            <div className="relative z-10 w-full flex flex-col items-center justify-center gap-8">
+            <div className="absolute top-20 md:top-24 left-1/2 -translate-x-1/2 z-10 w-full flex flex-col items-center gap-8">
                 {/* Countdown Timer */}
-                <div className="bg-white/10 backdrop-blur-md rounded-3xl px-6 py-5 md:px-10 md:py-6 border border-white/20">
+                <div className="backdrop-blur-sm rounded-xl px-6 py-6 pb-4 md:px-10 md:py-8 md:pb-6 border border-white/20" style={{ backgroundColor: '#4F123F4D' }}>
                     <div className="flex items-center justify-center gap-4 md:gap-6">
                         {/* Days */}
                         <div className="flex flex-col items-center">
-                            <div className="text-white text-4xl md:text-6xl font-montserrat font-bold">
+                            <div className="text-white text-4xl md:text-6xl font-high-cruiser">
                                 {String(timeLeft.days).padStart(2, '0')}
                             </div>
-                            <div className="text-white text-sm md:text-base font-montserrat uppercase tracking-wider">Días</div>
+                            <div className="text-white text-xl md:text-2xl font-high-cruiser tracking-wider">días</div>
                         </div>
 
                         {/* Hours */}
                         <div className="flex flex-col items-center">
-                            <div className="text-white text-4xl md:text-6xl font-montserrat font-bold">
+                            <div className="text-white text-4xl md:text-6xl font-high-cruiser">
                                 {String(timeLeft.hours).padStart(2, '0')}
                             </div>
-                            <div className="text-white text-sm md:text-base font-montserrat uppercase tracking-wider">Horas</div>
+                            <div className="text-white text-xl md:text-2xl font-high-cruiser tracking-wider">horas</div>
                         </div>
 
                         {/* Minutes */}
                         <div className="flex flex-col items-center">
-                            <div className="text-white text-4xl md:text-6xl font-montserrat font-bold">
+                            <div className="text-white text-4xl md:text-6xl font-high-cruiser">
                                 {String(timeLeft.minutes).padStart(2, '0')}
                             </div>
-                            <div className="text-white text-sm md:text-base font-montserrat uppercase tracking-wider">Minutos</div>
+                            <div className="text-white text-xl md:text-2xl font-high-cruiser tracking-wider">minutos</div>
                         </div>
 
                         {/* Seconds */}
                         <div className="flex flex-col items-center">
-                            <div className="text-white text-4xl md:text-6xl font-montserrat font-bold">
+                            <div className="text-white text-4xl md:text-6xl font-high-cruiser">
                                 {String(timeLeft.seconds).padStart(2, '0')}
                             </div>
-                            <div className="text-white text-sm md:text-base font-montserrat uppercase tracking-wider">Segundos</div>
+                            <div className="text-white text-xl md:text-2xl font-high-cruiser tracking-wider">segundos</div>
                         </div>
                     </div>
                 </div>
@@ -116,12 +146,12 @@ const HomeSection = () => {
                 {/* Buttons */}
                 <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 mt-4 w-full max-w-4xl px-4">
                     {/* Register Button */}
-                    <button className="w-full md:w-96 text-white font-montserrat text-xl md:text-2xl font-bold px-16 md:px-24 py-6 md:py-7 rounded-2xl transition-all duration-300 hover:scale-105 whitespace-nowrap" style={{ backgroundColor: '#4F123F' }}>
+                    <button className="w-full md:w-96 text-white font-montserrat text-xl md:text-2xl font-semibold rounded-2xl transition-all duration-300 hover:scale-105 whitespace-nowrap" style={{ backgroundColor: '#4F123F', paddingTop: '30px', paddingBottom: '30px', paddingLeft: '60px', paddingRight: '60px' }}>
                         ¡Regístrate ahora!
                     </button>
 
                     {/* Discord Button */}
-                    <button className="w-full md:w-96 bg-transparent hover:bg-white/10 text-white font-montserrat text-xl md:text-2xl font-bold px-16 md:px-24 py-6 md:py-7 rounded-2xl transition-all duration-300 hover:scale-105 whitespace-nowrap" style={{ borderWidth: '3px', borderColor: '#411037' }}>
+                    <button className="w-full md:w-96 bg-transparent hover:bg-white/10 text-white font-montserrat text-xl md:text-2xl font-semibold rounded-2xl transition-all duration-300 hover:scale-105 whitespace-nowrap" style={{ borderWidth: '3px', borderColor: '#411037', paddingTop: '30px', paddingBottom: '30px', paddingLeft: '60px', paddingRight: '60px' }}>
                         Discord
                     </button>
                 </div>

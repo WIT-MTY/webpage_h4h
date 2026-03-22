@@ -17,30 +17,11 @@ interface SectionStyle {
     left_mess: number;
 }
 
-const AdaGuia: React.FC<AdaGuiaProps> = ({
-    w_ada = "w-24 md:w-32",
-    activeSection = "home"
-}) => {
-
-    const [style, setStyle] = useState<SectionStyle>({
-        top: '50%',
-        left: '50%',
-        rotation: -90,
-        size: w_ada,
-        mess: 'Ten un buen día',
-        up_mess: 140,
-        left_mess: 50
-    });
-
-    const [frozen, setFrozen] = useState(false);
-    const [frozenPos, setFrozenPos] = useState({ top: '50%', left: '50%' });
-    const [frozenRotation, setFrozenRotation] = useState(0);
-
-    const sectionStyles: { [key: string]: SectionStyle } = {
+const sectionStyles: { [key: string]: SectionStyle } = {
         /* Modificar por seccion */
         home: {top: '50%', left: '50%', rotation: -90, size: 'w-50 md:w-70', mess: 'Mess Home', up_mess: 10, left_mess: 100},
-        acerca: {top: '50%', left: '80%', rotation: 15, size: 'w-50 md:w-70', mess: 'Mess Cerca', up_mess: 10, left_mess: 50},
-        quees: {top: '70%', left: '15%', rotation: -10, size: 'w-50 md:w-70', mess: 'Mess Qué es', up_mess: 140, left_mess: 50},
+        acerca: {top: '50%', left: '80%', rotation: 15, size: 'w-[1200px] md:w-[1300px]', mess: ':)', up_mess: 10, left_mess: 50},
+        quees: {top: '70%', left: '15%', rotation: -20, size: 'w-50 md:w-70', mess: 'Mess Qué es', up_mess: 140, left_mess: 50},
         ubicacion: {top: '40%', left: '85%', rotation: 20, size: 'w-50 md:w-70', mess: '¡Aquí nos vemos!', up_mess: 20, left_mess: 50},
         calendario: {top: '60%', left: '10%', rotation: -15, size: 'w-50 md:w-70', mess: '¡Revisa nuestro calendario!', up_mess: 140, left_mess: 50},
         retos: {top: '55%', left: '85%', rotation: 25, size: 'w-50 md:w-70', mess: 'Mess Retos', up_mess: 10, left_mess: 50},
@@ -49,14 +30,29 @@ const AdaGuia: React.FC<AdaGuiaProps> = ({
         galeria: {top: '35%', left: '80%', rotation: 40, size: 'w-50 md:w-70', mess: '¡Revive el H4H!', up_mess: 140, left_mess: 50},
         faq: {top: '35%', left: '86%', rotation: 30, size: 'w-50 md:w-70', mess: 'Las dudas más frecuentes', up_mess: 140, left_mess: 50},
         contactanos: {top: '40%', left: '50%', rotation: 20, size: 'w-50 md:w-70', mess: '¿Tienes dudas, comentarios o sugerencias?', up_mess: 140, left_mess: 50}
-    };
+};
 
-    useEffect(() => {
-        if (frozen) return; 
-        if (activeSection && sectionStyles[activeSection]) {
-            setStyle(sectionStyles[activeSection]);
-        }
-    }, [activeSection, frozen]);
+const AdaGuia: React.FC<AdaGuiaProps> = ({
+    w_ada = "w-24 md:w-32",
+    activeSection = "home"
+}) => {
+
+    // Compute style directly from activeSection instead of using state
+    const style = (activeSection && sectionStyles[activeSection])
+        ? sectionStyles[activeSection]
+        : {
+            top: '50%',
+            left: '50%',
+            rotation: -90,
+            size: w_ada,
+            mess: 'Ten un buen día',
+            up_mess: 140,
+            left_mess: 50
+        };
+
+    const [frozen, setFrozen] = useState(false);
+    const [frozenPos, setFrozenPos] = useState({ top: '50%', left: '50%' });
+    const [frozenRotation, setFrozenRotation] = useState(0);
 
     useEffect(() => {
         const handleModalOpen = () => {
@@ -80,7 +76,7 @@ const AdaGuia: React.FC<AdaGuiaProps> = ({
             document.body.removeEventListener('modalopen',  handleModalOpen);
             document.body.removeEventListener('modalclose', handleModalClose);
         };
-    }, [style.rotation]);
+    }, [style]);
 
     return (
         <div
@@ -109,8 +105,12 @@ const AdaGuia: React.FC<AdaGuiaProps> = ({
             <img
                 src="/images/figuras/mascota_guia.svg"
                 alt="Ada Guía"
-                className={`${style.size} transition-all duration-700 ease-in-out hover:scale-110 cursor-pointer`}
-                style={{ transform: `rotate(${frozen ? frozenRotation : style.rotation}deg)` }}
+                className="transition-all duration-700 ease-in-out hover:scale-110 cursor-pointer"
+                style={{
+                    transform: `rotate(${frozen ? frozenRotation : style.rotation}deg)`,
+                    width: activeSection === 'acerca' ? '1300px' : (activeSection === 'home' ? '0px' : '150px'),
+                    height: 'auto'
+                }}
             />
         </div>
     );
