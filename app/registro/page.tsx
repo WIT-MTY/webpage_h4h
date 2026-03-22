@@ -6,7 +6,8 @@ import { useFormData } from "../hooks/utils/useFormData";
 
 
 export default function PageFormulario() {
-    //
+
+    //recibir datos de backend
     const { GENEROS, TALLAS, PAISES, ESTADOS, UNIVERSIDADES, CARRERAS, SEMESTRES } = useFormData();
 
     const [paises, setPaises] = useState(PAISES);
@@ -53,16 +54,31 @@ export default function PageFormulario() {
     const [selectedSemestre, setSelectedSemestre] = useState<string>("");
     const [isSemestreOpen, setIsSemestreOpen] = useState(false);
 
-    
 
+    ////////////////////
     
-    
-    
-
+    // Estados para inputs de texto
+    const [correo, setCorreo] = useState("");
+    const [contrasena, setContrasena] = useState("");
+    const [nombre, setNombre] = useState("");
+    const [apellidos, setApellidos] = useState("");
+    const [telefono, setTelefono] = useState("");
+    const [universidadExtranjera, setUniversidadExtranjera] = useState("");
+    const [linkedin, setLinkedin] = useState("");
+    const [github, setGithub] = useState("");
+    const [vegano, setVegano] = useState("");
+    const [restriccionAlimentaria, setRestriccionAlimentaria] = useState("");
+    const [especificacionRestriccion, setEspecificacionRestriccion] = useState("");
+    const [mlhConducta, setMlhConducta] = useState(false);
+    const [mlhLogistica, setMlhLogistica] = useState(false);
+    const [tieneRestriccion, setTieneRestriccion] = useState<boolean>(false);
     const [permisoFile, setPermisoFile] = useState<File | null>(null);
     const [cvFile, setCvFile] = useState<File | null>(null);
 
-    const [tieneRestriccion, setTieneRestriccion] = useState<boolean>(false);
+    // Errores
+    const [errores, setErrores] = useState<Record<string, string>>({});
+    
+    /// Manejo de edad de particpantes
 
     // Estado para la fecha de nacimiento
     const [fechaNacimiento, setFechaNacimiento] = useState<string>("");
@@ -133,6 +149,95 @@ export default function PageFormulario() {
         const fechaSeleccionada = e.target.value;
         setFechaNacimiento(fechaSeleccionada);
     };
+
+
+    //// Manejo de validacaión de campos completos en formulario
+
+    const validar = (): boolean => {
+        const nuevosErrores: Record<string, string> = {};
+        
+        // mensajes de erros
+        if (!correo) nuevosErrores.correo = "El correo es requerido";
+        if (!contrasena) nuevosErrores.contrasena = "La contraseña es requerida";
+        if (!nombre) nuevosErrores.nombre = "El nombre es requerido";
+        if (!apellidos) nuevosErrores.apellidos = "Los apellidos son requeridos";
+        if (!selectedGenero) nuevosErrores.genero = "El género es requerido";
+        if (!selectedTalla) nuevosErrores.talla = "La talla de playera es requerida";
+        if (!fechaNacimiento || errorFecha) nuevosErrores.fechaNacimiento = "La fecha de nacimiento es requerida";
+        if (!telefono) nuevosErrores.telefono = "El teléfono es requerido";
+        if (esMenorEdad && !permisoFile) nuevosErrores.permiso = "El permiso de menores es requerido";
+        if (!selectedPais) nuevosErrores.pais = "El país es requerido";
+        if (selectedPais === "México") {
+        if (!selectedEstado) nuevosErrores.estado = "El estado es requerido";
+            if (!selectedUniversidad) nuevosErrores.universidad = "La universidad es requerida";
+        } else if (selectedPais) {
+            if (!universidadExtranjera) nuevosErrores.universidadExtranjera = "El nombre de la universidad es requerido";
+        }
+        
+        if (!selectedCarrera) nuevosErrores.carrera = "La carrera es requerida";
+        if (!selectedSemestre) nuevosErrores.semestre = "El semestre es requerido";
+        if (!vegano) nuevosErrores.vegano = "Este campo es requerido";
+        if (!restriccionAlimentaria) nuevosErrores.restriccion = "Este campo es requerido";
+        if (tieneRestriccion && !especificacionRestriccion) nuevosErrores.especificacion = "Especifica tu restricción";
+        if (!cvFile) nuevosErrores.cv = "El CV es requerido";
+        if (!mlhConducta) nuevosErrores.mlhConducta = "Debes aceptar el Código de Conducta";
+        if (!mlhLogistica) nuevosErrores.mlhLogistica = "Debes aceptar los términos de MLH";
+        
+
+        setErrores(nuevosErrores);
+        return Object.keys(nuevosErrores).length === 0;
+    };
+
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!validar()) return; // Si hay errores, no continúa
+
+        const formData = new FormData(); // Usamos FormData por los archivos (CV, permiso)
+
+        // validacion de datoa
+        formData.append("correo", correo);
+        formData.append("contrasena", contrasena);
+        formData.append("nombre", nombre);
+        formData.append("apellidos", apellidos);
+        formData.append("genero", selectedGenero);
+        formData.append("talla", selectedTalla);
+        formData.append("fechaNacimiento", fechaNacimiento);
+        formData.append("telefono", telefono);
+        if (permisoFile) formData.append("permiso", permisoFile);
+
+        formData.append("pais", selectedPais);
+        if (selectedPais === "México") {
+            formData.append("estado", selectedEstado);
+            formData.append("universidad", selectedUniversidad);
+        } else {
+            formData.append("universidad", universidadExtranjera);
+        }
+        formData.append("carrera", selectedCarrera);
+        formData.append("semestre", selectedSemestre);
+
+        formData.append("vegano", vegano);
+        formData.append("restriccionAlimentaria", restriccionAlimentaria);
+        if (tieneRestriccion) formData.append("especificacionRestriccion", especificacionRestriccion);
+        if (cvFile) formData.append("cv", cvFile);
+        formData.append("linkedin", linkedin);
+        formData.append("github", github);
+
+        formData.append("mlhConducta", String(mlhConducta));
+        formData.append("mlhLogistica", String(mlhLogistica));
+  
+        // Cuando conectes el backend, descomenta esto:
+        // try {
+        //   const res = await fetch("/api/registro", { method: "POST", body: formData });
+        //   const data = await res.json();
+        //   console.log("Registro exitoso:", data);
+        // } catch (error) {
+        //   console.error("Error al enviar:", error);
+        // }
+
+        console.log("Datos listos para enviar:", Object.fromEntries(formData));
+    };
     
     
     return (
@@ -141,7 +246,7 @@ export default function PageFormulario() {
             <HeaderForms />
 
             <main className="w-full px-4 py-8">
-                <form className="space-y-6 max-w-7xl mx-auto">
+                <form className="space-y-6 max-w-7xl mx-auto" onSubmit={handleSubmit}>
                     
                     {/* SECCIÓN 1: Datos para crear la cuenta */}
                     <div className="bg-white/10 p-8 rounded-lg">
@@ -149,11 +254,13 @@ export default function PageFormulario() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <p className="text-white mb-2">Correo Electrónico <span className="text-red-400">*</span></p>
-                                <input type="email" className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa tu correo" />
+                                <input type="email" value={correo} onChange={(e) => setCorreo(e.target.value)} className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa tu correo" />
+                                    {errores.correo && <p className="text-red-400 text-sm mt-1">{errores.correo}</p>}
                             </div>
                             <div>
                                 <p className="text-white mb-2">Contraseña <span className="text-red-400">*</span></p>
-                                <input type="password" className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa una contraseña" />
+                                <input type="password" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa una contraseña" />
+                                    {errores.contrasena && <p className="text-red-400 text-sm mt-1">{errores.contrasena}</p>}
                             </div>
                         </div>
                     </div>
@@ -164,12 +271,14 @@ export default function PageFormulario() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <p className="text-white mb-2">Nombre(s) <span className="text-red-400">*</span></p>
-                                <input type="text" className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa tu nombre" />
+                                <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa tu(s) nombre(s)" />
+                                    {errores.nombre && <p className="text-red-400 text-sm mt-1">{errores.nombre}</p>}
                             </div>
 
                             <div>
-                                <p className="text-white mb-2">Apellidos <span className="text-red-400">*</span></p>
-                                <input type="text" className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa tus apellidos" />
+                                <p className="text-white mb-2">Apellido(s) <span className="text-red-400">*</span></p>
+                                <input type="text" value={apellidos} onChange={(e) => setApellidos(e.target.value)} className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa tus apellidos" />
+                                    {errores.apellidos && <p className="text-red-400 text-sm mt-1">{errores.apellidos}</p>}
                             </div>
 
                             <div className="relative">
@@ -201,6 +310,7 @@ export default function PageFormulario() {
                                         </ul>
                                     </div>
                                 )}
+                                {errores.genero && <p className="text-red-400 text-sm mt-1">{errores.genero}</p>}
                             </div>
 
                             <div className="relative">
@@ -232,6 +342,7 @@ export default function PageFormulario() {
                                         </ul>
                                     </div>
                                 )}
+                                {errores.talla && <p className="text-red-400 text-sm mt-1">{errores.talla}</p>}
                             </div>
 
                             <div>
@@ -247,12 +358,14 @@ export default function PageFormulario() {
                                 {errorFecha && (
                                     <p className="text-red-400 text-sm mt-1">{errorFecha}</p>
                                 )}
+                                {errores.fechaNacimiento && <p className="text-red-400 text-sm mt-1">{errores.fechaNacimiento}</p>}
                                 
                             </div>
                             
                             <div>
                                 <p className="text-white mb-2">Teléfono <span className="text-red-400">*</span></p>
-                                <input type="tel" className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa tu teléfono" />
+                                <input type="tel" value={telefono} onChange={(e) => setTelefono(e.target.value)} className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa tu teléfono" />
+                                    {errores.telefono && <p className="text-red-400 text-sm mt-1">{errores.telefono}</p>}
                             
                         </div>
 
@@ -266,7 +379,7 @@ export default function PageFormulario() {
                                     required={true}
                                     onFileChange={setPermisoFile}
                                 />
-                                
+                                {errores.permiso && <p className="text-red-400 text-sm mt-1">{errores.permiso}</p>}
                             </div>
                         )}
                     </div>
@@ -322,13 +435,14 @@ export default function PageFormulario() {
 
                                 </div>
                                 )}
+                                {errores.pais && <p className="text-red-400 text-sm mt-1">{errores.pais}</p>}
                             </div>
                             
 
                             {selectedPais === "México" && (
-                                <>
+                            <>
                             <div className="relative">
-                                <p className="text-white mb-2">Estado donde se encuentra tu universidad<span className="text-red-400">*</span></p>
+                                <p className="text-white mb-2">Estado donde se encuentra tu universidad (en México)<span className="text-red-400">*</span></p>
                                 <button
                                     type="button"
                                     onClick={() => setIsEstadoOpen(!isEstadoOpen)}
@@ -373,6 +487,7 @@ export default function PageFormulario() {
 
                                 </div>
                                 )}
+                                {errores.estado && <p className="text-red-400 text-sm mt-1">{errores.estado}</p>}
                             </div>
 
                             <div className="relative">
@@ -421,14 +536,17 @@ export default function PageFormulario() {
 
                                 </div>
                                 )}
+                                {errores.universidad && <p className="text-red-400 text-sm mt-1">{errores.universidad}</p>}
                             </div>
                             </>
                             )}
 
+
                             {selectedPais && selectedPais !== "México" && (
                             <div>
-                                <p className="text-white mb-2">Nombre de universidad extranjera <span className="text-red-400">*</span></p>
-                                <input type="text" className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa el nombre de tu universidad" />
+                                <p className="text-white mb-2">Nombre de universidad <span className="text-red-400">*</span></p>
+                                <input type="text" value={universidadExtranjera} onChange={(e) => setUniversidadExtranjera(e.target.value)} className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa el nombre de tu universidad" />
+                                    {errores.universidadExtranjera && <p className="text-red-400 text-sm mt-1">{errores.universidadExtranjera}</p>}
                             </div>
                             )}
                             
@@ -478,6 +596,7 @@ export default function PageFormulario() {
 
                                 </div>
                                 )}
+                                {errores.carrera && <p className="text-red-400 text-sm mt-1">{errores.carrera}</p>}
                             </div>
 
                             <div className="relative">
@@ -487,7 +606,7 @@ export default function PageFormulario() {
                                     onClick={() => setIsSemestreOpen(!isSemestreOpen)}
                                     className="w-full flex items-center justify-between gap-2 bg-white px-4 py-3 rounded-md text-black"
                                 >
-                                    <span>{selectedSemestre || "Selecciona tu semestre"}</span>
+                                    <span>{selectedSemestre || "Selecciona un semestre"}</span>
                                     <span>▼</span>
                                 </button>
                                 
@@ -509,6 +628,7 @@ export default function PageFormulario() {
                                         </ul>
                                     </div>
                                 )}
+                                {errores.semestre && <p className="text-red-400 text-sm mt-1">{errores.semestre}</p>}
                             </div>
                         </div>
                     </div>
@@ -521,13 +641,22 @@ export default function PageFormulario() {
                                 <p className="text-white mb-2">¿Eres vegano/a? <span className="text-red-400">*</span></p>
                                 <div className="flex space-x-4">
                                     <label className="flex items-center space-x-2">
-                                        <input type="radio" name="vegano" value="si" className="text-pink-600" />
+                                        <input type="radio" name="vegano" value="si" 
+                                            checked={vegano === "si"}
+                                            onChange={() => setVegano("si")}
+                                            className="text-pink-600"  
+                                        />
                                         <span className="text-white">Sí</span>
                                     </label>
                                     <label className="flex items-center space-x-2">
-                                        <input type="radio" name="vegano" value="no" className="text-pink-600" />
+                                        <input type="radio" name="vegano" value="no" 
+                                            checked={vegano === "no"}
+                                            onChange={() => setVegano("no")}
+                                            className="text-pink-600" 
+                                        />
                                         <span className="text-white">No</span>
                                     </label>
+                                    {errores.vegano && <p className="text-red-400 text-sm mt-1">{errores.vegano}</p>}
                                 </div>
                             </div>
 
@@ -536,24 +665,23 @@ export default function PageFormulario() {
                                 <div className="flex space-x-4">
                                     <label className="flex items-center space-x-2">
                                         <input 
-                                            type="radio" 
-                                            name="restriccion" 
-                                            value="si" 
+                                            type="radio" name="restriccion" value="si" 
+                                            checked={restriccionAlimentaria === "si"}
+                                            onChange={() => { setRestriccionAlimentaria("si"); setTieneRestriccion(true); }}
                                             className="text-pink-600"
-                                            onChange={() => setTieneRestriccion(true)}
                                         />
                                         <span className="text-white">Sí</span>
                                     </label>
                                     <label className="flex items-center space-x-2">
                                         <input 
-                                            type="radio" 
-                                            name="restriccion" 
-                                            value="no" 
+                                            type="radio" name="restriccion" value="no" 
+                                            checked={restriccionAlimentaria === "no"}
+                                            onChange={() => { setRestriccionAlimentaria("no"); setTieneRestriccion(false); }}
                                             className="text-pink-600"
-                                            onChange={() => setTieneRestriccion(false)}
                                         />
                                         <span className="text-white">No</span>
                                     </label>
+                                    {errores.restriccion && <p className="text-red-400 text-sm mt-1">{errores.restriccion}</p>}
                                 </div>
                             </div>
                         </div>
@@ -563,11 +691,13 @@ export default function PageFormulario() {
                                 <p className="text-white mb-2">Especificación</p>
                                 <input 
                                     type="text" 
+                                    value={especificacionRestriccion} onChange={(e) => setEspecificacionRestriccion(e.target.value)} 
                                     className="w-full p-3 rounded-md bg-white text-black" 
                                     placeholder="Especifica tu restricción alimentaria"
                                 />
                             </div>
                         )}
+                        {errores.especificacion && <p className="text-red-400 text-sm mt-1">{errores.especificacion}</p>}
                     </div>
 
                     {/* SECCIÓN 5: inforación profesional */}
@@ -581,16 +711,27 @@ export default function PageFormulario() {
                                 required={true}
                                 onFileChange={setCvFile}
                             />
+                            {errores.cv && <p className="text-red-400 text-sm mt-1">{errores.cv}</p>}
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <p className="text-white mb-2">LinkedIn</p>
-                                <input type="url" className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa link a tu cuenta de LinkedIn" />
-                            </div>
-                            <div>
-                                <p className="text-white mb-2">GitHub</p>
-                                <input type="url" className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa link a tu cuenta de GitHub" />
-                            </div>
+                                <div>
+                                    <p className="text-white mb-2">LinkedIn</p>
+                                    <input type="url" 
+                                        value={linkedin}
+                                        onChange={(e) => setLinkedin(e.target.value)}
+                                        className="w-full p-3 rounded-md bg-white text-black" 
+                                        placeholder="Ingresa link a tu cuenta de LinkedIn"
+                                    />
+                                </div>
+                                <div>
+                                    <p className="text-white mb-2">GitHub</p>
+                                    <input type="url"
+                                        value={github}
+                                        onChange={(e) => setGithub(e.target.value)}
+                                        className="w-full p-3 rounded-md bg-white text-black" 
+                                        placeholder="Ingresa link a tu cuenta de GitHub"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -603,9 +744,10 @@ export default function PageFormulario() {
                             <div className="flex items-start space-x-3">
                                 <input 
                                     type="checkbox" 
-                                    id="mlh-code-conduct" 
+                                    id="mlh-code-conduct"
+                                    checked={mlhConducta} onChange={(e) => setMlhConducta(e.target.checked)} 
                                     className="mt-1 w-5 h-5 text-pink-600 bg-white border-gray-300 rounded focus:ring-pink-500"
-                                    required
+                                    
                                 />
                                 <label htmlFor="mlh-code-conduct" className="text-white text-sm md:text-base">
                                     He leído y acepto el{' '}
@@ -619,6 +761,7 @@ export default function PageFormulario() {
                                     </a>
                                     . <span className="text-red-400">*</span>
                                 </label>
+                                {errores.mlhConducta && <p className="text-red-400 text-sm mt-1">{errores.mlhConducta}</p>}
                             </div>
 
                             {/* Acuerdo 2: Información de logística del evento */}
@@ -626,8 +769,9 @@ export default function PageFormulario() {
                                 <input 
                                     type="checkbox" 
                                     id="mlh-logistics" 
+                                    checked={mlhLogistica} onChange={(e) => setMlhLogistica(e.target.checked)}
                                     className="mt-1 w-5 h-5 text-pink-600 bg-white border-gray-300 rounded focus:ring-pink-500"
-                                    required
+                                    
                                 />
                                 <label htmlFor="mlh-logistics" className="text-white text-sm md:text-base">
                                     Autorizo a compartir mi información de aplicación/registro con Major League Hacking para la administración del evento, clasificación y administración de MLH de acuerdo con la{' '}
@@ -659,6 +803,7 @@ export default function PageFormulario() {
                                     </a>
                                     . <span className="text-red-400">*</span>
                                 </label>
+                                {errores.mlhLogistica && <p className="text-red-400 text-sm mt-1">{errores.mlhLogistica}</p>}
                             </div>
 
                             {/* Nota informativa */}

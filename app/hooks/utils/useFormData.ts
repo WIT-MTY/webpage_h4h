@@ -4,7 +4,6 @@ export const useFormData = () => {
         { id: 1, descripcion: "Mujer" },
         { id: 2, descripcion: "Hombre" },
         { id: 3, descripcion: "Otro" },
-
     ];
 
     const TALLAS = [

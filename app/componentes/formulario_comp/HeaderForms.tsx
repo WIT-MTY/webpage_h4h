@@ -25,8 +25,10 @@ export default function HeaderForms() {
         {/* Línea decorativa */}
     </div>
     
-    <p className="text-center md:text-xl text-white/90 leading-relaxed max-w-3xl mx-auto">
-        Hack4Her es un evento nacional de 3 días que, con enfoque en el talento femenino y apertura general, ofrece crecimiento profesional en ingeniería y negocios para Mujeres Universitarias a través de talleres, una reunión de líderes WIT y un hackathon.
+    <p className="text-center md:text-xl text-white/90 leading-relaxed max-w-7xl mx-auto">
+        Hack4Her es un evento nacional de 3 días que, con enfoque en el talento femenino y apertura general, ofrece crecimiento profesional en ingeniería y negocios para 
+        <span className="font-bold text-pink-400"> MUJERES UNIVERSITARIAS </span> 
+        a través de talleres, una reunión de líderes WIT y un hackathon.
     </p>
     <nav className="hidden md:flex items-center">
                 {isSesionPage ? (
