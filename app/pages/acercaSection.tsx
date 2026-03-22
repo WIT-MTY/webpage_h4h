@@ -7,7 +7,7 @@ const AcercaSection = () => {
             {/* Content Container */}
             <div className="relative z-10 w-full pl-8 md:pl-16 pr-16 flex flex-col lg:flex-row items-start justify-between gap-12">
                 {/* Text Content */}
-                <div className="w-full lg:w-4/5 xl:w-2/3 space-y-8 text-left">
+                <div className="w-full lg:w-5/6 space-y-8 text-left pl-8 md:pl-12 lg:pl-16">
                     <h1 className="font-high-cruiser text-5xl md:text-6xl lg:text-7xl font-bold text-white uppercase tracking-wide leading-tight">
                         <span className="whitespace-nowrap">acerca de</span>
                         <br />

@@ -6,9 +6,22 @@ import LogoWIT from "../componentes/general/LogoWIT";
 
 const ContactanosSection = () => {
     return (
-      <Section id="contactanos" bg_color="#4A0C32">
+      <Section id="contactanos" bg_color="#4A0C32" className="relative overflow-hidden">
+        {/* Decorative Star - Bottom Left */}
+        <img
+          src="/images/figuras/estrella.svg"
+          alt=""
+          className="absolute bottom-0 left-0 w-48 md:w-64 lg:w-80 z-0"
+        />
 
-        <div className="flex flex-col lg:flex-row justify-between sm:pb-10 md:pb-5 lg:pb-5 xl:pb-60 2xl:pb-60">  
+        {/* Decorative Doodle - Right Side */}
+        <img
+          src="/images/figuras/doodle_rosa_contactanos.svg"
+          alt=""
+          className="absolute top-0 right-0 w-64 md:w-80 lg:w-96 h-full object-contain z-0"
+        />
+
+        <div className="flex flex-col lg:flex-row justify-between sm:pb-10 md:pb-5 lg:pb-5 xl:pb-60 2xl:pb-60 relative z-10">  
           <div className="text-center lg:text-left w-full lg:w-1/2">
             <h1 className="font-high-cruiser text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl text-white mb-6 z-10">
               CONTÁCTANOS
@@ -26,7 +39,7 @@ const ContactanosSection = () => {
           </div>
         </div>
           
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center relative z-10">
           <div className="sm:pd-1 md:pb-1 lg:pb-1 xl:pb-1 2xl:pb-1">
             <img className="w-90 sm:w-100 md:w-100 lg:w-60 xl:w-60 2xl:w-60 ease-in-out hover:scale-110 cursor-pointer" src="/images/h4h_logos/logo_h4h_corto.svg"></img>
           </div>

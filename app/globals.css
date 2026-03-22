@@ -107,6 +107,9 @@
 .font-high-cruiser {
     font-family: var(--font-high-cruiser);
   }
+.font-big-shoulders {
+  font-family: var(--font-big-shoulders);
+}
   
 body.modal-open .ada-guia {
     display: none;
