@@ -8,27 +8,28 @@ const CalendarioSection = () => {
   const [eventoSeleccionado, setEventoSeleccionado] = useState<string | null>(null);
   const imageCounters = useRef<Record<string, number>>({});
 
-const abrirEvento = (eventoId: string, totalImagenes: number) => {
-  const current = imageCounters.current[eventoId] ?? 0;
-  imageCounters.current[eventoId] = (current + 1) % totalImagenes;
-  setEventoSeleccionado(eventoId);
-  const scrollY = window.scrollY;
-  document.body.style.position = 'fixed';
-  document.body.style.top = `-${scrollY}px`;
-  document.body.style.width = '100%';
-  document.body.classList.add('modal-open');
-  document.body.dispatchEvent(new Event('modalopen'));
-};
-const cerrarEvento = () => {
-  setEventoSeleccionado(null);
-  const scrollY = document.body.style.top;
-  document.body.style.position = '';
-  document.body.style.top = '';
-  document.body.style.width = '';
-  window.scrollTo(0, parseInt(scrollY || '0') * -1);
-  document.body.classList.remove('modal-open');
-  document.body.dispatchEvent(new Event('modalclose'));
-};
+  const abrirEvento = (eventoId: string, totalImagenes: number) => {
+    const current = imageCounters.current[eventoId] ?? 0;
+    imageCounters.current[eventoId] = (current + 1) % totalImagenes;
+    setEventoSeleccionado(eventoId);
+    const scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
+    document.body.classList.add('modal-open');
+    document.body.dispatchEvent(new Event('modalopen'));
+  };
+
+  const cerrarEvento = () => {
+    setEventoSeleccionado(null);
+    const scrollY = document.body.style.top;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    document.body.classList.remove('modal-open');
+    document.body.dispatchEvent(new Event('modalclose'));
+  };
 
   const eventosSabado: Evento[] = [
     {
@@ -120,7 +121,6 @@ const cerrarEvento = () => {
     }
   ];
 
-  // Obtiene el evento activo a partir del id seleccionado
   const eventoActivo = (() => {
     if (!eventoSeleccionado) return null;
     const [dia, indexStr] = eventoSeleccionado.split("-");
@@ -134,13 +134,11 @@ const cerrarEvento = () => {
       className="relative min-h-screen overflow-hidden py-20 px-4"
       style={{ backgroundColor: "#4A0C32" }}
     >
-      {/* ── Fondo decorativo ── */}
       <BackgroundDecor />
 
-      {/* ── Contenido ── */}
       <div className="relative z-10 max-w-5xl mx-auto">
         <div className="text-center mb-14">
-          <h1 className="font-high-cruiser text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white text-center mb-6 z-10">
+          <h1 className="font-high-cruiser text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white text-center mb-6">
             Cronograma
           </h1>
           <div className="flex items-center justify-center gap-3">
@@ -152,68 +150,97 @@ const cerrarEvento = () => {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
-          {/* Sábado */}
+        {/* <div> /}
+        {/* --> panel muy pronto */}
+        <div className="relative">
           <div
-            className="rounded-2xl p-6"
+            className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center gap-3 z-20"
             style={{
-              backgroundColor: "rgba(255,255,255,0.08)",
-              backdropFilter: "blur(4px)",
-              border: "1.5px solid rgba(255,40,113,0.3)",
+              backdropFilter: "blur(6px)",
+              WebkitBackdropFilter: "blur(6px)",
+              background: "rgba(74, 12, 50, 0.72)",
+              cursor: "default",
             }}
           >
-            <div
-              className="rounded-xl py-4 px-6 mb-6 text-center"
-              style={{ backgroundColor: "rgba(255,255,255,0.10)" }}
-            >
-              <h4 className="font-montserrat font-black text-neutro-blanco text-2xl uppercase tracking-wide">
-                Sábado 14 de Junio
-              </h4>
-            </div>
-            <div className="space-y-1">
-              {eventosSabado.map((evento, index) => (
-                <EventCard
-                  key={index}
-                  evento={evento}
-                  eventoId={`sabado-${index}`}
-                  onOpen={abrirEvento}
-                />
-              ))}
-            </div>
+            <svg className="w-10 h-10" fill="none" stroke="#ff2871" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round"
+                d="M16.5 10.5V7a4.5 4.5 0 10-9 0v3.5M5 10.5h14a1 1 0 011 1V20a1 1 0 01-1 1H5a1 1 0 01-1-1v-8.5a1 1 0 011-1z" />
+            </svg>
+            <p className="font-high-cruiser text-neutro-blanco text-4xl tracking-widest uppercase">
+              Muy Pronto
+            </p>
+            <p className="font-montserrat text-neutro-blanco text-sm opacity-70 tracking-wider uppercase">
+              ¡Vuelve más tarde!
+            </p>
           </div>
+          {/* --> panel muy pronto: FIN */}
 
-          {/* Domingo */}
-          <div
-            className="rounded-2xl p-6"
-            style={{
-              backgroundColor: "rgba(255,255,255,0.08)",
-              backdropFilter: "blur(4px)",
-              border: "1.5px solid rgba(255,40,113,0.3)",
-            }}
-          >
+          <div className="grid lg:grid-cols-2 gap-8">
+
+            {/* Sábado */}
             <div
-              className="rounded-xl py-4 px-6 mb-6 text-center"
-              style={{ backgroundColor: "rgba(255,255,255,0.10)" }}
+              className="rounded-2xl p-6"
+              style={{
+                backgroundColor: "rgba(255,255,255,0.08)",
+                backdropFilter: "blur(4px)",
+                border: "1.5px solid rgba(255,40,113,0.3)",
+              }}
             >
-              <h4 className="font-montserrat font-black text-neutro-blanco text-2xl uppercase tracking-wide">
-                Domingo 15 de Junio
-              </h4>
+              <div
+                className="rounded-xl py-4 px-6 mb-6 text-center"
+                style={{ backgroundColor: "rgba(255,255,255,0.10)" }}
+              >
+                <h4 className="font-montserrat font-black text-neutro-blanco text-2xl uppercase tracking-wide">
+                  Sábado 14 de Junio
+                </h4>
+              </div>
+              <div className="space-y-1">
+                {eventosSabado.map((evento, index) => (
+                  <EventCard
+                    key={index}
+                    evento={evento}
+                    eventoId={`sabado-${index}`}
+                    onOpen={abrirEvento}
+                  />
+                ))}
+              </div>
             </div>
-            <div className="space-y-1">
-              {eventosDomingo.map((evento, index) => (
-                <EventCard
-                  key={index}
-                  evento={evento}
-                  eventoId={`domingo-${index}`}
-                  onOpen={abrirEvento}
-                />
-              ))}
+
+            {/* Domingo */}
+            <div
+              className="rounded-2xl p-6"
+              style={{
+                backgroundColor: "rgba(255,255,255,0.08)",
+                backdropFilter: "blur(4px)",
+                border: "1.5px solid rgba(255,40,113,0.3)",
+              }}
+            >
+              <div
+                className="rounded-xl py-4 px-6 mb-6 text-center"
+                style={{ backgroundColor: "rgba(255,255,255,0.10)" }}
+              >
+                <h4 className="font-montserrat font-black text-neutro-blanco text-2xl uppercase tracking-wide">
+                  Domingo 15 de Junio
+                </h4>
+              </div>
+              <div className="space-y-1">
+                {eventosDomingo.map((evento, index) => (
+                  <EventCard
+                    key={index}
+                    evento={evento}
+                    eventoId={`domingo-${index}`}
+                    onOpen={abrirEvento}
+                  />
+                ))}
+              </div>
             </div>
+
           </div>
         </div>
+        {/* --> panel muy pronto: cierra el div wrapper del grid */}
+
       </div>
 
-      {/* ── Modal ── */}
       <EventoModal
         eventoSeleccionado={eventoSeleccionado}
         evento={eventoActivo}
