@@ -107,7 +107,10 @@
 .font-high-cruiser {
     font-family: var(--font-high-cruiser);
   }
-
+  
+body.modal-open .ada-guia {
+    display: none;
+}
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -120,14 +123,13 @@ body {
   color: var(--foreground);
 }
 
-@layer utilities {
-  .scrollbar-hide {
-    -ms-overflow-style: none;  /* IE y Edge */
-    scrollbar-width: none;     /* Firefox */
-  }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;  /* Chrome, Safari y Opera */
-  }
+.scrollbar-hide {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;    
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  
 }
 
 @keyframes gentleFloat {

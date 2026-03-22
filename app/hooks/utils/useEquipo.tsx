@@ -7,7 +7,7 @@ export const useEquipo = () => {
         area: "Software",
         contacto: {
             correo:"correo@ejemplo.com",
-            linkedin:"https://www.linkedin.com/in/ejemplo"
+            linkedin:"https://www.linkedin.com/in/fatimacastilloaguirre"
             }                
         },
 
