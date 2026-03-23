@@ -14,10 +14,10 @@ export default function PageUser() {
         const obtenerEstado = async () => {
             const token = localStorage.getItem("token");
 
-            if (!token) {
+            /*if (!token) {
                 router.push("/registro/iniciosesion");
                 return;
-            }
+            }*/
 
             // Simulación — reemplaza esto cuando conectes el backend
             setEstadoRegistro(1);

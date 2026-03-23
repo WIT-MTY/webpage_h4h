@@ -1,33 +1,104 @@
-import React from 'react';
+'use client';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import HeaderUser from '@/app/componentes/user_comp/HeaderUser';
-import EstadoUser from '@/app/componentes/user_comp/EstadoUser';
 
-// Simulación de datos — reemplaza con los datos reales del backend
-const usuarioEjemplo = {
+// 
+interface Usuario {
+  nombre: string;
+  apellidos: string;
+  genero: string;
+  talla: string;
+  fechaNacimiento: string;
+  telefono: string;
+  pais: string;
+  estado?: string;
+  universidad?: string;
+  universidadMexico?: string;
+  carrera: string;
+  semestre: string;
+  vegano: boolean;
+  restriccionAlimentaria: boolean;
+  especificacionRestriccion?: string;
+  cv: string;
+  linkedin?: string;
+  github?: string;
+  estado_actual: number;
+}
+
+// Simulación — reemplaza con datos reales del backend
+const usuarioEjemplo: Usuario = {
   nombre: "Ana",
   apellidos: "García López",
   genero: "Mujer",
   talla: "M",
   fechaNacimiento: "2000-05-12",
   telefono: "81 1234 5678",
-
-  pais: "Canadá",
-  estado: "",
-  universidad: "Tec de Monterrey",
+  pais: "México",
+  estado: "Nuevo León",
+  universidad:"Furman",
+  universidadMexico: "Tec de Monterrey",
   carrera: "Ingeniería en Tecnologías Computacionales",
   semestre: "6to semestre",
-
-  vegano: "No",
-  restriccionAlimentaria: "No",
-  especificacionRestriccion: "Intolerancia a la lactosa",
-
+  vegano: false,
+  restriccionAlimentaria: false,
+  especificacionRestriccion: "",
   cv: "cv_ana_garcia.pdf",
   linkedin: "",
   github: "",
+  estado_actual: 1,
 };
 
 export default function UserProfile() {
-  const usuario = usuarioEjemplo;
+  const router = useRouter();
+  const [usuario, setUsuario] = useState<Usuario | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const obtenerPerfil = async () => {
+      const token = localStorage.getItem("token");
+
+      /*if (!token) {
+        router.push("/registro/iniciosesion");
+        return;
+      }*/
+
+      // Simulación — reemplaza esto cuando conectes el backend
+      setUsuario(usuarioEjemplo);
+      setLoading(false);
+
+      // Cuando conectes el backend, reemplaza la simulación por esto:
+      // try {
+      //   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, {
+      //     headers: { Authorization: `Bearer ${token}` },
+      //   });
+      //
+      //   if (!res.ok) {
+      //     router.push("/registro/iniciosesion");
+      //     return;
+      //   }
+      //
+      //   const data = await res.json();
+      //   setUsuario(data);
+      // } catch (error) {
+      //   console.error("Error al obtener perfil:", error);
+      // } finally {
+      //   setLoading(false);
+      // }
+    };
+
+    obtenerPerfil();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="w-full min-h-screen flex items-center justify-center" style={{ background: "#F0CEE3" }}>
+        <p className="text-[#4A0C32]">Cargando...</p>
+      </section>
+    );
+  }
+
+  if (!usuario) return null;
 
   return (
     <div className="min-h-screen" style={{ background: "#F0CEE3" }}>
@@ -81,11 +152,6 @@ export default function UserProfile() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
             <div>
-              <p className="text-white/60 text-sm mb-1">Universidad</p>
-              <p className="text-white font-medium">{usuario.universidad}</p>
-            </div>
-
-            <div>
               <p className="text-white/60 text-sm mb-1">País</p>
               <p className="text-white font-medium">{usuario.pais}</p>
             </div>
@@ -94,6 +160,20 @@ export default function UserProfile() {
               <div>
                 <p className="text-white/60 text-sm mb-1">Estado</p>
                 <p className="text-white font-medium">{usuario.estado}</p>
+              </div>
+            )}
+
+            {usuario.pais === "México" && (
+              <div>
+                <p className="text-white/60 text-sm mb-1">Universiad</p>
+                <p className="text-white font-medium">{usuario.universidadMexico}</p>
+              </div>
+            )}
+
+            {usuario.pais != "México" && (
+              <div>
+                <p className="text-white/60 text-sm mb-1">Universidad</p>
+                <p className="text-white font-medium">{usuario.universidad}</p>
               </div>
             )}
 
@@ -117,15 +197,16 @@ export default function UserProfile() {
 
             <div>
               <p className="text-white/60 text-sm mb-1">¿Eres vegano/a?</p>
-              <p className="text-white font-medium">{usuario.vegano}</p>
+              <p className="text-white font-medium">{usuario.vegano ? "Sí" : "No"}</p>
             </div>
 
             <div>
               <p className="text-white/60 text-sm mb-1">¿Tienes restricción alimentaria?</p>
-              <p className="text-white font-medium">{usuario.restriccionAlimentaria}</p>
+              <p className="text-white font-medium">{usuario.restriccionAlimentaria ? "Sí" : "No"}</p>
+
             </div>
 
-            {usuario.restriccionAlimentaria === "Sí" && (
+            {usuario.restriccionAlimentaria === true && (
               <div>
                 <p className="text-white/60 text-sm mb-1">Especificación</p>
                 <p className="text-white font-medium">{usuario.especificacionRestriccion}</p>
@@ -174,8 +255,6 @@ export default function UserProfile() {
 
           </div>
         </div>
-
-        
 
       </main>
     </div>
