@@ -8,6 +8,7 @@ import { useFormData } from "../hooks/utils/useFormData";
 export default function PageFormulario() {
 
     const [registroEnviado, setRegistroEnviado] = useState(false);
+    const [selectedEstadoId, setSelectedEstadoId] = useState<number | null>(null);
 
     //recibir datos de backend
     const { GENEROS, TALLAS, PAISES, ESTADOS, UNIVERSIDADES, CARRERAS, SEMESTRES } = useFormData();
@@ -17,7 +18,7 @@ export default function PageFormulario() {
     const [isPaisOpen, setIsPaisOpen] = useState(false);
     const [searchPais, setSearchPais] = useState("");
     const paisesFiltrados = paises.filter((pais) =>
-        pais.nombre.toLowerCase().includes(searchPais.toLowerCase())
+        pais.nom_pais.toLowerCase().includes(searchPais.toLowerCase())
     );
 
     const [estados, setPais] = useState(ESTADOS);
@@ -25,15 +26,19 @@ export default function PageFormulario() {
     const [isEstadoOpen, setIsEstadoOpen] = useState(false);
     const [searchEstado, setSearchEstado] = useState("");
     const estadosFiltrados = estados.filter((estado) =>
-        estado.nombre.toLowerCase().includes(searchEstado.toLowerCase())
+        estado.nom_estado.toLowerCase().includes(searchEstado.toLowerCase())
     );
 
     const [universidades, setUniversidades] = useState(UNIVERSIDADES);
     const [selectedUniversidad, setSelectedUniversidad] = useState<string>("");
     const [isUniversidadOpen, setIsUniversidadOpen] = useState(false);
     const [searchUniversidad, setSearchUniversidad] = useState("");
-    const universidadesFiltrados = universidades.filter((universidad) =>
-        universidad.nombre.toLowerCase().includes(searchUniversidad.toLowerCase())
+    const universidadesFiltrados = universidades
+    .filter((universidad) => 
+            selectedEstadoId ? universidad.estado_id === selectedEstadoId : true
+        )
+        .filter((universidad) =>
+        universidad.universidad_nombre.toLowerCase().includes(searchUniversidad.toLowerCase())
     );
 
     const [tallas, setTallas] = useState(TALLAS);
@@ -49,7 +54,7 @@ export default function PageFormulario() {
     const [isCarreraOpen, setIsCarreraOpen] = useState(false);
     const [searchCarrera, setSearchCarrera] = useState("");
     const carrerasFiltrados = carreras.filter((carrera) =>
-        carrera.nombre.toLowerCase().includes(searchCarrera.toLowerCase())
+        carrera.carrera_nombre.toLowerCase().includes(searchCarrera.toLowerCase())
     );
 
     const [semestres, setSemestres] = useState(SEMESTRES);
@@ -349,12 +354,12 @@ export default function PageFormulario() {
                                                 <li
                                                     key={talla.id}
                                                     onClick={() => {
-                                                        setSelectedTalla(talla.medida);
+                                                        setSelectedTalla(talla.descripcion);
                                                         setIsTallaOpen(false);
                                                     }}
                                                     className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-black"
                                                 >
-                                                    {talla.medida}
+                                                    {talla.descripcion}
                                                 </li>
                                             ))}
                                         </ul>
@@ -447,13 +452,13 @@ export default function PageFormulario() {
                                             <li
                                                 key={pais.id}
                                                 onClick={() => {
-                                                setSelectedPais(pais.nombre);
+                                                setSelectedPais(pais.nom_pais);
                                                 setIsPaisOpen(false);
                                                 setSearchPais("");
                                                 }}
                                                 className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-black"
                                             >
-                                                {pais.nombre}
+                                                {pais.nom_pais}
                                             </li>
                                             ))
                                         ) : (
@@ -499,13 +504,15 @@ export default function PageFormulario() {
                                             <li
                                                 key={estado.id}
                                                 onClick={() => {
-                                                setSelectedEstado(estado.nombre);
+                                                setSelectedEstado(estado.nom_estado);
+                                                setSelectedEstadoId(estado.id);
                                                 setIsEstadoOpen(false);
                                                 setSearchEstado("");
+                                                setSelectedUniversidad(""); 
                                                 }}
                                                 className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-black"
                                             >
-                                                {estado.nombre}
+                                                {estado.nom_estado}
                                             </li>
                                             ))
                                         ) : (
@@ -548,13 +555,13 @@ export default function PageFormulario() {
                                             <li
                                                 key={universidad.id}
                                                 onClick={() => {
-                                                setSelectedUniversidad(universidad.nombre);
+                                                setSelectedUniversidad(universidad.universidad_nombre);
                                                 setIsUniversidadOpen(false);
                                                 setSearchUniversidad("");
                                                 }}
                                                 className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-black"
                                             >
-                                                {universidad.nombre}
+                                                {universidad.universidad_nombre}
                                             </li>
                                             ))
                                         ) : (
@@ -608,13 +615,13 @@ export default function PageFormulario() {
                                             <li
                                                 key={carrera.id}
                                                 onClick={() => {
-                                                setSelectedCarrera(carrera.nombre);
+                                                setSelectedCarrera(carrera.carrera_nombre);
                                                 setIsCarreraOpen(false);
                                                 setSearchCarrera("");
                                                 }}
                                                 className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-black"
                                             >
-                                                {carrera.nombre}
+                                                {carrera.carrera_nombre}
                                             </li>
                                             ))
                                         ) : (
@@ -645,12 +652,12 @@ export default function PageFormulario() {
                                                 <li
                                                     key={semestre.id}
                                                     onClick={() => {
-                                                        setSelectedSemestre(semestre.description);
+                                                        setSelectedSemestre(semestre.descripcion);
                                                         setIsSemestreOpen(false);
                                                     }}
                                                     className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-black"
                                                 >
-                                                    {semestre.description}
+                                                    {semestre.descripcion}
                                                 </li>
                                             ))}
                                         </ul>
