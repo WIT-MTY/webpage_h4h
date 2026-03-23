@@ -399,7 +399,7 @@ export default function PageFormulario() {
                                 />
                                 {errores.permiso && <p className="text-red-400 text-sm mt-1">{errores.permiso}</p>}
                                 <label className="text-pink-200 text-xs mt-2">
-                                * Descarga la <a 
+                                * Descarga la {' '}<a 
                                         href="https://docs.google.com/document/d/1CR2aCdtOcxsDyqMW5sfz_j6mSrbrs_1scf17XJ4DJLE/edit?usp=sharing" 
                                         target="_blank" 
                                         rel="noopener noreferrer"
