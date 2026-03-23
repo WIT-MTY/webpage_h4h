@@ -393,11 +393,21 @@ export default function PageFormulario() {
                         {esMenorEdad && (
                             <div className="mt-4">
                                 <FileUpload 
-                                    label="Permiso de padres o tutores"
+                                    label="Permiso firmado por padres o tutores"
                                     required={true}
                                     onFileChange={setPermisoFile}
                                 />
                                 {errores.permiso && <p className="text-red-400 text-sm mt-1">{errores.permiso}</p>}
+                                <label className="text-pink-200 text-xs mt-2">
+                                * Descarga la <a 
+                                        href="https://docs.google.com/document/d/1CR2aCdtOcxsDyqMW5sfz_j6mSrbrs_1scf17XJ4DJLE/edit?usp=sharing" 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className="text-pink-300 hover:text-pink-200 underline transition-colors"
+                                    >
+                                        CARTA DE CONSENTIMIENTO PARA USO DE IMÁGENES
+                                    </a>, llénala con la información solicitada y adjúntala aquí en formato PDF.
+                                </label>
                             </div>
                         )}
                     </div>

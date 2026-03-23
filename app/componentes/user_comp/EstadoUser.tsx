@@ -6,17 +6,15 @@ interface EstadoProps {
 }
 
 const EstadoUser = (props: EstadoProps) => {
-    const [isExpanded, setIsExpanded] = useState(false);
     
     const getEstadoConfig = () => {
         switch(props.estado_actual) {
             case 1:
                 return {
-                    titulo: "En revisión",
-                    mensaje: "Tu registro está siendo revisado por nuestro equipo.",
-                    detalles: "El proceso de revisión puede tomar hasta 7 días hábiles.",
-                    textColor: "text-[#FFDF59]",
-                   
+                    titulo: "No aceptada",
+                    mensaje: "Lamentablemente tu registro ha sido rechazado.",
+                    detalles: "Motivo: No cumples con los requisitos mínimos de participación. Si consideras que es un error, contáctanos en wit.mty@gmail.com",
+                    textColor: "text-[#D43131]",
                 };
             case 2:
                 return {
@@ -28,11 +26,11 @@ const EstadoUser = (props: EstadoProps) => {
                 };
             case 3:
                 return {
-                    titulo: "No aceptada",
-                    mensaje: "Lamentablemente tu registro ha sido rechazado.",
-                    detalles: "Motivo: No cumples con los requisitos mínimos de participación. Si consideras que es un error, contáctanos en wit.mty@gmail.com",
-                    textColor: "text-[#D43131]",
                     
+                    titulo: "En revisión",
+                    mensaje: "Tu registro está siendo revisado por nuestro equipo.",
+                    detalles: "El proceso de revisión puede tomar hasta 7 días hábiles.",
+                    textColor: "text-[#FFDF59]",
                 };
             default:
                 return {
@@ -40,7 +38,6 @@ const EstadoUser = (props: EstadoProps) => {
                     mensaje: "No pudimos determinar el estado de tu registro.",
                     detalles: "Por favor contacta a soporte técnico para resolver este problema.",
                     textColor: "text-gray-300",
-                    
                 };
         }
     };
