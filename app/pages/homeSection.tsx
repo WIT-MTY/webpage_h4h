@@ -60,8 +60,8 @@ const HomeSection = () => {
                 <Estrella
                     top_position="50%"
                     left_position="-1%"
-                    width="500px"
-                    height="500px"
+                    width="400px"
+                    height="430px"
                     rotation="0"
                     opacity={1}
                 />
@@ -69,7 +69,7 @@ const HomeSection = () => {
                     top_position="0%"
                     left_position="30%"
                     width="1150px"
-                    height="1150px"
+                    height="1100px"
                     rotation="0"
                     opacity={1}
                 />
@@ -78,7 +78,7 @@ const HomeSection = () => {
             {/* Content — scroll del documento (sin contenedor interno que atrape la rueda táctil) */}
             <div className="relative z-10 w-full flex flex-col items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 px-2 sm:px-3 md:px-4 pt-14 sm:pt-20 md:pt-24 pb-10 sm:pb-12">
                 {/* Countdown Timer */}
-                <div className="w-full max-w-2xl md:max-w-4xl backdrop-blur-sm rounded-xl px-1 py-3.5 sm:px-1.5 sm:py-5 md:px-2 md:py-7 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.12)]" style={{ backgroundColor: '#4F123F4D' }}>
+                <div className="w-full max-w-xl md:max-w-3xl backdrop-blur-sm rounded-xl px-2 py-3.5 sm:px-3 sm:py-5 md:px-4 md:py-7 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.12)]" style={{ backgroundColor: '#4F123F4D' }}>
                     <div className="grid grid-cols-2 gap-x-2 gap-y-3 sm:flex sm:flex-row sm:items-center sm:justify-center sm:gap-2.5 md:gap-4">
                         {/* Days */}
                         <div className="flex flex-col items-center">

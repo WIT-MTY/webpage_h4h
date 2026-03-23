@@ -15,11 +15,11 @@ const AcercaSection = () => {
                     </h1>
 
                     <div className="max-w-2xl xl:max-w-3xl space-y-8 text-white font-montserrat font-normal">
-                        <p className="max-w-[52ch] sm:max-w-[56ch] md:max-w-[58ch] text-lg md:text-xl lg:text-2xl leading-snug tracking-wide text-pretty">
+                        <p className="max-w-[52ch] sm:max-w-[56ch] md:max-w-[58ch] text-xl md:text-2xl lg:text-3xl leading-snug tracking-wide text-pretty">
                             Somos un equipo de líderes con el propósito de crear un espacio seguro e inclusivo donde mujeres en tech puedan aprender, experimentar, y mostrar su talento, impulsando su confianza, creatividad y liderazgo dentro del ecosistema tecnológico.
                         </p>
 
-                        <p className="max-w-[52ch] sm:max-w-[56ch] md:max-w-[58ch] text-lg md:text-xl lg:text-2xl leading-snug tracking-wide text-pretty">
+                        <p className="max-w-[52ch] sm:max-w-[56ch] md:max-w-[58ch] text-xl md:text-2xl lg:text-3xl leading-snug tracking-wide text-pretty">
                             Creando a Hack4Her, el primer hackaton exclusivamente de mujeres en México.
                         </p>
                     </div>
