@@ -20,7 +20,7 @@ interface SectionStyle {
 const sectionStyles: { [key: string]: SectionStyle } = {
         /* Modificar por seccion */
         home: {top: '50%', left: '50%', rotation: -90, size: 'w-50 md:w-70', mess: 'Mess Home', up_mess: 10, left_mess: 100},
-        acerca: {top: '50%', left: '80%', rotation: 15, size: 'w-[1200px] md:w-[1300px]', mess: ':)', up_mess: 10, left_mess: 50},
+        acerca: {top: '52%', left: '72%', rotation: -10, size: 'w-[min(88vw,1200px)]', mess: ':)', up_mess: 10, left_mess: 50},
         quees: {top: '70%', left: '15%', rotation: -20, size: 'w-50 md:w-70', mess: 'Mess Qué es', up_mess: 140, left_mess: 50},
         ubicacion: {top: '40%', left: '85%', rotation: 20, size: 'w-50 md:w-70', mess: '¡Aquí nos vemos!', up_mess: 20, left_mess: 50},
         calendario: {top: '60%', left: '10%', rotation: -15, size: 'w-50 md:w-70', mess: '¡Revisa nuestro calendario!', up_mess: 140, left_mess: 50},
@@ -80,7 +80,7 @@ const AdaGuia: React.FC<AdaGuiaProps> = ({
 
     return (
         <div
-            className="fixed transition-all duration-700 ease-in-out z-[30] ada-guia"
+            className="fixed transition-all duration-700 ease-in-out z-[45] ada-guia pointer-events-auto"
             style={{
                 top:       frozen ? frozenPos.top  : style.top,
                 left:      frozen ? frozenPos.left : style.left,
@@ -108,8 +108,14 @@ const AdaGuia: React.FC<AdaGuiaProps> = ({
                 className="transition-all duration-700 ease-in-out hover:scale-110 cursor-pointer"
                 style={{
                     transform: `rotate(${frozen ? frozenRotation : style.rotation}deg)`,
-                    width: activeSection === 'acerca' ? '1300px' : (activeSection === 'home' ? '0px' : '150px'),
-                    height: 'auto'
+                    width:
+                        activeSection === 'acerca'
+                            ? 'clamp(280px, min(88vw, 72dvh), 1280px)'
+                            : activeSection === 'home'
+                              ? '0px'
+                              : '240px',
+                    height: 'auto',
+                    maxWidth: '100vw',
                 }}
             />
         </div>

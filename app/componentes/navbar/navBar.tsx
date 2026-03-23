@@ -50,11 +50,7 @@ const NavBar = () => {
         <ContactanosSection />
 
         {activeSection !== "home" && (
-            <div className="hidden md:hidden lg:block">
-                <AdaGuia
-                    activeSection={activeSection}
-                />
-            </div>
+            <AdaGuia activeSection={activeSection} />
         )}
 
         {/* Badge de MLH */}

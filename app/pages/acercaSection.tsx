@@ -7,19 +7,19 @@ const AcercaSection = () => {
             {/* Content Container */}
             <div className="relative z-10 w-full pl-8 md:pl-16 pr-16 flex flex-col lg:flex-row items-start justify-between gap-12">
                 {/* Text Content */}
-                <div className="w-full lg:w-5/6 space-y-8 text-left pl-8 md:pl-12 lg:pl-16">
+                <div className="w-full lg:max-w-[min(100%,52rem)] space-y-8 text-left pl-8 md:pl-12 lg:pl-16">
                     <h1 className="font-high-cruiser text-5xl md:text-6xl lg:text-7xl font-bold text-white uppercase tracking-wide leading-tight">
                         <span className="whitespace-nowrap">acerca de</span>
                         <br />
                         nosotras
                     </h1>
 
-                    <div className="space-y-8 text-white font-montserrat font-normal text-2xl md:text-3xl lg:text-4xl leading-relaxed">
-                        <p>
+                    <div className="max-w-2xl xl:max-w-3xl space-y-8 text-white font-montserrat font-normal">
+                        <p className="max-w-[52ch] sm:max-w-[56ch] md:max-w-[58ch] text-lg md:text-xl lg:text-2xl leading-snug tracking-wide text-pretty">
                             Somos un equipo de líderes con el propósito de crear un espacio seguro e inclusivo donde mujeres en tech puedan aprender, experimentar, y mostrar su talento, impulsando su confianza, creatividad y liderazgo dentro del ecosistema tecnológico.
                         </p>
 
-                        <p>
+                        <p className="max-w-[52ch] sm:max-w-[56ch] md:max-w-[58ch] text-lg md:text-xl lg:text-2xl leading-snug tracking-wide text-pretty">
                             Creando a Hack4Her, el primer hackaton exclusivamente de mujeres en México.
                         </p>
                     </div>

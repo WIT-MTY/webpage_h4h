@@ -8,6 +8,8 @@ interface SectionProps {
   overflow?: string;
   verticalAlign?: string;
   noPadding?: boolean;
+  /** Al menos una pantalla de alto; la sección puede crecer y el documento hace scroll (p. ej. inicio con mucho contenido). */
+  minHeightViewport?: boolean;
 }
 
 const Section: React.FC<SectionProps> = ({
@@ -17,11 +19,14 @@ const Section: React.FC<SectionProps> = ({
   bg_color= "",
   overflow = "overflow-y-auto",
   verticalAlign = "justify-center",
-  noPadding = false
+  noPadding = false,
+  minHeightViewport = false,
 }) => {
 
+  const heightClass = minHeightViewport ? "min-h-screen" : "h-screen max-h-screen";
+
   return (
-    <section id={id} className={`w-full h-screen max-h-screen ${overflow}${className}`} style={{ background: bg_color }}>
+    <section id={id} className={`w-full ${heightClass} ${overflow} ${className}`.trim()} style={{ background: bg_color }}>
 
       <div className={`w-full h-full flex items-center ${verticalAlign} ${noPadding ? '' : 'px-4 sm:px-2 lg:px-2'} relative`}>
         <div className={`w-full ${noPadding ? '' : 'max-w-7xl mx-auto'}`}>
