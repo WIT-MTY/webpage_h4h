@@ -10,9 +10,8 @@ export default function PageUser() {
         <section className="w-full min-h-screen flex flex-col relative" style={{ background: "#F0CEE3" }}>
             <HeaderUser />
             <main className="flex-1 max-w-7xl mx-auto py-6 px-4 w-full">
-                <h1 className="font-high-cruiser text-3xl text-[#4A0C32] mb-4">Vista Principal</h1>
-                <p className="text-[#4A0C32]">Bienvenido a tu espacio principal</p>
-                <EstadoUser estado_actual={1} />
+                <p className="text-[#4A0C32]">Revisa aquí los siguientes pasos para seguir tu camino en el evento.</p>
+                <EstadoUser estado_actual={3} />
             </main>
         </section>
     );

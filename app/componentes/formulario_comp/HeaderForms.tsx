@@ -13,24 +13,23 @@ export default function HeaderForms() {
         <header className="w-full  shadow-md py-4 px-6">
 
             <div className="max-w-7xl mx-auto flex flex-col items-center justify-center space-y-6">
-    <h1 className="text-5xl md:text-7xl font-bold text-white text-center">
-        Hack4Her
-    </h1>
-    
-    <h2 className="text-3xl md:text-4xl font-semibold text-purple-200 text-center">
-        Registro
-    </h2>
-    
-    <div className="w-24 h-1 bg-purple-300 rounded-full mx-auto">
-        {/* Línea decorativa */}
-    </div>
-    
-    <p className="text-center md:text-xl text-white/90 leading-relaxed max-w-7xl mx-auto">
-        Hack4Her es un evento nacional de 3 días que, con enfoque en el talento femenino y apertura general, ofrece crecimiento profesional en ingeniería y negocios para 
-        <span className="font-bold text-pink-400"> MUJERES UNIVERSITARIAS </span> 
-        a través de talleres, una reunión de líderes WIT y un hackathon.
-    </p>
-    <nav className="hidden md:flex items-center">
+                
+                <img src={"/images/h4h_logos/logo_h4h_blanco.svg"} className='w-200 md:w-150'></img>
+
+                <p className="text-center md:text-xl text-white/90 leading-relaxed max-w-7xl mx-auto">
+                    Hack4Her, una iniciativa por parte de WIT, es el primer hackathon nacional para 
+                    <span className="font-extrabold text-pink-400"> MUJERES UNIVERSITARIAS</span> 
+                    . Un espacio donde la tecnología, la creatividad y el liderazgo se unen para impulsar el talento femenino, conectar ideas y abrir puertas al crecimiento profesional.
+                </p>
+
+                <h2 className="text-4xl md:text-6xl font-semibold text-purple-200 text-center">
+                    Registro
+                </h2>
+                <div className="w-24 h-1 bg-purple-300 rounded-full mx-auto">
+                    {/* Línea decorativa */}
+                </div>
+
+                <nav className="hidden md:flex items-center">
                 {isSesionPage ? (
                 <Link 
                     href="/registro" 

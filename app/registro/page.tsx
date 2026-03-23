@@ -7,6 +7,8 @@ import { useFormData } from "../hooks/utils/useFormData";
 
 export default function PageFormulario() {
 
+    const [registroEnviado, setRegistroEnviado] = useState(false);
+
     //recibir datos de backend
     const { GENEROS, TALLAS, PAISES, ESTADOS, UNIVERSIDADES, CARRERAS, SEMESTRES } = useFormData();
 
@@ -54,9 +56,7 @@ export default function PageFormulario() {
     const [selectedSemestre, setSelectedSemestre] = useState<string>("");
     const [isSemestreOpen, setIsSemestreOpen] = useState(false);
 
-
     ////////////////////
-    
     // Estados para inputs de texto
     const [correo, setCorreo] = useState("");
     const [contrasena, setContrasena] = useState("");
@@ -78,6 +78,8 @@ export default function PageFormulario() {
     // Errores
     const [errores, setErrores] = useState<Record<string, string>>({});
     
+
+    /////////////////
     /// Manejo de edad de particpantes
 
     // Estado para la fecha de nacimiento
@@ -156,7 +158,7 @@ export default function PageFormulario() {
     const validar = (): boolean => {
         const nuevosErrores: Record<string, string> = {};
         
-        // mensajes de erros
+        // mensajes de error
         if (!correo) nuevosErrores.correo = "El correo es requerido";
         if (!contrasena) nuevosErrores.contrasena = "La contraseña es requerida";
         if (!nombre) nuevosErrores.nombre = "El nombre es requerido";
@@ -173,7 +175,6 @@ export default function PageFormulario() {
         } else if (selectedPais) {
             if (!universidadExtranjera) nuevosErrores.universidadExtranjera = "El nombre de la universidad es requerido";
         }
-        
         if (!selectedCarrera) nuevosErrores.carrera = "La carrera es requerida";
         if (!selectedSemestre) nuevosErrores.semestre = "El semestre es requerido";
         if (!vegano) nuevosErrores.vegano = "Este campo es requerido";
@@ -196,9 +197,11 @@ export default function PageFormulario() {
 
         const formData = new FormData(); // Usamos FormData por los archivos (CV, permiso)
 
-        // validacion de datoa
+        // Datos de cuenta
         formData.append("correo", correo);
         formData.append("contrasena", contrasena);
+
+        // Datos personales
         formData.append("nombre", nombre);
         formData.append("apellidos", apellidos);
         formData.append("genero", selectedGenero);
@@ -207,6 +210,7 @@ export default function PageFormulario() {
         formData.append("telefono", telefono);
         if (permisoFile) formData.append("permiso", permisoFile);
 
+        // Datos académicos
         formData.append("pais", selectedPais);
         if (selectedPais === "México") {
             formData.append("estado", selectedEstado);
@@ -216,27 +220,33 @@ export default function PageFormulario() {
         }
         formData.append("carrera", selectedCarrera);
         formData.append("semestre", selectedSemestre);
-
+        
+        // Preferencias alimentarias
         formData.append("vegano", vegano);
         formData.append("restriccionAlimentaria", restriccionAlimentaria);
         if (tieneRestriccion) formData.append("especificacionRestriccion", especificacionRestriccion);
+
+        // Información profesiona
         if (cvFile) formData.append("cv", cvFile);
         formData.append("linkedin", linkedin);
         formData.append("github", github);
 
+        // Acuerdos
         formData.append("mlhConducta", String(mlhConducta));
         formData.append("mlhLogistica", String(mlhLogistica));
   
         // Cuando conectes el backend, descomenta esto:
         // try {
-        //   const res = await fetch("/api/registro", { method: "POST", body: formData });
+        //   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, { method: "POST", body: formData });
         //   const data = await res.json();
         //   console.log("Registro exitoso:", data);
         // } catch (error) {
         //   console.error("Error al enviar:", error);
         // }
 
+        // Simulación — reemplaza esto cuando conectes el backend
         console.log("Datos listos para enviar:", Object.fromEntries(formData));
+        setRegistroEnviado(true);
     };
     
     
@@ -246,6 +256,14 @@ export default function PageFormulario() {
             <HeaderForms />
 
             <main className="w-full px-4 py-8">
+                {registroEnviado ? (
+                    <div className="flex flex-col items-center justify-center min-h-96 text-center">
+                        <h2 className="text-white text-4xl font-bold mb-4">¡Registro enviado!</h2>
+                        <p className="text-pink-200 text-lg">¡Gracias por registrarte en H4H!</p>
+                        <p className="text-pink-200 text-lg">Tu solicitud está en revisión.</p>
+                        <p className="text-pink-200 text-lg">Podrás ver el estado de tu registro iniciando sesión en la página.</p>
+                    </div>
+                ) : (
                 <form className="space-y-6 max-w-7xl mx-auto" onSubmit={handleSubmit}>
                     
                     {/* SECCIÓN 1: Datos para crear la cuenta */}
@@ -817,6 +835,7 @@ export default function PageFormulario() {
                         Enviar registro
                     </button>
                 </form>
+                )}
             </main>
            
         </section>
