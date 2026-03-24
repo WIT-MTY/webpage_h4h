@@ -27,7 +27,7 @@ export default function PageFormulario() {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
              method: "POST",
              headers: { "Content-Type": "application/json" },
-             body: JSON.stringify({ correo, contrasena }),
+             body: JSON.stringify({ email: correo, password: contrasena }),
             });
         
             if (!res.ok) {
@@ -38,12 +38,20 @@ export default function PageFormulario() {
             const data = await res.json();
 
             // Guarda el token que te regresa el backend
-            localStorage.setItem("token", data.token);
+            localStorage.setItem("token", data.access_token);
 
             router.push("/User");
+            console.log("Enviando:", { email: correo, password: contrasena });
+console.log("URL:", `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`);
+
+// Después del fetch
+console.log("Status:", res.status);
+console.log("Response:", await res.clone().json());
         }catch (error) {
             setErrorGeneral("Error al iniciar sesión, intenta de nuevo");
         }
+
+        
     };
 
    

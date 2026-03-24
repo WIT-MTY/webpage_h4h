@@ -1,7 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import HeaderUser from '@/app/componentes/user_comp/HeaderUser';
 
 // 
 interface Usuario {
@@ -101,56 +100,54 @@ export default function UserProfile() {
   if (!usuario) return null;
 
   return (
-    <div className="min-h-screen" style={{ background: "#F0CEE3" }}>
-      <HeaderUser />
+    <div className="p-8 space-y-4">
+      <div className="space-y-4">
+      <h1 className="font-high-cruiser text-6xl text-[#4A0C32] transition-colors">
+        Mi perfil
+      </h1>
 
-      <main className="max-w-7xl mx-auto py-8 px-4 w-full space-y-6">
-        <h1 className="font-high-cruiser text-6xl text-[#4A0C32] group-hover:text-pink-600 transition-colors">
-          Mi perfil
-        </h1>
+      {/* Datos personales */}
+      <div className="bg-[#C4649F]/60 p-6 rounded-lg">
+        <h2 className="text-white text-xl font-semibold mb-4">Datos personales</h2>
 
-        {/* Datos personales */}
-        <div className="bg-[#C4649F]/60 p-8 rounded-lg">
-          <h2 className="text-white text-xl font-semibold mb-4">Datos personales</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <p className="text-white/60 text-sm mb-1">Nombre(s)</p>
+            <p className="text-white font-medium">{usuario.nombre}</p>
+          </div>
 
-            <div>
-              <p className="text-white/60 text-sm mb-1">Nombre(s)</p>
-              <p className="text-white font-medium">{usuario.nombre}</p>
-            </div>
+          <div>
+            <p className="text-white/60 text-sm mb-1">Apellido(s)</p>
+            <p className="text-white font-medium">{usuario.apellidos}</p>
+          </div>
 
-            <div>
-              <p className="text-white/60 text-sm mb-1">Apellido(s)</p>
-              <p className="text-white font-medium">{usuario.apellidos}</p>
-            </div>
+          <div>
+            <p className="text-white/60 text-sm mb-1">Género</p>
+            <p className="text-white font-medium">{usuario.genero}</p>
+          </div>
 
-            <div>
-              <p className="text-white/60 text-sm mb-1">Género</p>
-              <p className="text-white font-medium">{usuario.genero}</p>
-            </div>
+          <div>
+            <p className="text-white/60 text-sm mb-1">Talla de playera</p>
+            <p className="text-white font-medium">{usuario.talla}</p>
+          </div>
 
-            <div>
-              <p className="text-white/60 text-sm mb-1">Talla de playera</p>
-              <p className="text-white font-medium">{usuario.talla}</p>
-            </div>
+          <div>
+            <p className="text-white/60 text-sm mb-1">Fecha de nacimiento</p>
+            <p className="text-white font-medium">{usuario.fechaNacimiento}</p>
+          </div>
 
-            <div>
-              <p className="text-white/60 text-sm mb-1">Fecha de nacimiento</p>
-              <p className="text-white font-medium">{usuario.fechaNacimiento}</p>
-            </div>
-
-            <div>
-              <p className="text-white/60 text-sm mb-1">Teléfono</p>
-              <p className="text-white font-medium">{usuario.telefono}</p>
+          <div>
+            <p className="text-white/60 text-sm mb-1">Teléfono</p>
+            <p className="text-white font-medium">{usuario.telefono}</p>
             </div>
           </div>
         </div>
 
         {/* Datos académicos */}
-        <div className="bg-[#C4649F]/60 p-8 rounded-lg">
+        <div className="bg-[#C4649F]/60 p-6 rounded-lg">
           <h2 className="text-white text-xl font-semibold mb-4">Datos académicos</h2>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
             <div>
               <p className="text-white/60 text-sm mb-1">País</p>
               <p className="text-white font-medium">{usuario.pais}</p>
@@ -188,10 +185,10 @@ export default function UserProfile() {
             </div>
 
           </div>
-        </div>
+      </div>
 
         {/* Preferencias alimentarias */}
-        <div className="bg-[#C4649F]/60 p-8 rounded-lg">
+        <div className="bg-[#C4649F]/60 p-6 rounded-lg">
           <h2 className="text-white text-xl font-semibold mb-4">Preferencias alimentarias</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
@@ -217,7 +214,7 @@ export default function UserProfile() {
         </div>
 
         {/* Información profesional */}
-        <div className="bg-[#C4649F]/60 p-8 rounded-lg">
+        <div className="bg-[#C4649F]/60 p-6 rounded-lg">
           <h2 className="text-white text-xl font-semibold mb-4">Información profesional</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
@@ -255,8 +252,8 @@ export default function UserProfile() {
 
           </div>
         </div>
-
-      </main>
+        </div>
     </div>
+  
   );
 }

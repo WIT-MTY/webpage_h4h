@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import HeaderUser from '../componentes/user_comp/HeaderUser';
 import EstadoUser from '../componentes/user_comp/EstadoUser';
 
+
 export default function PageUser() {
 
     const router = useRouter();
@@ -56,12 +57,21 @@ export default function PageUser() {
     }
     
     return (
-        <section className="w-full min-h-screen flex flex-col relative" style={{ background: "#F0CEE3" }}>
-            <HeaderUser />
-            <main className="flex-1 max-w-7xl mx-auto py-6 px-4 w-full">
+        <div className="p-8">
+            <div className="space-y-4">
+                <h1 className="font-high-cruiser text-6xl text-[#4A0C32] transition-colors">
+                    ¡Bienvenida!
+                </h1>
                 <p className="text-[#4A0C32]">Revisa aquí los siguientes pasos para seguir tu camino al evento.</p>
+
+                <div className="w-full h-0.5 bg-[#4A0C32] rounded-full mx-auto">
+                    {/* Línea decorativa */}
+                </div>
+                <h1 className='text-xl font-semibold mb-4'>Estatus de participación</h1>
                 {estadoRegistro !== null && <EstadoUser estado_actual={estadoRegistro} />}
-            </main>
-        </section>
+
+            </div>
+        </div>
+        
     );
 }
