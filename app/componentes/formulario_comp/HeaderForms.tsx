@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import BotonSesion from './BotonSesion';
 import BotonForms from './BotonForms';
+import BotonRegreso from '../registro/BotonRegreso';
 
 export default function HeaderForms() {
     const pathname = usePathname();
@@ -11,7 +12,10 @@ export default function HeaderForms() {
     
     return (
         <header className="w-full  shadow-md py-4 px-6">
-
+            <div className=''>
+                <div className='absolute'>
+                <BotonRegreso />
+                </div>
             <div className="max-w-7xl mx-auto flex flex-col items-center justify-center space-y-6">
                 
                 <img src={"/images/h4h_logos/logo_h4h_blanco.svg"} className='w-200 md:w-150'></img>
@@ -54,7 +58,7 @@ export default function HeaderForms() {
             </nav>
 </div>
 
-            
+           </div> 
         </header>
     );
 }

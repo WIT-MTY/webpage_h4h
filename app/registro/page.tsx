@@ -11,9 +11,10 @@ export default function PageFormulario() {
     const [selectedEstadoId, setSelectedEstadoId] = useState<number | null>(null);
 
     //recibir datos de backend
-    const { GENEROS, TALLAS, PAISES, ESTADOS, UNIVERSIDADES, CARRERAS, SEMESTRES } = useFormData();
+    const { GENEROS, TALLAS, PAISES, ESTADOS, UNIVERSIDADES, CARRERAS, SEMESTRES, loading } = useFormData();
+    
 
-    const [paises, setPaises] = useState(PAISES);
+    const [paises, setPaises] = useState<typeof PAISES>([]);
     const [selectedPais, setSelectedPais] = useState<string>("");
     const [isPaisOpen, setIsPaisOpen] = useState(false);
     const [searchPais, setSearchPais] = useState("");
@@ -21,7 +22,7 @@ export default function PageFormulario() {
         pais.nom_pais.toLowerCase().includes(searchPais.toLowerCase())
     );
 
-    const [estados, setPais] = useState(ESTADOS);
+    const [estados, setEstados] = useState<typeof ESTADOS>([]);  
     const [selectedEstado, setSelectedEstado] = useState<string>("");
     const [isEstadoOpen, setIsEstadoOpen] = useState(false);
     const [searchEstado, setSearchEstado] = useState("");
@@ -29,7 +30,7 @@ export default function PageFormulario() {
         estado.nom_estado.toLowerCase().includes(searchEstado.toLowerCase())
     );
 
-    const [universidades, setUniversidades] = useState(UNIVERSIDADES);
+    const [universidades, setUniversidades] = useState<typeof UNIVERSIDADES>([]);
     const [selectedUniversidad, setSelectedUniversidad] = useState<string>("");
     const [isUniversidadOpen, setIsUniversidadOpen] = useState(false);
     const [searchUniversidad, setSearchUniversidad] = useState("");
@@ -41,15 +42,15 @@ export default function PageFormulario() {
         universidad.universidad_nombre.toLowerCase().includes(searchUniversidad.toLowerCase())
     );
 
-    const [tallas, setTallas] = useState(TALLAS);
+    const [tallas, setTallas] = useState<typeof TALLAS>([]);
     const [selectedTalla, setSelectedTalla] = useState<string>("");
     const [isTallaOpen, setIsTallaOpen] = useState(false);
 
-    const [generos, setGeneros] = useState(GENEROS);
+    const [generos, setGeneros] = useState<typeof GENEROS>([]);
     const [selectedGenero, setSelectedGenero] = useState<string>("");
     const [isGeneroOpen, setIsGeneroOpen] = useState(false);
 
-    const [carreras, setCarreras] = useState(CARRERAS);
+    const [carreras, setCarreras] = useState<typeof CARRERAS>([]);
     const [selectedCarrera, setSelectedCarrera] = useState<string>("");
     const [isCarreraOpen, setIsCarreraOpen] = useState(false);
     const [searchCarrera, setSearchCarrera] = useState("");
@@ -57,9 +58,17 @@ export default function PageFormulario() {
         carrera.carrera_nombre.toLowerCase().includes(searchCarrera.toLowerCase())
     );
 
-    const [semestres, setSemestres] = useState(SEMESTRES);
+    const [semestres, setSemestres] = useState<typeof SEMESTRES>([]);
     const [selectedSemestre, setSelectedSemestre] = useState<string>("");
     const [isSemestreOpen, setIsSemestreOpen] = useState(false);
+
+    useEffect(() => { if (PAISES.length)        setPaises(PAISES);             }, [PAISES]);
+    useEffect(() => { if (ESTADOS.length)       setEstados(ESTADOS);           }, [ESTADOS]);
+    useEffect(() => { if (UNIVERSIDADES.length) setUniversidades(UNIVERSIDADES); }, [UNIVERSIDADES]);
+    useEffect(() => { if (TALLAS.length)        setTallas(TALLAS);             }, [TALLAS]);
+    useEffect(() => { if (GENEROS.length)       setGeneros(GENEROS);           }, [GENEROS]);
+    useEffect(() => { if (CARRERAS.length)      setCarreras(CARRERAS);         }, [CARRERAS]);
+    useEffect(() => { if (SEMESTRES.length)     setSemestres(SEMESTRES);       }, [SEMESTRES]);
 
     ////////////////////
     // Estados para inputs de texto
@@ -254,7 +263,14 @@ export default function PageFormulario() {
         setRegistroEnviado(true);
     };
     
-    
+    if (loading) {
+  return (
+    <section className="w-full min-h-screen flex items-center justify-center" style={{ background: "#761450" }}>
+      <div className="text-white text-xl animate-pulse">Cargando formulario...</div>
+    </section>
+  );
+}
+
     return (
         <section className="w-full min-h-screen overflow-y-auto flex flex-col items-center justify-center relative" style={{ background: "#761450" }}>
             
@@ -529,47 +545,53 @@ export default function PageFormulario() {
                                 <p className="text-white mb-2">Universidad (en México)<span className="text-red-400">*</span></p>
                                 <button
                                     type="button"
-                                    onClick={() => setIsUniversidadOpen(!isUniversidadOpen)}
-                                    className="w-full flex items-center justify-between gap-2 bg-white px-4 py-3 rounded-md text-black"
+                                    onClick={() => selectedEstadoId && setIsUniversidadOpen(!isUniversidadOpen)}
+                                    className={`w-full flex items-center justify-between gap-2 bg-white px-4 py-3 rounded-md text-black 
+                                    ${!selectedEstadoId ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
                                 >
-                                    <span>{selectedUniversidad|| "Selecciona una universidad"}</span>
-                                    <span>▼</span>
+                                <span>{selectedUniversidad || "Selecciona una universidad"}</span>
+                                <span>▼</span>
                                 </button>
-                                
-                                {isUniversidadOpen && (
-                                <div className="absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
-                                    <div className="p-2 border-b border-gray-200">
-                                        <input
-                                            type="text"
-                                            value={searchUniversidad}
-                                            onChange={(e) => setSearchUniversidad(e.target.value)}
-                                            placeholder="Buscar universidad..."
-                                            className="w-full p-2 rounded-md border border-gray-300 text-black text-sm"
-                                            autoFocus
-                                        />
+
+  
+                                {!selectedEstadoId && (
+                                    <p className="text-pink-200 text-xs mt-1">Primero selecciona un estado</p>
+                                )}
+
+                                {isUniversidadOpen && selectedEstadoId && (
+                                    <div className="absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                                        <div className="p-2 border-b border-gray-200">
+                                            <input
+                                                type="text"
+                                                    value={searchUniversidad}
+                                                    onChange={(e) => setSearchUniversidad(e.target.value)}
+                                                    placeholder="Buscar universidad..."
+                                                    className="w-full p-2 rounded-md border border-gray-300 text-black text-sm"
+                                                    autoFocus
+                                            />
+                                        </div>
+                                        <ul className="py-1 max-h-48 overflow-y-auto">
+                                            {universidadesFiltrados.length > 0 ? (
+                                                universidadesFiltrados.map((universidad) => (
+                                                    <li
+                                                    key={universidad.id}
+                                                    onClick={() => {
+                                                    setSelectedUniversidad(universidad.universidad_nombre);
+                                                    setIsUniversidadOpen(false);
+                                                    setSearchUniversidad("");
+                                                    }}
+                                                    className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-black"
+                                                    >
+                                                    {universidad.universidad_nombre}
+                                                    </li>
+                                                ))
+                                            ) : (
+                                                <li className="px-4 py-2 text-gray-400 text-sm">
+                                                    No hay universidades registradas en este estado
+                                                </li>
+                                            )}
+                                        </ul>
                                     </div>
-
-                                    <ul className="py-1 max-h-48 overflow-y-auto">
-                                        {universidadesFiltrados.length > 0 ? (
-                                            universidadesFiltrados.map((universidad) => (
-                                            <li
-                                                key={universidad.id}
-                                                onClick={() => {
-                                                setSelectedUniversidad(universidad.universidad_nombre);
-                                                setIsUniversidadOpen(false);
-                                                setSearchUniversidad("");
-                                                }}
-                                                className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-black"
-                                            >
-                                                {universidad.universidad_nombre}
-                                            </li>
-                                            ))
-                                        ) : (
-                                        <li className="px-4 py-2 text-gray-400 text-sm">No se encontraron resultados</li>
-                                        )}
-                                    </ul>
-
-                                </div>
                                 )}
                                 {errores.universidad && <p className="text-red-400 text-sm mt-1">{errores.universidad}</p>}
                             </div>
