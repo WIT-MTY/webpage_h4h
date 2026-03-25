@@ -263,21 +263,21 @@ export default function PageFormulario() {
         setRegistroEnviado(true);
     };
     
-    if (loading) {
-  return (
-    <section className="w-full min-h-screen flex items-center justify-center" style={{ background: "#761450" }}>
-      <div className="text-white text-xl animate-pulse">Cargando formulario...</div>
-    </section>
-  );
-}
+    
 
     return (
+        
         <section className="w-full min-h-screen overflow-y-auto flex flex-col items-center justify-center relative" style={{ background: "#761450" }}>
-            
             <HeaderForms />
 
+
             <main className="w-full px-4 py-8">
-                {registroEnviado ? (
+                {loading ? (
+               
+                    <div className="flex items-center justify-center min-h-96">
+                        <div className="text-white/20 text-xl animate-pulse">Cargando formulario de registro...</div>
+                    </div>
+                ) : registroEnviado ? (
                     <div className="flex flex-col items-center justify-center min-h-96 text-center">
                         <h2 className="text-white text-4xl font-bold mb-4">¡Registro enviado!</h2>
                         <p className="text-pink-200 text-lg">¡Gracias por registrarte en H4H!</p>

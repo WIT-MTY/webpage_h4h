@@ -26,7 +26,7 @@ export default function PageFormulario() {
         if (!validar()) return;
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
              method: "POST",
              headers: { "Content-Type": "application/json" },
              body: JSON.stringify({ email: correo, password: contrasena }),
@@ -62,9 +62,10 @@ export default function PageFormulario() {
    
     return (
         <section className="w-full min-h-screen flex flex-col relative" style={{ background: "#761450" }}>
+            <HeaderForms />
             <div className="w-full h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 relative">
                 
-                <HeaderForms />
+                
                 
                 <main className="w-full max-w-md mx-auto">
                     <h1 className="text-3xl font-bold text-white text-center mb-6 mt-8">Iniciar sesión</h1>

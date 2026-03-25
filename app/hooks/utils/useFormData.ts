@@ -21,13 +21,13 @@ export const useFormData = () => {
 
         const [paises, estados, universidades, generos, tallas, carreras, semestres] =
           await Promise.all([
-            fetch(`${BASE}/api/catalogo/pais`).then(r => r.json()),
-            fetch(`${BASE}/api/catalogo/estado`).then(r => r.json()),
-            fetch(`${BASE}/api/catalogo/universidad`).then(r => r.json()),
-            fetch(`${BASE}/api/catalogo/genero`).then(r => r.json()),
-            fetch(`${BASE}/api/catalogo/talla`).then(r => r.json()),
-            fetch(`${BASE}/api/catalogo/carrera`).then(r => r.json()),
-            fetch(`${BASE}/api/catalogo/semestre`).then(r => r.json()),
+            fetch(`${BASE}/catalogo/pais`).then(r => r.json()),
+            fetch(`${BASE}/catalogo/estado`).then(r => r.json()),
+            fetch(`${BASE}/catalogo/universidad`).then(r => r.json()),
+            fetch(`${BASE}/catalogo/genero`).then(r => r.json()),
+            fetch(`${BASE}/catalogo/talla`).then(r => r.json()),
+            fetch(`${BASE}/catalogo/carrera`).then(r => r.json()),
+            fetch(`${BASE}/catalogo/semestre`).then(r => r.json()),
           ]);
 
         setPAISES(paises.map((p: CatalogBackend) => ({ id: p.value, nom_pais: p.label })));
