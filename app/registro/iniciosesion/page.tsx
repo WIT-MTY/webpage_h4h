@@ -3,7 +3,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import HeaderForms from "@/app/componentes/formulario_comp/HeaderForms";
 
+
 export default function PageFormulario() {
+    
     const router = useRouter();
 
     const [correo, setCorreo] = useState("");
@@ -38,16 +40,17 @@ export default function PageFormulario() {
             const data = await res.json();
 
             
-            localStorage.setItem("token", data.access_token);
+            document.cookie = `token=${data.access_token}; path=/; max-age=${60 * 60 * 8}`;
 
             router.push("/User");
 
             //borrar
+            /*
             console.log("Enviando:", { email: correo, password: contrasena });
             console.log("URL:", `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`);
             console.log("Status:", res.status);
             console.log("Response:", await res.clone().json());
-            //
+            */
 
         }catch (error) {
             setErrorGeneral("Error al iniciar sesión, intenta de nuevo");
