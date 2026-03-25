@@ -31,7 +31,7 @@ export default function Home() {
       <p>-----</p>
       <p className="font-questrial text-3xl font-bold text-secundario-rosa-claro">HACK4HER</p>
       <p className="font-questrial text-3xl font-bold text-secundario-rosa-claro-800">HACK4HER</p> */}
-      
+
     </div>
   )
 }

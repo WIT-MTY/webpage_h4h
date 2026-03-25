@@ -27,7 +27,15 @@ const googleMapsUrl =
     className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden py-20"
     bg_color="#4A0C32"
     >
-    <BackgroundDecor mouseParallax mousePosition={mousePosition} />
+    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <BackgroundDecor mouseParallax mousePosition={mousePosition} />
+        <style jsx>{`
+            /* Ocultar la estrella superior centro-izquierda */
+            div :global(.absolute.top-24) {
+                display: none;
+            }
+        `}</style>
+    </div>
 
       {/* Wrapper centrado con mx-auto explícito */}
     <div
@@ -42,7 +50,7 @@ const googleMapsUrl =
         }}
     >
         <h1 className="font-high-cruiser text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white text-center mb-6 z-10">
-        Ubicación
+        UBICACIÓN
         </h1>
 
         {/* Panel */}

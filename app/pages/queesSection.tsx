@@ -1,9 +1,15 @@
 import React from "react";
 import Section from "../componentes/general/Section";
+import BackgroundDecor from "../componentes/general/BackgroundDoodles";
 
 const QueEsSection = () => {
     return (
         <Section id="quees" className="h-full flex flex-col items-center justify-center relative overflow-hidden" bg_color="linear-gradient(180deg, #5F1040, #4A0C32)">
+            {/* Background Decorations */}
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                <BackgroundDecor />
+            </div>
+
             {/* Centered Title */}
             <div className="relative z-10 w-full text-center mb-12 -mt-8">
                 <h1 className="font-high-cruiser text-6xl md:text-7xl lg:text-8xl font-bold text-white uppercase">

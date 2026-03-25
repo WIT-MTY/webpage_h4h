@@ -1,9 +1,21 @@
 import React from "react";
 import Section from "../componentes/general/Section";
+import BackgroundDecor from "../componentes/general/BackgroundDoodles";
 
 const AcercaSection = () => {
     return (
         <Section id="acerca" className="h-full flex items-center justify-center relative overflow-hidden" bg_color="linear-gradient(180deg, #761450, #5F1040)" noPadding={true}>
+            {/* Background Decorations */}
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                <BackgroundDecor />
+                <style jsx>{`
+                    /* Ocultar la estrella superior que está en el título */
+                    div :global(.absolute.top-24) {
+                        display: none;
+                    }
+                `}</style>
+            </div>
+
             {/* Content Container */}
             <div className="relative z-10 w-full pl-8 md:pl-16 pr-16 flex flex-col lg:flex-row items-start justify-between gap-12">
                 {/* Text Content */}

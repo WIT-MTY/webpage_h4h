@@ -139,7 +139,7 @@ const CalendarioSection = () => {
       <div className="relative z-10 max-w-5xl mx-auto">
         <div className="text-center mb-14">
           <h1 className="font-high-cruiser text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white text-center mb-6">
-            Cronograma
+            CRONOGRAMA
           </h1>
           <div className="flex items-center justify-center gap-3">
             <div className="h-0.5 w-16 bg-principal-rosa" />
