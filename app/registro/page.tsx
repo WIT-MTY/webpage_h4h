@@ -206,61 +206,71 @@ export default function PageFormulario() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!validar()) return;
 
-        if (!validar()) return; // Si hay errores, no continúa
+        try {
+        const formData = new FormData();
 
-        const formData = new FormData(); // Usamos FormData por los archivos (CV, permiso)
-
-        // Datos de cuenta
-        formData.append("correo", correo);
-        formData.append("contrasena", contrasena);
+        // Credenciales
+        formData.append("email", correo);
+        formData.append("password", contrasena);
 
         // Datos personales
         formData.append("nombre", nombre);
-        formData.append("apellidos", apellidos);
-        formData.append("genero", selectedGenero);
-        formData.append("talla", selectedTalla);
-        formData.append("fechaNacimiento", fechaNacimiento);
+        formData.append("apellido", apellidos); // ← tu BD usa "apellido" no "apellidos"
+        formData.append("fecha_nacimiento", fechaNacimiento);
         formData.append("telefono", telefono);
-        if (permisoFile) formData.append("permiso", permisoFile);
+        formData.append("genero_id", String(generos.find(g => g.descripcion === selectedGenero)?.id || ""));
+        formData.append("talla_playera_id", String(tallas.find(t => t.descripcion === selectedTalla)?.id || ""));
 
-        // Datos académicos
-        formData.append("pais", selectedPais);
+        // Ubicación y universidad
+        formData.append("pais_id", String(paises.find(p => p.nom_pais === selectedPais)?.id || ""));
         if (selectedPais === "México") {
-            formData.append("estado", selectedEstado);
-            formData.append("universidad", selectedUniversidad);
+            formData.append("estado_id", String(estados.find(e => e.nom_estado === selectedEstado)?.id || ""));
+            formData.append("universidad_mexico_id", String(universidades.find(u => u.universidad_nombre === selectedUniversidad)?.id || ""));
         } else {
-            formData.append("universidad", universidadExtranjera);
+            formData.append("universidad_extranjera", universidadExtranjera);
         }
-        formData.append("carrera", selectedCarrera);
-        formData.append("semestre", selectedSemestre);
-        
-        // Preferencias alimentarias
-        formData.append("vegano", vegano);
-        formData.append("restriccionAlimentaria", restriccionAlimentaria);
-        if (tieneRestriccion) formData.append("especificacionRestriccion", especificacionRestriccion);
 
-        // Información profesiona
-        if (cvFile) formData.append("cv", cvFile);
-        formData.append("linkedin", linkedin);
-        formData.append("github", github);
+        // Académico
+        formData.append("carrera_id", String(carreras.find(c => c.carrera_nombre === selectedCarrera)?.id || ""));
+        formData.append("semestre_id", String(semestres.find(s => s.descripcion === selectedSemestre)?.id || ""));
 
-        // Acuerdos
-        formData.append("mlhConducta", String(mlhConducta));
-        formData.append("mlhLogistica", String(mlhLogistica));
-  
-        // Cuando conectes el backend, descomenta esto:
-        // try {
-        //   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, { method: "POST", body: formData });
-        //   const data = await res.json();
-        //   console.log("Registro exitoso:", data);
-        // } catch (error) {
-        //   console.error("Error al enviar:", error);
-        // }
+        // Alimentación
+        formData.append("vegana", String(vegano === "si"));
+        formData.append("tiene_restriccion_alimentaria", String(restriccionAlimentaria === "si"));
+        if (tieneRestriccion) formData.append("detalle_restriccion_alimentaria", especificacionRestriccion);
 
-        // Simulación — reemplaza esto cuando conectes el backend
-        console.log("Datos listos para enviar:", Object.fromEntries(formData));
+        // Archivos
+        if (cvFile) formData.append("cv_file", cvFile);
+        if (permisoFile) formData.append("permiso_file", permisoFile);
+
+        // Opcionales
+        formData.append("linkedin_url", linkedin);
+        formData.append("github_url", github);
+
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
+            method: "POST",
+            body: formData,
+        });
+
+        const text = await res.text();
+        console.log("Respuesta raw:", text);
+        console.log("Status:", res.status);
+
+        if (!res.ok) {
+
+            console.error("Error del servidor:", text);
+            return;
+        }
+
+    
+        console.log("Registro exitoso:");
         setRegistroEnviado(true);
+
+        } catch (error) {
+            console.error("Error al enviar:", error);
+        }
     };
     
     
