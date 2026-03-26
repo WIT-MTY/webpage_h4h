@@ -4,6 +4,7 @@ export const useEquipo = () => {
         {img:"/images/equipo_images/Nicky.png",
         nombre: "mia nicole arámbula barraza",
         puesto: "presidenta",
+        area: "",
         contacto: {
             correo:"mnicole.arambula@gmail.com",
             linkedin:"https://www.linkedin.com/in/mia-nicole-arambula-barraza-5831a3324/"
@@ -13,6 +14,7 @@ export const useEquipo = () => {
         {img:"/images/equipo_images/Mariel.png",
         nombre: "paulina mariel garcía alanís ",
         puesto: "vicepresidenta",
+        area: "",
         contacto: {
             correo:"pmga1234@gmail.com",
             linkedin:"https://www.linkedin.com/in/paulina-mariel-garcia-alanis"
