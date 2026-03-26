@@ -19,7 +19,7 @@ export const useEquipo = () => {
             }  
         },
 
-        {img:"/images/equipo_images/Elisa Cázares.png",
+        {img:"/images/equipo_images/Elisa.png",
         nombre: "elisa anahe cázares lópez",
         puesto: "directora",
         area: "marketing",
@@ -29,7 +29,7 @@ export const useEquipo = () => {
             }  
         },
 
-        {img:"/images/equipo_images/Caro Cruz.png",
+        {img:"/images/equipo_images/Caro.png",
         nombre: "carolina cruz rangel",
         puesto: "directora",
         area: "proyectos",
@@ -49,7 +49,7 @@ export const useEquipo = () => {
             }  
         },
 
-        {img:"/images/equipo_images/Andre de la Peña.png",
+        {img:"/images/equipo_images/Andrea.png",
         nombre: "andrea estefanía de la peña contreras",
         puesto: "directora",
         area: "finanzas",
@@ -89,7 +89,7 @@ export const useEquipo = () => {
             }
         },
 
-        {img:"/images/equipo_images/Gali2.png",
+        {img:"/images/equipo_images/Gali.png",
         nombre: "anna galilea restrepo martínez",
         puesto: "coordinadora",
         area: "software",
@@ -134,8 +134,7 @@ export const useEquipo = () => {
         puesto: "coordinadora",
         area: "marketing",
         contacto: {
-            correo:"A01621413@tec.mty",
-            linkedin:"https://www.linkedin.com/in/ejemplo"
+            correo:"A01621413@tec.mty"
             }  
         },
 
@@ -144,8 +143,7 @@ export const useEquipo = () => {
         puesto: "coordinadora",
         area: "marketing",
         contacto: {
-            correo:"correo@ejemplo.com",
-            linkedin:"https://www.linkedin.com/in/ejemplo"
+            correo:"emmasyga@gmail.com",
             }  
         },
 
@@ -160,11 +158,11 @@ export const useEquipo = () => {
         },
 
         {img:"/images/equipo_images/Ethiel.png",
-        nombre: "ethiel favila alvarado ",
+        nombre: "ethiel favila alvarado",
         puesto: "coordinadora",
         area: "marketing",
         contacto: {
-            correo:"correo@ejemplo.com",
+            correo: "A00844789@tec.mx",
             linkedin:"https://www.linkedin.com/in/ethiel-favila-alvarado-459ba2358/"
             }  
         },
@@ -264,8 +262,7 @@ export const useEquipo = () => {
         puesto: "coordinadora",
         area: "responsabilidad social",
         contacto: {
-            correo:"correo@ejemplo.com",
-            linkedin:"https://www.linkedin.com/in/ejemplo"
+            correo: "A00841920@tec.mx"
             }
         },
 

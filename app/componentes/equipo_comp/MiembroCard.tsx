@@ -4,7 +4,7 @@ interface MiembroCardProps {
     foto_m: string;
     nombre_m: string;
     puesto_m: string;
-    area_m: string;
+    area_m?: string;
     contacto_m?: {
         correo_m: string;
         linkedin_m: string;
@@ -37,7 +37,12 @@ const MiembroCard = (props: MiembroCardProps) => {
         
                         </p>
                     )}
-                    <p className="text-white text-center text-xs sm:text-sm md:text-base">Correo: {props.contacto_m?.correo_m}</p>
+                   {props.contacto_m?.correo_m && (
+                        <p className="text-white text-center text-xs sm:text-sm md:text-base ">
+                            <p className="text-white text-center text-xs sm:text-sm md:text-base">Correo: {props.contacto_m?.correo_m}</p>
+        
+                        </p>
+                    )} 
                 </div>
             </div>
 
@@ -47,9 +52,11 @@ const MiembroCard = (props: MiembroCardProps) => {
                     <h1 className="font-high-cruiser text-white text-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">{props.nombre_m}</h1>
                 </div>
 
-                <div className="p-2 md:p-3 lg:p-4 rounded-2xl" style={{background: "#4F123F"}}>
-                    <h1 className="font-high-cruiser text-white text-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">{props.area_m}</h1>
-                </div>
+                {props.area_m && (
+                    <div className="p-2 md:p-3 lg:p-4 rounded-2xl" style={{background: "#4F123F"}}>
+                        <h1 className="font-high-cruiser text-white text-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">{props.area_m}</h1>
+                    </div>
+                )}
 
                 <div className="p-2 md:p-3 lg:p-4 rounded-2xl" style={{background: "#4F123F"}}>
                     <h1 className="font-high-cruiser text-white text-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">{props.puesto_m}</h1>

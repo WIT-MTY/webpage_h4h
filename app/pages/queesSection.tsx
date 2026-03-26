@@ -14,7 +14,7 @@ const QueEsSection = () => {
             <div className="relative z-10 w-full text-center mb-12 -mt-8">
                 <h1 className="font-high-cruiser text-6xl md:text-7xl lg:text-8xl font-bold text-white uppercase">
                     <div className="leading-none whitespace-pre">
-                        <span className="font-big-shoulders font-normal">¿</span>qué      es</div>
+                        <span className="font-big-shoulders font-normal">   ¿</span>qué   es     </div>
                     <div className="-mt-20 md:-mt-24 lg:-mt-32 leading-none">
                          hack<span className="text-9xl md:text-[10rem] lg:text-[14rem] font-normal font-big-shoulders">4</span>her<span className="font-big-shoulders font-normal">?</span>
                     </div>
