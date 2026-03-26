@@ -49,9 +49,12 @@ const NavBar = () => {
         <FAQSection />
         <ContactanosSection />
 
-        {activeSection !== "home" && (
-            <AdaGuia activeSection={activeSection} />
-        )}
+        
+        <div className="hidden md:hidden lg:block">
+            {activeSection !== "home" && (
+                <AdaGuia activeSection={activeSection} />
+            )}
+        </div>
 
         {/* Badge de MLH */}
         <BadgeMLH />

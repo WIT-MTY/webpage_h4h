@@ -15,7 +15,7 @@ const Header = ({ onSectionChange }: HeaderProps) => {
   useEffect(() => {
     const handleScroll = () => {
       const sections = [
-        "home", "inicio", "acerca", "quees", "ubicacion", "cronograma", 
+        "home", "inicio", "acerca", "quees", "ubicacion", "calendario", 
         "retos", "equipo", "patrocinador", "galeria", "faq", "contactanos"
       ];
 

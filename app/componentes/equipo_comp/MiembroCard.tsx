@@ -38,10 +38,10 @@ const MiembroCard = (props: MiembroCardProps) => {
                         </p>
                     )}
                    {props.contacto_m?.correo_m && (
-                        <p className="text-white text-center text-xs sm:text-sm md:text-base ">
+                        
                             <p className="text-white text-center text-xs sm:text-sm md:text-base">Correo: {props.contacto_m?.correo_m}</p>
         
-                        </p>
+                    
                     )} 
                 </div>
             </div>
