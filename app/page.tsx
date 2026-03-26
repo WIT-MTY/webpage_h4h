@@ -6,7 +6,6 @@ export default function Home() {
   return (
     <div>
       <NavBar />
-      <Footer /> 
       {/*
       <p className="font-questrial text-4xl font-bold text-principal-rosa">HACK4HER</p>
       <p className="font-questrial text-4xl font-bold text-principal-rosa-50">HACK4HER</p>
@@ -32,7 +31,7 @@ export default function Home() {
       <p>-----</p>
       <p className="font-questrial text-3xl font-bold text-secundario-rosa-claro">HACK4HER</p>
       <p className="font-questrial text-3xl font-bold text-secundario-rosa-claro-800">HACK4HER</p> */}
-      
+
     </div>
   )
 }
