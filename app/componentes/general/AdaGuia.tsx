@@ -20,11 +20,11 @@ interface SectionStyle {
 const sectionStyles: { [key: string]: SectionStyle } = {
         /* Modificar por seccion */
         home: {top: '50%', left: '50%', rotation: -90, size: 'w-50 md:w-70', mess: 'Mess Home', up_mess: 80, left_mess: 100},
-        acerca: {top: '52%', left: '77%', rotation: -3, size: 'w-[min(88vw,1200px)]', mess: 'Soy Ada, Orgullosamente parte del equipo', up_mess: 120, left_mess: 50},
+        acerca: {top: '52%', left: '77%', rotation: -3, size: 'w-[min(88vw,1200px)]', mess: '¡Soy Ada, orgullosamente parte del equipo!', up_mess: 120, left_mess: 50},
         quees: {top: '70%', left: '15%', rotation: 40, size: 'w-50 md:w-70', mess: '¿Ya te apuntaste?', up_mess: 140, left_mess: 50},
         ubicacion: {top: '40%', left: '85%', rotation: 20, size: 'w-50 md:w-70', mess: '¡Aquí nos vemos!', up_mess: 20, left_mess: 50},
         calendario: {top: '60%', left: '10%', rotation: -15, size: 'w-50 md:w-70', mess: '¡Revisa nuestro calendario!', up_mess: 140, left_mess: 50},
-        retos: {top: '55%', left: '85%', rotation: 25, size: 'w-50 md:w-70', mess: 'Mess Retos', up_mess: 10, left_mess: 50},
+        retos: {top: '55%', left: '85%', rotation: 25, size: 'w-50 md:w-70', mess: '¡Los retos están por llegar!', up_mess: 10, left_mess: 50},
         equipo: {top: '85%', left: '84%', rotation: 35, size: 'w-50 md:w-70', mess: '!Conoce al equipo detrás de H4H!', up_mess: 180, left_mess: 50},
         patrocinador: {top: '60%', left: '15%', rotation: -1, size: 'w-50 md:w-70', mess: '!Conoce a nuestro patrocinador!', up_mess: 200, left_mess: 60},
         galeria: {top: '35%', left: '80%', rotation: 40, size: 'w-50 md:w-70', mess: '¡Revive el H4H!', up_mess: 140, left_mess: 50},

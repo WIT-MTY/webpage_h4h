@@ -90,13 +90,21 @@ return (
     className="relative min-h-screen overflow-hidden py-20 px-4"
     style={{ backgroundColor: "#4A0C32" }}
     >
-    <BackgroundDecor />
+    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <BackgroundDecor />
+        <style jsx>{`
+            /* Ocultar la estrella superior izquierda */
+            div > :global(div:nth-child(3)) {
+                display: none !important;
+            }
+        `}</style>
+    </div>
 
       {/* ── Contenido ── */}
     <div className="relative z-10 max-w-5xl mx-auto">
         <div className="text-center mb-14">
         <h1 className="font-high-cruiser text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white text-center mb-6 z-10">
-            Preguntas<br />Frecuentes
+            PREGUNTAS<br />FRECUENTES
         </h1>
         <div className="flex items-center justify-center gap-3 mt-4">
             <div className="h-0.5 w-16 bg-principal-rosa" />

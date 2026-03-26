@@ -26,8 +26,8 @@ const ContactanosSection = () => {
             <h1 className="font-high-cruiser text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl text-white mb-6 z-10 underline">
               CONTÁCTANOS
             </h1>
-            <p className="text-white text-lg md:text-xl lg:text-2xl hover:text-pink-500 transition-colors duration-300"><a href="mailto:wit.mty@gmail.com">CORREO</a></p>
-            <p className="text-white text-lg md:text-xl lg:text-2xl hover:text-pink-500 transition-colors duration-300"><a href="https://www.instagram.com/hack4her.mty/" target="_blank">INSTAGRAM</a></p>
+            <p className="text-white text-lg md:text-xl lg:text-2xl hover:text-pink-500 transition-colors duration-300"><a href="mailto:hack4her.mty@gmail.com">CORREO</a></p>
+            
           </div>
 
           <div className="text-center lg:text-right w-full lg:w-1/2 mt-16 md:mt-20 lg:mt-24">
@@ -54,7 +54,7 @@ const ContactanosSection = () => {
               <FaTiktok />
             </a>
 
-            <a href="https://www.linkedin.com/company/82364150/" target="_blank"
+            <a href="https://www.linkedin.com/company/wit-mty/posts/?feedView=all" target="_blank"
               className="text-white text-4xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-5xl hover:text-pink-500 transition-colors duration-300 ease-in-out hover:scale-110 cursor-pointer">
               <FaLinkedin />
             </a>

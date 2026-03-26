@@ -19,7 +19,7 @@ const GaleriaSection = () => {
                         ¡En Hack4Her nos comprometemos a que nunca falte la diversión!
                     </p>
                     <p className="text-white text-lg md:text-xl lg:text-2xl font-light opacity-90">
-                        Mira cómo se vivió la edición de Hack4Her 2025
+                        Mira cómo se vivió la edición de Hack4Her 2025.
                     </p>
                 </div>
                 {/* Carrusel de fotos*/}
