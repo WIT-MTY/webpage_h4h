@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from "react";
 
-import "react-datepicker/dist/react-datepicker.css";
+
 
 
 export default function PageAdmin() {
