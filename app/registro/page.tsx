@@ -219,7 +219,7 @@ export default function PageFormulario() {
 
         // Datos personales
         formData.append("nombre", nombre);
-        formData.append("apellido", apellidos); // ← tu BD usa "apellido" no "apellidos"
+        formData.append("apellido", apellidos); 
         formData.append("fecha_nacimiento", fechaNacimiento);
         formData.append("telefono", telefono);
         formData.append("genero_id", String(generos.find(g => g.descripcion === selectedGenero)?.id || ""));

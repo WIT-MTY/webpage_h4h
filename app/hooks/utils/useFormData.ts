@@ -42,11 +42,14 @@ export const useFormData = () => {
         setCARRERAS(carreras.map((c: CatalogBackend) => ({ id: c.value, carrera_nombre: c.label })));
         setSEMESTRES(semestres.map((s: CatalogBackend) => ({ id: s.value, descripcion: s.label })));
 
+        
+
       } catch (error) {
         console.error("Error al cargar catálogos:", error);
       } finally {
         setLoading(false);
       }
+      
     };
 
     fetchCatalogos();
