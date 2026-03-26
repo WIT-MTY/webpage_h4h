@@ -115,7 +115,7 @@ export const useEquipo = () => {
         area: "software",
         contacto: {
             correo:"reg.flores0015@gmail.com",
-            linkedin:"https://www.linkedin.com/in/ejemplo"
+            linkedin:"https://www.linkedin.com/in/reginaf/"
             }  
         },
 
