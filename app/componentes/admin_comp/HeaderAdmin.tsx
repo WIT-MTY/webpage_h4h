@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const NAV_ITEMS = [
     {
@@ -44,6 +44,28 @@ const NAV_ITEMS = [
 
 export default function HeaderAdmin() {
   const pathname = usePathname();
+  const router = useRouter(); 
+
+  const logout = async () => {
+    try {
+        const token = document.cookie
+            .split("; ")
+            .find(row => row.startsWith("token="))
+            ?.split("=")[1];
+
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+    } catch (error) {
+        console.error("Error al cerrar sesión:", error);
+    } finally {
+        document.cookie = "token=; path=/; max-age=0";
+        router.push("/registro/iniciosesion");
+    }
+};
 
   return (
     <aside className="w-56 min-h-screen flex flex-col shrink-0 border-r border-[#4A0C32]/20" style={{ background: "#F0CEE3" }}>
@@ -79,19 +101,18 @@ export default function HeaderAdmin() {
         })}
       </nav>
 
-      {/* Cerrar sesión al fondo */}
-      {/*
-      <div className="px-4 pb-6 border-t border-[#4A0C32]/20 pt-4">
-        <Link
-          href="/registro/iniciosesion"
-          className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-red-600 hover:bg-red-100 transition-colors"
+      {/* Cerrar sesión */}
+      <div className="px-4 pb-6 border-t border-[#4A0C39]/20 pt-4">
+        <button
+          onClick={logout}
+          className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-[#4A0C32]  hover:bg-[#4A0C32]/30 transition-colors"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
           </svg>
           <span>Cerrar sesión</span>
-        </Link>
-      </div>*/}
+        </button>
+      </div>
 
     </aside>
   );

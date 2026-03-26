@@ -38,19 +38,18 @@ export default function PageFormulario() {
             }
         
             const data = await res.json();
+            
 
             
             document.cookie = `token=${data.access_token}; path=/; max-age=${60 * 60 * 8}`;
 
-            router.push("/User");
+            if (data.is_admin) {
+                router.push("/Admin");
+            } else {
+                router.push("/User");
+            }
 
-            //borrar
-            /*
-            console.log("Enviando:", { email: correo, password: contrasena });
-            console.log("URL:", `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`);
-            console.log("Status:", res.status);
-            console.log("Response:", await res.clone().json());
-            */
+            
 
         }catch (error) {
             setErrorGeneral("Error al iniciar sesión, intenta de nuevo");

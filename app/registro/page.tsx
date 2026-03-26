@@ -9,6 +9,8 @@ export default function PageFormulario() {
 
     const [registroEnviado, setRegistroEnviado] = useState(false);
     const [selectedEstadoId, setSelectedEstadoId] = useState<number | null>(null);
+    const [errorGeneral, setErrorGeneral] = useState("");
+
 
     //recibir datos de backend
     const { GENEROS, TALLAS, PAISES, ESTADOS, UNIVERSIDADES, CARRERAS, SEMESTRES, loading } = useFormData();
@@ -248,7 +250,7 @@ export default function PageFormulario() {
         // Opcionales
         formData.append("linkedin_url", linkedin);
         formData.append("github_url", github);
-
+        
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
             method: "POST",
             body: formData,
@@ -259,8 +261,12 @@ export default function PageFormulario() {
         console.log("Status:", res.status);
 
         if (!res.ok) {
-
-            console.error("Error del servidor:", text);
+            const errorData = JSON.parse(text);
+        if (errorData.error === "User already registered") {
+            setErrores({ correo: "Este correo ya está registrado, intenta con otro" });
+        } else {
+            setErrores({ correo: errorData.error || "Ocurrió un error, intenta de nuevo" });
+        }
             return;
         }
 
@@ -270,6 +276,7 @@ export default function PageFormulario() {
 
         } catch (error) {
             console.error("Error al enviar:", error);
+            setErrorGeneral("Error de conexión, verifica tu internet e intenta de nuevo");
         }
     };
     
@@ -879,6 +886,12 @@ export default function PageFormulario() {
                             </p>
                         </div>
                     </div>
+
+                    {errorGeneral && (
+                        <p className="text-red-400 text-sm text-center bg-red-400/10 p-3 rounded-lg">
+                            {errorGeneral}
+                        </p>
+                    )}
 
                     <button type="submit" className="w-full bg-purple-600 text-white py-4 rounded-lg hover:bg-purple-700 transition-colors text-lg font-semibold">
                         Enviar registro

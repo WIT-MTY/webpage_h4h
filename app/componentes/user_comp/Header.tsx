@@ -28,10 +28,26 @@ export default function Header() {
   const pathname = usePathname();
   const router = useRouter(); 
 
-  const logout = () => {
-    document.cookie = "token=; path=/; max-age=0"; 
-    router.push("/registro/iniciosesion");
-  };
+  const logout = async () => {
+    try {
+        const token = document.cookie
+            .split("; ")
+            .find(row => row.startsWith("token="))
+            ?.split("=")[1];
+
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+    } catch (error) {
+        console.error("Error al cerrar sesión:", error);
+    } finally {
+        document.cookie = "token=; path=/; max-age=0";
+        router.push("/registro/iniciosesion");
+    }
+};
 
   return (
     <aside className="w-56 min-h-screen flex flex-col shrink-0 border-r border-[#4A0C32]/20" style={{ background: "#F0CEE3" }}>
@@ -67,8 +83,7 @@ export default function Header() {
         })}
       </nav>
 
-      {/* Cerrar sesión al fondo */}
-     
+      {/* Cerrar sesión */}
       <div className="px-4 pb-6 border-t border-[#4A0C39]/20 pt-4">
         <button
           onClick={logout}
