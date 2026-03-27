@@ -20,7 +20,7 @@ import RetosSection from "@/app/pages/retosSection";
 {/* -- 7 -- */}
 import EquipoSection from "@/app/pages/equipoSection";
 {/* -- 8 -- */}
-import PatrocinadorSection from "@/app/pages/patrocinadorSection";
+// import PatrocinadorSection from "@/app/pages/patrocinadorSection";
 {/* -- 9 -- */}
 import GaleriaSection from "@/app/pages/galeriaSection";
 {/* -- 10 -- */}
@@ -44,7 +44,7 @@ const NavBar = () => {
         <CalendarioSection />
         <RetosSection />
         <EquipoSection />
-        <PatrocinadorSection />
+        {/* <PatrocinadorSection /> */}
         <GaleriaSection />
         <FAQSection />
         <ContactanosSection />

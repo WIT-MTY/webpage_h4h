@@ -28,10 +28,10 @@ const RetosSection = () => {
                 </h1>
 
                 {/* Grid of Reto Cards - totalmente escalable con viewport */}
-                <div className="relative">
+                <div className="w-[min(85vw,70vh,600px)] mx-auto relative">
                     {/* Panel Muy Pronto */}
                     <div
-                        className="absolute -inset-4 rounded-2xl flex flex-col items-center justify-center gap-3 z-20"
+                        className="absolute -inset-4 rounded-2xl flex flex-col items-center justify-center gap-3 z-20 p-4"
                         style={{
                             backdropFilter: "blur(6px)",
                             WebkitBackdropFilter: "blur(6px)",
@@ -39,20 +39,20 @@ const RetosSection = () => {
                             cursor: "default",
                         }}
                     >
-                        <svg className="w-10 h-10" fill="none" stroke="#ff2871" strokeWidth={1.5} viewBox="0 0 24 24">
+                        <svg className="w-[min(10vw,2.5rem)] h-[min(10vw,2.5rem)] flex-shrink-0" fill="none" stroke="#ff2871" strokeWidth={1.5} viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round"
                                 d="M16.5 10.5V7a4.5 4.5 0 10-9 0v3.5M5 10.5h14a1 1 0 011 1V20a1 1 0 01-1 1H5a1 1 0 01-1-1v-8.5a1 1 0 011-1z" />
                         </svg>
-                        <p className="font-high-cruiser text-neutro-blanco text-4xl tracking-widest uppercase">
+                        <p className="font-high-cruiser text-neutro-blanco tracking-widest uppercase text-center" style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)' }}>
                             Muy Pronto
                         </p>
-                        <p className="font-montserrat text-neutro-blanco text-sm opacity-70 tracking-wider uppercase">
+                        <p className="font-montserrat text-neutro-blanco opacity-70 tracking-wider uppercase text-center" style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)' }}>
                             ¡Vuelve más tarde!
                         </p>
                     </div>
                     {/* Fin Panel Muy Pronto */}
 
-                    <div className="grid grid-cols-2 gap-[min(2vw,1.5vh,1rem)] w-[min(85vw,70vh,600px)] mx-auto">
+                    <div className="grid grid-cols-2 gap-[min(2vw,1.5vh,1rem)]">
                         {retos.map((reto) => (
                             <RetoCard key={reto.id} title={reto.title} />
                         ))}

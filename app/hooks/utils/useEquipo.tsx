@@ -71,7 +71,7 @@ export const useEquipo = () => {
             }  
         },
 
-        {img:"/images/equipo_images/miembro_test.png",
+        {img:"/images/equipo_images/miembro_faltante_foto.png",
         nombre: "fátima castillo aguirre",
         puesto: "directora",
         area: "software",
@@ -101,7 +101,7 @@ export const useEquipo = () => {
             }  
         },
 
-        {img:"/images/equipo_images/miembro_test.png",
+        {img:"/images/equipo_images/Dana2.png",
         nombre: "dana elizabeth torres estrada",
         puesto: "coordinadora",
         area: "software",

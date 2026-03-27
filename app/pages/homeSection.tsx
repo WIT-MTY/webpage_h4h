@@ -115,7 +115,7 @@ const HomeSection = () => {
                 </div>
 
                 {/* HACK4HER — misma altura en HACK/HER; grupo centrado en el rectángulo */}
-                <div className="relative w-[min(96vw,64rem)] shrink-0">
+                <div className="relative w-[min(96vw,64rem)] shrink-0 overflow-hidden">
                     {/* Background Rectangle */}
                     <img
                         src="/images/figuras/rectangle_inicio.svg"
@@ -131,21 +131,21 @@ const HomeSection = () => {
                             paddingRight: 'clamp(2.5rem, 10vw, 8rem)',
                         }}
                     >
-                        <div className="flex max-w-full items-center justify-center gap-1 sm:gap-1.5 md:gap-2.5">
+                        <div className="flex max-w-full max-h-full items-center justify-center gap-1 sm:gap-1.5 md:gap-2.5">
                             <img
                                 src="/images/figuras/HACK.svg"
                                 alt="HACK"
-                                className="h-11 w-auto max-h-[5.5rem] shrink-0 object-contain object-center sm:h-14 md:h-[4.35rem] lg:h-[5.35rem]"
+                                className="h-11 w-auto max-h-[12vw] max-w-[25vw] shrink-0 object-contain object-center sm:h-14 sm:max-h-[10vw] md:h-[4.35rem] md:max-h-[8vw] lg:h-[5.35rem] lg:max-h-[7vw]"
                             />
                             <img
                                 src="/images/figuras/4.svg"
                                 alt="4"
-                                className="h-[4.75rem] w-auto max-h-[min(42vh,9.5rem)] shrink-0 object-contain object-center sm:h-[5.75rem] md:h-[7.25rem] lg:h-[9.25rem]"
+                                className="h-[4.75rem] w-auto max-h-[18vw] max-w-[20vw] shrink-0 object-contain object-center sm:h-[5.75rem] sm:max-h-[16vw] md:h-[7.25rem] md:max-h-[14vw] lg:h-[9.25rem] lg:max-h-[12vw]"
                             />
                             <img
                                 src="/images/figuras/HER.svg"
                                 alt="HER"
-                                className="h-11 w-auto max-h-[5.5rem] shrink-0 object-contain object-center sm:h-14 md:h-[4.35rem] lg:h-[5.35rem]"
+                                className="h-11 w-auto max-h-[12vw] max-w-[25vw] shrink-0 object-contain object-center sm:h-14 sm:max-h-[10vw] md:h-[4.35rem] md:max-h-[8vw] lg:h-[5.35rem] lg:max-h-[7vw]"
                             />
                         </div>
                     </div>

@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+
 interface MiembroCardProps {
     foto_m: string;
     nombre_m: string;
@@ -19,11 +21,15 @@ const MiembroCard = (props: MiembroCardProps) => {
             <div className="w-full md:w-1/2 p-4 md:p-6 flex flex-col items-center">
 
                 <div className="w-full">
-                    <img 
-                    src={props.foto_m}
-                    alt={props.nombre_m}
-                    className="w-24 h-24 sm:w-28 sm:h-40 md:w-40 md:h-32 lg:w-50 lg:h-36 object-cover rounded-full mx-auto mb-2" 
-                    />
+                    <div className="relative w-24 h-24 sm:w-28 sm:h-40 md:w-40 md:h-32 lg:w-50 lg:h-36 mx-auto mb-2">
+                        <Image
+                            src={props.foto_m}
+                            alt={props.nombre_m}
+                            fill
+                            className="object-cover rounded-full"
+                            sizes="(max-width: 640px) 96px, (max-width: 768px) 112px, (max-width: 1024px) 160px, 200px"
+                        />
+                    </div>
                     <h1 className="font-high-cruiser text-white text-center font-bold text-xl sm:text-2xl">contacto</h1>
                     {props.contacto_m?.linkedin_m && (
                         <p className="text-white text-center text-xs sm:text-sm md:text-base underline">
