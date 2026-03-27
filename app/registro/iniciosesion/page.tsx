@@ -40,9 +40,10 @@ export default function PageFormulario() {
         
             const data = await res.json();
             
-
-            
             document.cookie = `token=${data.access_token}; path=/; max-age=${60 * 60 * 8}`;
+            const payload = JSON.parse(atob(data.access_token.split(".")[1]));
+
+            document.cookie = `usuarioBaseId=${payload.sub}; path=/; max-age=${60 * 60 * 8}`;
 
             if (data.is_admin) {
                 router.push("/Admin");
@@ -50,13 +51,10 @@ export default function PageFormulario() {
                 router.push("/User");
             }
 
-            
-
         }catch (error) {
             setErrorGeneral("Error al iniciar sesión, intenta de nuevo");
         }
 
-        
     };
 
    

@@ -222,37 +222,37 @@ export default function PageAdmin() {
               </div>
 
               {/* Columna de acciones fija — solo en "En revisión" */}
-{filtro === 1 && (
-  <div className="shrink-0 w-36 border-l border-white/10">
-    <div className="px-4 py-3 border-b border-white/10 text-white/60 text-xs font-semibold uppercase">
-      Acciones
-    </div>
+              {filtro === 1 && (
+                <div className="shrink-0 w-36 border-l border-white/10">
+                  <div className="px-4 py-3 border-b border-white/10 text-white/60 text-xs font-semibold uppercase">
+                    Acciones
+                  </div>
 
-    {participantesFiltrados.length === 0 ? (
-      <div className="py-8" />
-    ) : (
-      participantesFiltrados.map((p) => (
-        <div key={p.id} className="border-b border-white/10 last:border-0">
-          <div className="px-3 py-4 flex flex-col gap-2 justify-center min-h-[64px]">
-            <button
-              onClick={() => cambiarEstado(p.id, 2)}
-              className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-xs rounded-md transition-colors"
-            >
-              Aceptar
-            </button>
-            <button
-              onClick={() => cambiarEstado(p.id, 3)}
-              className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-xs rounded-md transition-colors"
-            >
-              Rechazar
-            </button>
-          </div>
-          {expandida === p.id && <div className="py-6 px-3 bg-white/5 min-h-[200px]" />}
-        </div>
-      ))
-    )}
-  </div>
-)}
+                  {participantesFiltrados.length === 0 ? (
+                    <div className="py-8" />
+                  ) : (
+                    participantesFiltrados.map((p) => (
+                    <div key={p.id} className="border-b border-white/10 last:border-0">
+                      <div className="px-3 py-4 flex flex-col gap-2 justify-center min-h-[64px]">
+                        <button
+                          onClick={() => cambiarEstado(p.id, 2)}
+                          className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-xs rounded-md transition-colors"
+                        >
+                          Aceptar
+                        </button>
+                        <button
+                          onClick={() => cambiarEstado(p.id, 3)}
+                          className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-xs rounded-md transition-colors"
+                        >
+                          Rechazar
+                        </button>
+                      </div>
+                      {expandida === p.id && <div className="py-6 px-3 bg-white/5 min-h-[200px]" />}
+                    </div>
+                  ))
+                )}
+              </div>
+            )}
             </div>
 
           </div>

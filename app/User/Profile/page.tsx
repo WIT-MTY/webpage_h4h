@@ -1,93 +1,64 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useFetchProtegido } from '@/app/hooks/utils/useFetchProtegido';
 
 // 
 interface Usuario {
   nombre: string;
-  apellidos: string;
+  apellido: string;              
   genero: string;
-  talla: string;
-  fechaNacimiento: string;
+  talla_playera: string;       
+  fecha_nacimiento: string;      
   telefono: string;
   pais: string;
   estado?: string;
-  universidad?: string;
-  universidadMexico?: string;
+  universidad: string;          
   carrera: string;
   semestre: string;
-  vegano: boolean;
-  restriccionAlimentaria: boolean;
-  especificacionRestriccion?: string;
-  cv: string;
-  linkedin?: string;
-  github?: string;
-  estado_actual: number;
+  vegana: boolean;               
+  tiene_restriccion_alimentaria: boolean; 
+  detalle_restriccion_alimentaria?: string;
+  cv_url: string;           
+  linkedin_url?: string;
+  github_url?: string;
 }
 
-// Simulación — reemplaza con datos reales del backend
-const usuarioEjemplo: Usuario = {
-  nombre: "Ana",
-  apellidos: "García López",
-  genero: "Mujer",
-  talla: "M",
-  fechaNacimiento: "2000-05-12",
-  telefono: "81 1234 5678",
-  pais: "México",
-  estado: "Nuevo León",
-  universidad:"Furman",
-  universidadMexico: "Tec de Monterrey",
-  carrera: "Ingeniería en Tecnologías Computacionales",
-  semestre: "6to semestre",
-  vegano: false,
-  restriccionAlimentaria: false,
-  especificacionRestriccion: "",
-  cv: "cv_ana_garcia.pdf",
-  linkedin: "",
-  github: "",
-  estado_actual: 1,
-};
+
 
 export default function UserProfile() {
   const router = useRouter();
+  const { fetchProtegido } = useFetchProtegido();
   const [usuario, setUsuario] = useState<Usuario | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const obtenerPerfil = async () => {
-      const token = localStorage.getItem("token");
+        const usuarioBaseId = document.cookie
+          .split("; ")
+          .find(row => row.startsWith("usuarioBaseId="))
+          ?.split("=")[1];
 
-      /*if (!token) {
-        router.push("/registro/iniciosesion");
-        return;
-      }*/
+          if (!usuarioBaseId) {
+            router.push("/registro/iniciosesion");
+            return;
+          }
 
-      // Simulación — reemplaza esto cuando conectes el backend
-      setUsuario(usuarioEjemplo);
-      setLoading(false);
+           try {
+            const data = await fetchProtegido(
+                `${process.env.NEXT_PUBLIC_API_URL}/participantes/${usuarioBaseId}`
+            );
+            if (data) setUsuario(data);
+          } catch (error) {
+            console.error("Error al obtener perfil:", error);
+          } finally {
+            setLoading(false);
+          }
+        };
 
-      // Cuando conectes el backend, reemplaza la simulación por esto:
-      // try {
-      //   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, {
-      //     headers: { Authorization: `Bearer ${token}` },
-      //   });
-      //
-      //   if (!res.ok) {
-      //     router.push("/registro/iniciosesion");
-      //     return;
-      //   }
-      //
-      //   const data = await res.json();
-      //   setUsuario(data);
-      // } catch (error) {
-      //   console.error("Error al obtener perfil:", error);
-      // } finally {
-      //   setLoading(false);
-      // }
-    };
+      obtenerPerfil();
+    }, []);
 
-    obtenerPerfil();
-  }, []);
 
   if (loading) {
     return (
@@ -118,7 +89,7 @@ export default function UserProfile() {
 
           <div>
             <p className="text-white/60 text-sm mb-1">Apellido(s)</p>
-            <p className="text-white font-medium">{usuario.apellidos}</p>
+            <p className="text-white font-medium">{usuario.apellido}</p>
           </div>
 
           <div>
@@ -128,12 +99,12 @@ export default function UserProfile() {
 
           <div>
             <p className="text-white/60 text-sm mb-1">Talla de playera</p>
-            <p className="text-white font-medium">{usuario.talla}</p>
+            <p className="text-white font-medium">{usuario.talla_playera}</p>
           </div>
 
           <div>
             <p className="text-white/60 text-sm mb-1">Fecha de nacimiento</p>
-            <p className="text-white font-medium">{usuario.fechaNacimiento}</p>
+            <p className="text-white font-medium">{usuario.fecha_nacimiento}</p>
           </div>
 
           <div>
@@ -163,7 +134,7 @@ export default function UserProfile() {
             {usuario.pais === "México" && (
               <div>
                 <p className="text-white/60 text-sm mb-1">Universiad</p>
-                <p className="text-white font-medium">{usuario.universidadMexico}</p>
+                <p className="text-white font-medium">{usuario.universidad}</p>
               </div>
             )}
 
@@ -194,19 +165,19 @@ export default function UserProfile() {
 
             <div>
               <p className="text-white/60 text-sm mb-1">¿Eres vegano/a?</p>
-              <p className="text-white font-medium">{usuario.vegano ? "Sí" : "No"}</p>
+              <p className="text-white font-medium">{usuario.vegana ? "Sí" : "No"}</p>
             </div>
 
             <div>
               <p className="text-white/60 text-sm mb-1">¿Tienes restricción alimentaria?</p>
-              <p className="text-white font-medium">{usuario.restriccionAlimentaria ? "Sí" : "No"}</p>
+              <p className="text-white font-medium">{usuario.tiene_restriccion_alimentaria ? "Sí" : "No"}</p>
 
             </div>
 
-            {usuario.restriccionAlimentaria === true && (
+            {usuario.tiene_restriccion_alimentaria === true && (
               <div>
                 <p className="text-white/60 text-sm mb-1">Especificación</p>
-                <p className="text-white font-medium">{usuario.especificacionRestriccion}</p>
+                <p className="text-white font-medium">{usuario.detalle_restriccion_alimentaria}</p>
               </div>
             )}
 
@@ -220,7 +191,7 @@ export default function UserProfile() {
 
             <div>
               <p className="text-white/60 text-sm mb-1">CV</p>
-                <a href={usuario.cv} target="_blank" rel="noopener noreferrer"
+                <a href={usuario.cv_url} target="_blank" rel="noopener noreferrer"
                   className="text-pink-300 hover:text-pink-200 underline transition-colors text-sm">
                   Ver CV
                 </a>
@@ -228,8 +199,8 @@ export default function UserProfile() {
 
             <div>
               <p className="text-white/60 text-sm mb-1">LinkedIn</p>
-              {usuario.linkedin ? (
-                <a href={usuario.linkedin} target="_blank" rel="noopener noreferrer"
+              {usuario.linkedin_url ? (
+                <a href={usuario.linkedin_url} target="_blank" rel="noopener noreferrer"
                   className="text-pink-300 hover:text-pink-200 underline transition-colors text-sm">
                   Ver perfil
                 </a>
@@ -240,8 +211,8 @@ export default function UserProfile() {
 
             <div>
               <p className="text-white/60 text-sm mb-1">GitHub</p>
-              {usuario.github ? (
-                <a href={usuario.github} target="_blank" rel="noopener noreferrer"
+              {usuario.github_url ? (
+                <a href={usuario.github_url} target="_blank" rel="noopener noreferrer"
                   className="text-pink-300 hover:text-pink-200 underline transition-colors text-sm">
                   Ver perfil
                 </a>

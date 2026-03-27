@@ -21,7 +21,7 @@ export default function PageUser() {
             }*/
 
             // Simulación — reemplaza esto cuando conectes el backend
-            setEstadoRegistro(1);
+            setEstadoRegistro(3);
             setLoading(false);
 
             // Cuando conectes el backend, reemplaza la simulación por esto:
@@ -62,7 +62,7 @@ export default function PageUser() {
                 <h1 className="font-high-cruiser text-6xl text-[#4A0C32] transition-colors">
                     ¡Bienvenida!
                 </h1>
-                <p className="text-[#4A0C32]">Revisa aquí los siguientes pasos para seguir tu camino al evento.</p>
+                <p className="text-[#4A0C32]">Revisa aquí los siguientes pasos para seguir tu camino ha Hack4Her.</p>
 
                 <div className="w-full h-0.5 bg-[#4A0C32] rounded-full mx-auto">
                     {/* Línea decorativa */}
