@@ -305,6 +305,7 @@ export default function PageFormulario() {
                         <h2 className="text-white text-4xl font-bold mb-4">¡Registro enviado!</h2>
                         <p className="text-pink-200 text-lg">¡Gracias por registrarte en H4H!</p>
                         <p className="text-pink-200 text-lg">Tu solicitud está en revisión.</p>
+                        <p className="text-pink-200 text-lg">Confirma tu registro desde el correo que te enviamos.</p>
                         <p className="text-pink-200 text-lg">Podrás ver el estado de tu registro iniciando sesión en la página.</p>
                     </div>
                 ) : (
