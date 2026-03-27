@@ -17,7 +17,6 @@ export const useFormData = () => {
     const fetchCatalogos = async () => {
       try {
         const BASE = process.env.NEXT_PUBLIC_API_URL;
-        console.log("BASE URL:", BASE);
 
         const [paises, estados, universidades, generos, tallas, carreras, semestres] =
           await Promise.all([
