@@ -19,7 +19,7 @@ const UbicacionSection = () => {
 }, []);
 
 const googleMapsUrl =
-    "https://www.google.com/maps/dir//Arena+Borregos+%7C+Gimnasio+Deportivo+ITESM,+Tecnologico,+Distrito+Tec,+64700+Monterrey,+N.L./@25.6770048,-100.450304,3737m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0x8662bfbf27fbf617:0x15b097506b6ef1db!2m2!1d-100.2873348!2d25.6506473?entry=ttu&g_ep=EgoyMDI2MDMxNS4wIKXMDSoASAFQAw%3D%3D";
+    "https://maps.app.goo.gl/uQJnimyV24oYeLoJA";
 
     return (
     <Section
@@ -111,7 +111,7 @@ const googleMapsUrl =
                 }}
             >
                 <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3595.7607084489795!2d-100.31287552375936!3d25.650684777382934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86629531b437f8d9%3A0x3f6f1e5e9f6e9f6e!2sTecnol%C3%B3gico%20de%20Monterrey!5e0!3m2!1ses!2smx!4v1234567890123!5m2!1ses!2smx"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3595.7914!2d-100.2897698!3d25.6488054!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8662bfb96c0b2719%3A0x3792e1a98d3a4b06!2sCentro%20Estudiantil!5e0!3m2!1ses!2smx!4v1234567890123!5m2!1ses!2smx"
                 style={{
                     border: 0,
                     pointerEvents: "none",
@@ -125,7 +125,7 @@ const googleMapsUrl =
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 tabIndex={-1}
-                title="Mapa Tecnológico de Monterrey"
+                title="Centro Estudiantil Tec de Monterrey"
                 />
                 {/* Label hover */}
                 <div
@@ -186,7 +186,7 @@ const googleMapsUrl =
                 margin: 0,
                 }}
             >
-                Arena Borregos | Gimnasio Deportivo ITESM
+                Centro de Congresos
             </p>
             <p
                 style={{

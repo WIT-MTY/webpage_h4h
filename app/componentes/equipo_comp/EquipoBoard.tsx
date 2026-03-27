@@ -82,8 +82,12 @@ const EquipoBoard = () => {
                             }}
                         />
                         
-                        <button onClick={handleCerrarCard}
-                            className="absolute -top-8 sm:-top-10 right-0 text-white text-2xl sm:text-3xl hover:text-gray-300 transition-colors w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-pink rounded-full backdrop-blur-sm"
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleCerrarCard();
+                            }}
+                            className="absolute -top-8 sm:-top-10 right-0 text-white text-2xl sm:text-3xl hover:text-[#FF2871] transition-colors duration-300 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-[#4A0C32] rounded-full backdrop-blur-sm hover:scale-110 cursor-pointer"
                             aria-label="Cerrar"
                         > ✕
                         </button>
