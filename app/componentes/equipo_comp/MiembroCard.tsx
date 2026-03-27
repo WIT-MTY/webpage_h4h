@@ -7,7 +7,7 @@ interface MiembroCardProps {
     area_m?: string;
     contacto_m?: {
         correo_m: string;
-        linkedin_m: string;
+        linkedin_m?: string;
     }
 }
 
