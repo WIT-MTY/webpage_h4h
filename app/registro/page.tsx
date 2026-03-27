@@ -656,7 +656,7 @@ export default function PageFormulario() {
                             )}
                             
                             <div className="relative">
-                                <p className="text-white mb-2">Selecciona tu carrera<span className="text-red-400">*</span></p>
+                                <p className="text-white mb-2">Selecciona tu carrera (o afín)<span className="text-red-400">*</span></p>
                                 <button
                                     type="button"
                                     onClick={() => setIsCarreraOpen(!isCarreraOpen)}
