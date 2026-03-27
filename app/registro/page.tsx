@@ -261,8 +261,7 @@ export default function PageFormulario() {
         });
 
         const text = await res.text();
-        console.log("Respuesta raw:", text);
-        console.log("Status:", res.status);
+      
 
         if (!res.ok) {
             const errorData = JSON.parse(text);
@@ -275,7 +274,7 @@ export default function PageFormulario() {
         }
 
     
-        console.log("Registro exitoso:");
+
         setRegistroEnviado(true);
         setErroresBackend([]);
         setRegistroEnviado(true);
