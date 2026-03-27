@@ -1,17 +1,16 @@
 'use client';
-import React, { useState } from "react";
-
+import HeaderAdmin from '../componentes/admin_comp/HeaderAdmin';
+import { useState } from 'react';
 
 
 
 export default function PageAdmin() {
-    
-    return (
-        <section className="w-full h-screen max-h-screen overflow-y-auto flex flex-col items-center justify-center relative" style={{ background: "#F0CEE3" }}>
-            <div className="w-full h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 relative">
-                Vista admin
-               
-            </div>
-        </section>
-    );
+  
+
+  return (
+    <div className="p-8">
+        <>lol</>
+     
+    </div>
+  );
 }
