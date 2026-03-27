@@ -8,7 +8,7 @@ import DoodleRosa from "../componentes/figuras/DoodleRosa";
 
 const PatrocinadorSection = () => {
   return (
-    <Section id="patrocinador" bg_color="#4A0C32">
+    <Section id="patrocinador" bg_color="#4A0C32" overflow="overflow-hidden">
 
       <div className="absolute inset-0 z-0">
         <Estrella top_position="4%" left_position="20%" width="w-27"/>

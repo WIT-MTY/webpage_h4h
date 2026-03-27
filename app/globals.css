@@ -107,7 +107,13 @@
 .font-high-cruiser {
     font-family: var(--font-high-cruiser);
   }
-
+.font-big-shoulders {
+  font-family: var(--font-big-shoulders);
+}
+  
+body.modal-open .ada-guia {
+    display: none;
+}
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;

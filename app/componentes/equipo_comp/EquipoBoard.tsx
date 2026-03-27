@@ -22,19 +22,23 @@ const EquipoBoard = () => {
     const [miembroSeleccionado, setMiembroSeleccionado] = useState<Miembro | null>(null);
     
     useEffect(() => {
-        if (miembroSeleccionado) {
-            const scrollY = window.scrollY;
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${scrollY}px`;
-            document.body.style.width = '100%';
-        } else {
-            const scrollY = document.body.style.top;
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.width = '';
-            window.scrollTo(0, parseInt(scrollY || '0') * -1);
-        }
-    }, [miembroSeleccionado]);
+    if (miembroSeleccionado) {
+        document.body.dispatchEvent(new Event('modalopen'))
+        const scrollY = window.scrollY;
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.width = '100%';
+        document.body.classList.add('modal-open'); 
+    } else {
+        document.body.dispatchEvent(new Event('modalclose'))
+        const scrollY = document.body.style.top;
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+        document.body.classList.remove('modal-open');
+    }
+}, [miembroSeleccionado]);
 
     const handleFotoClick = (miembro: Miembro) => {
         setMiembroSeleccionado(miembro);
@@ -60,7 +64,7 @@ const EquipoBoard = () => {
 
             {miembroSeleccionado && (
                 <div 
-                    className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-pink/90 backdrop-blur-sm"
+                    className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-pink/90 backdrop-blur-sm"
                     onClick={handleCerrarCard}
                 >
                     <div 
@@ -86,7 +90,7 @@ const EquipoBoard = () => {
                     </div>
                 </div>
             )}
-         </>
+        </>
     )
 }
 

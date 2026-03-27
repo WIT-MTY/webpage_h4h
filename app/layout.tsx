@@ -25,6 +25,14 @@ const highCruiser = localFont({
   display: 'swap',
 })
 
+const bigShoulders = localFont({
+  src: '../public/fonts/BigShoulders-Regular.ttf',
+  weight: '400',
+  style: 'normal',
+  variable: '--font-big-shoulders',
+  display: 'swap',
+})
+
 export default function RootLayout({
   children,
 }: {
@@ -32,7 +40,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en"
-      className={`${questrial.variable} ${montserrat.variable} ${highCruiser.variable}`}>
+      className={`${questrial.variable} ${montserrat.variable} ${highCruiser.variable} ${bigShoulders.variable}`}>
       <body className={questrial.className}>{children}</body>
     </html>
   )
