@@ -5,6 +5,7 @@ import DoodleRosaInicio from "../componentes/figuras/DoodleRosaInicio";
 import Sol from "../componentes/figuras/Sol";
 import Estrella from "../componentes/figuras/Estrella";
 import DoodleFuerte from "../componentes/figuras/DoodleFuerte";
+import BotonForms from "../componentes/formulario_comp/BotonForms";
 
 const HomeSection = () => {
     const [timeLeft, setTimeLeft] = useState({
@@ -163,13 +164,7 @@ const HomeSection = () => {
                 {/* Botones extra grandes; esquinas poco redondeadas */}
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 sm:gap-6 md:gap-8 w-full max-w-4xl mt-1 sm:mt-2 px-0 sm:px-1">
                     {/* Register Button */}
-                    <button
-                        type="button"
-                        className="w-full sm:w-auto text-white font-montserrat text-xl sm:text-2xl md:text-3xl font-semibold rounded-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] py-5 px-8 sm:py-6 sm:px-11 md:py-7 md:px-12 min-h-[3.5rem] sm:min-h-0"
-                        style={{ backgroundColor: '#4F123F' }}
-                    >
-                        ¡Regístrate ahora!
-                    </button>
+                    <BotonForms />
 
                     {/* Discord Button */}
                     <button

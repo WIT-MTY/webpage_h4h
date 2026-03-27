@@ -93,6 +93,7 @@ export default function PageFormulario() {
 
     // Errores
     const [errores, setErrores] = useState<Record<string, string>>({});
+    const [erroresBackend, setErroresBackend] = useState<string[]>([]);
     
 
     /////////////////
@@ -174,9 +175,11 @@ export default function PageFormulario() {
     const validar = (): boolean => {
         const nuevosErrores: Record<string, string> = {};
         
+        
         // mensajes de error
         if (!correo) nuevosErrores.correo = "El correo es requerido";
         if (!contrasena) nuevosErrores.contrasena = "La contraseña es requerida";
+        else if (contrasena.length < 6) nuevosErrores.contrasena = "La contraseña debe tener al menos 6 caracteres";
         if (!nombre) nuevosErrores.nombre = "El nombre es requerido";
         if (!apellidos) nuevosErrores.apellidos = "Los apellidos son requeridos";
         if (!selectedGenero) nuevosErrores.genero = "El género es requerido";
@@ -262,16 +265,18 @@ export default function PageFormulario() {
 
         if (!res.ok) {
             const errorData = JSON.parse(text);
-        if (errorData.error === "User already registered") {
+        if (errorData.error === "User already registered" || errorData.error?.includes("duplicate key value")) {
             setErrores({ correo: "Este correo ya está registrado, intenta con otro" });
         } else {
-            setErrores({ correo: errorData.error || "Ocurrió un error, intenta de nuevo" });
+            setErroresBackend([errorData.error || "Ocurrió un error, intenta de nuevo"]);
         }
             return;
         }
 
     
         console.log("Registro exitoso:");
+        setRegistroEnviado(true);
+        setErroresBackend([]);
         setRegistroEnviado(true);
 
         } catch (error) {
@@ -317,6 +322,7 @@ export default function PageFormulario() {
                                 <p className="text-white mb-2">Contraseña <span className="text-red-400">*</span></p>
                                 <input type="password" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="w-full p-3 rounded-md bg-white text-black" placeholder="Ingresa una contraseña" />
                                     {errores.contrasena && <p className="text-red-400 text-sm mt-1">{errores.contrasena}</p>}
+                                    
                             </div>
                         </div>
                     </div>
@@ -886,6 +892,17 @@ export default function PageFormulario() {
                             </p>
                         </div>
                     </div>
+
+                    {erroresBackend.length > 0 && (
+                        <div className="bg-red-400/10 border border-red-400/30 p-4 rounded-lg">
+                            <p className="text-red-400 text-sm font-semibold mb-1">
+                                No se pudo completar el registro:
+                            </p>
+                            {erroresBackend.map((error, index) => (
+                                <p key={index} className="text-red-400 text-sm">• {error}</p>
+                            ))}
+                        </div>
+                    )}
 
                     {errorGeneral && (
                         <p className="text-red-400 text-sm text-center bg-red-400/10 p-3 rounded-lg">
