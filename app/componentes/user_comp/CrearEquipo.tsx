@@ -13,7 +13,7 @@ const EstadoUser = (props: EstadoProps) => {
                 return {
                     titulo: "No aceptada",
                     mensaje: "Lamentablemente tu registro ha sido rechazado.",
-                    detalles: "Motivo: No cumples con los requisitos mínimos de participación. Si consideras que es un error, contáctanos en hack4her.mty@gmail.com",
+                    detalles: "Motivo: No cumples con los requisitos mínimos de participación. Si consideras que es un error, contáctanos en wit.mty@gmail.com",
                     textColor: "text-[#D43131]",
                 };
             case 2:
