@@ -136,7 +136,8 @@ export const useEquipo = () => {
         puesto: "coordinadora",
         area: "marketing",
         contacto: {
-            correo:"A01621413@tec.mty"
+            correo:"A01621413@tec.mty",
+            linkedin:"",
             }  
         },
 
@@ -146,6 +147,7 @@ export const useEquipo = () => {
         area: "marketing",
         contacto: {
             correo:"emmasyga@gmail.com",
+            linkedin:"",
             }  
         },
 
@@ -264,7 +266,8 @@ export const useEquipo = () => {
         puesto: "coordinadora",
         area: "responsabilidad social",
         contacto: {
-            correo: "A00841920@tec.mx"
+            correo: "A00841920@tec.mx",
+            linkedin:"",
             }
         },
 
