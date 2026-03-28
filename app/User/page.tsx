@@ -3,49 +3,45 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import HeaderUser from '../componentes/user_comp/HeaderUser';
 import EstadoUser from '../componentes/user_comp/EstadoUser';
+import { useFetchProtegido } from '../hooks/utils/useFetchProtegido';
 
+// 
+interface EstatusParticipante {
+  estatus: string;
+}
 
 export default function PageUser() {
 
     const router = useRouter();
-    const [estadoRegistro, setEstadoRegistro] = useState<number | null>(null);
-    const [loading, setLoading] = useState(true);
+      const { fetchProtegido } = useFetchProtegido();
+      const [estatus, setEstatus] = useState<EstatusParticipante | null>(null);
+      const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const obtenerEstado = async () => {
-            const token = localStorage.getItem("token");
+    const obtenerPerfil = async () => {
+        const usuarioBaseId = document.cookie
+          .split("; ")
+          .find(row => row.startsWith("usuarioBaseId="))
+          ?.split("=")[1];
 
-            /*if (!token) {
-                router.push("/registro/iniciosesion");
-                return;
-            }*/
+          if (!usuarioBaseId) {
+            router.push("/registro/iniciosesion");
+            return;
+          }
 
-            // Simulación — reemplaza esto cuando conectes el backend
-            setEstadoRegistro(3);
+           try {
+            const estatus = await fetchProtegido(
+                `${process.env.NEXT_PUBLIC_API_URL}/participantes/estatus/${usuarioBaseId}`
+            );
+            if (estatus) setEstatus(estatus);
+          } catch (error) {
+            console.error("Error al obtener perfil:", error);
+          } finally {
             setLoading(false);
-
-            // Cuando conectes el backend, reemplaza la simulación por esto:
-            // try {
-            //   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/[endpoint]`, {
-            //     headers: {
-            //       Authorization: `Bearer ${token}`,
-            //     },
-            //   });
-            //
-            //   if (!res.ok) {
-            //     router.push("/registro/iniciosesion");
-            //     return;
-            //   }
-            //
-            //   const data = await res.json();
-            //   setEstadoRegistro(data.estado_actual);
-            // } catch (error) {
-            //   console.error("Error al obtener estado:", error);
-            // } finally {
-            //   setLoading(false);
-            // }
+          }
         };
-        obtenerEstado();
+
+      obtenerPerfil();
     }, []);
 
     if (loading) {
@@ -68,7 +64,7 @@ export default function PageUser() {
                     {/* Línea decorativa */}
                 </div>
                 <h1 className='text-xl font-semibold mb-4'>Estatus de participación</h1>
-                {estadoRegistro !== null && <EstadoUser estado_actual={estadoRegistro} />}
+                {estatus !== null && (<EstadoUser descripcion={estatus.estatus} />)}
 
             </div>
         </div>

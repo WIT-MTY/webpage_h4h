@@ -2,36 +2,37 @@
 import { useState } from 'react';
 
 interface EstadoProps {
-    estado_actual: number
+    descripcion: string;
 }
 
 const EstadoUser = (props: EstadoProps) => {
     
     const getEstadoConfig = () => {
-        switch(props.estado_actual) {
-            case 1:
+        switch(props.descripcion) {
+            case "Aceptado":
                 return {
-                    titulo: "No aceptada",
+                    titulo: "¡Solicitud aceptada!",
+                    mensaje: "Tu registro ha sido aceptado. Bienvenida a Hack4Her.",
+                    detalles: "Mantente al pendiente a nuestras redes sociales para conocer los próximos pasos",
+                    textColor: "text-[#116630]",
+                };
+
+            case "Rechazado":
+                return {
+                    titulo: "Solicitud rechazada",
                     mensaje: "Lamentablemente tu registro ha sido rechazado.",
                     detalles: "Motivo: No cumples con los requisitos mínimos de participación. Si consideras que es un error, contáctanos en hack4her.mty@gmail.com",
                     textColor: "text-[#D43131]",
                 };
-            case 2:
+
+            case "Pendiente":
                 return {
-                    titulo: "¡Aceptada!",
-                    mensaje: "Tu registro ha sido aceptado. Bienvenida a Hack4Her.",
-                    detalles: "Mantente al pendiente a nuestras redes sociales para conocer los próximos pasos",
-                    textColor: "text-[#116630]",
-                    
-                };
-            case 3:
-                return {
-                    
-                    titulo: "En revisión",
+                    titulo: "Solicitud en revisión",
                     mensaje: "Tu registro está siendo revisado por nuestro equipo.",
                     detalles: "El proceso de revisión puede tomar hasta 7 días hábiles.",
                     textColor: "text-[#FFDF59]",
                 };
+
             default:
                 return {
                     titulo: "Estado desconocido",
@@ -41,6 +42,8 @@ const EstadoUser = (props: EstadoProps) => {
                 };
         }
     };
+
+    
 
     const { titulo, mensaje, detalles, textColor } = getEstadoConfig();
 
