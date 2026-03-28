@@ -25,7 +25,6 @@ interface Usuario {
 }
 
 
-
 export default function UserProfile() {
   const router = useRouter();
   const { fetchProtegido } = useFetchProtegido();

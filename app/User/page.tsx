@@ -63,6 +63,7 @@ export default function PageUser() {
                 <div className="w-full h-0.5 bg-[#4A0C32] rounded-full mx-auto">
                     {/* Línea decorativa */}
                 </div>
+                
                 <h1 className='text-xl font-semibold mb-4'>Estatus de participación</h1>
                 {estatus !== null && (<EstadoUser descripcion={estatus.estatus} />)}
 

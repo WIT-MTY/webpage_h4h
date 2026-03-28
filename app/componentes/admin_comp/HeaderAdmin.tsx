@@ -13,7 +13,7 @@ const NAV_ITEMS = [
     ),
   },
   {
-    label: "Panel de administración",
+    label: "Gestión de participantes",
     href: "/Admin/Panel",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
