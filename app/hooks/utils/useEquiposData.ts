@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-
-interface Participante {
-  id: number;
+ import { useState, useEffect } from "react";
+{/*
+interface Equipos {
+   id: number;
   usuario_base_id: string;
   nombre: string;
   apellido: string; 
@@ -22,7 +22,7 @@ interface Participante {
   universidad_mexico?: string;
   estatus: string;
   carrera: string;
-  talla_playera: string;
+  talla_playera: string; 
 }
 
 const getToken = (): string | undefined =>
@@ -33,10 +33,10 @@ const getToken = (): string | undefined =>
 
 
 export const useParticipantesData = () => {
-  const [DATA, setDATA] = useState<Participante[]>([]);
+  const [DATA, setDATA] = useState<Equipos[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchParticipantes = async () => {
+  const fetchEquipos = async () => {
     setLoading(true);
     try {
       const BASE = process.env.NEXT_PUBLIC_API_URL;
@@ -56,12 +56,14 @@ export const useParticipantesData = () => {
       console.error("Error al cargar participantes:", error);
     } finally {
       setLoading(false);
-    }
+    } 
   };
 
   useEffect(() => {
-    fetchParticipantes();
+    fetchEquipos);
   }, []);
 
-  return { DATA, loading, refetch: fetchParticipantes };
+  return { DATA, loading, refetch: fetchEquipos };
 };
+
+*/}

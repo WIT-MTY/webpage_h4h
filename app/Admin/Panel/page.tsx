@@ -15,6 +15,7 @@ export default function PagePanel() {
   const { DATA, loading } = useParticipantesData();
   const [expandida, setExpandida] = useState<number | null>(null);
   const [filtro, setFiltro] = useState<FiltroEstado>("Pendiente");
+  const [loadingId, setLoadingId] = useState<number | null>(null);
   if (loading) return <div className="p-8 text-[#4A0C32]">Cargando...</div>;
 
   const participantesFiltrados = DATA.filter(p => p.estatus === filtro);
@@ -27,6 +28,37 @@ export default function PagePanel() {
     return edad >= 18;
   };
 
+
+  // actualizar estatus de participante  
+  /*const handleStatusUpdate = async (id: number, nuevoEstatus: number) => {
+  setLoadingId(id); // Bloqueamos el botón visualmente
+  try {
+    const token = document.cookie
+      .split("; ")
+      .find(row => row.startsWith("token="))
+      ?.split("=")[1];
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/participantes/${id}/estatus`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ estatus: nuevoEstatus }),
+    });
+    console.log("URL:", `${process.env.NEXT_PUBLIC_API_URL}/participantes/${id}/estatus`);
+    if (!response.ok) throw new Error("Error en la petición");
+
+
+    alert("Estado actualizado correctamente");
+    
+  } catch (error) {
+    console.error(error);
+    alert("Hubo un error al procesar la solicitud");
+  } finally {
+    setLoadingId(null); // Liberamos el estado de carga
+  }
+};*/
   
 
 
@@ -157,7 +189,7 @@ export default function PagePanel() {
 
                           <div><p className="text-[#C4649F] text-xs">Restricción alimentaria</p><p className="text-black">{p.tiene_restriccion_alimentaria ? "Sí" : "No"}</p></div>
                           {p.detalle_restriccion_alimentaria && (
-                            <div><p className="text-white/50 text-xs">Especificación</p><p className="text-white">{p.detalle_restriccion_alimentaria}</p></div>
+                            <div><p className="text-[#C4649F] text-xs">Especificación</p><p className="text-black">{p.detalle_restriccion_alimentaria}</p></div>
                           )}
 
                           <div>
@@ -189,23 +221,29 @@ export default function PagePanel() {
                 <div className="py-8" />
               ) : (
                 participantesFiltrados.map((p) => (
-                  <div key={p.id} className="border-b border-gray-100 last:border-0">
-                    <div className="px-3 h-14 flex flex-row gap-2 justify-center items-center">
-
-                      <button
-                        className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-xs rounded-md transition-colors"
-                      >
-                        Aceptar
-                      </button>
-                      <button
-                        className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-xs rounded-md transition-colors"
-                      >
-                        Rechazar
-                      </button>
-                      
-                    </div>
-                    {expandida === p.id && <div className="py-6 px-3 bg-pink-50 min-h-[320px]" />}
-                  </div>
+                  <div key={p.id} className="px-3 py-4 grid grid-cols-2 gap-2 items-center min-h-[64px]">
+ {/* <button
+    disabled={loadingId === p.id}
+    onClick={() => handleStatusUpdate(p.id, 1)}
+    className={`px-2 py-1 text-white text-[10px] font-medium rounded-md transition-all 
+      ${loadingId === p.id 
+        ? "bg-gray-400 cursor-not-allowed" 
+        : "bg-green-600 hover:bg-green-700 active:scale-95"}`}
+  >
+    {loadingId === p.id ? "..." : "Aceptar"}
+  </button>
+  
+  <button
+    disabled={loadingId === p.id}
+    onClick={() => handleStatusUpdate(p.id, 2)}
+    className={`px-2 py-1 text-white text-[10px] font-medium rounded-md transition-all 
+      ${loadingId === p.id 
+        ? "bg-gray-400 cursor-not-allowed" 
+        : "bg-red-600 hover:bg-red-700 active:scale-95"}`}
+  >
+    {loadingId === p.id ? "..." : "Rechazar"}
+  </button>*/}
+</div>
                 ))
               )}
             </div>

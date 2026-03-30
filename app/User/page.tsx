@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import HeaderUser from '../componentes/user_comp/HeaderUser';
 import EstadoUser from '../componentes/user_comp/EstadoUser';
 import { useFetchProtegido } from '../hooks/utils/useFetchProtegido';
+import CrearEquipo from '../componentes/user_comp/CrearEquipo';
 
 // 
 interface EstatusParticipante {
@@ -66,6 +67,9 @@ export default function PageUser() {
                 
                 <h1 className='text-xl font-semibold mb-4'>Estatus de participación</h1>
                 {estatus !== null && (<EstadoUser descripcion={estatus.estatus} />)}
+
+                <h1 className='text-xl font-semibold mb-4'>Llegó el momento de formar tu equipo</h1>
+                <CrearEquipo tieneEquipo={true} />
 
             </div>
         </div>

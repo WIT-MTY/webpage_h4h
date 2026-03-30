@@ -17,6 +17,7 @@ export default function PageEquipo() {
         <div className="w-full h-0.5 bg-[#4A0C32] rounded-full mx-auto my-3">
             {/* Línea decorativa */}
         </div>
+        
      
     </div>
   );
