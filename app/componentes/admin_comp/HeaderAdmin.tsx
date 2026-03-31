@@ -13,7 +13,7 @@ const NAV_ITEMS = [
     ),
   },
   {
-    label: "Gestión de participantes",
+    label: "Gestión de Participantes",
     href: "/Admin/Panel",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -31,7 +31,7 @@ const NAV_ITEMS = [
     ),
   },
   {
-    label: "Gestión de retos",
+    label: "Gestión de Retos",
     href: "/Admin/Retos",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
