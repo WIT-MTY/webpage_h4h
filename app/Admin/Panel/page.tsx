@@ -67,7 +67,7 @@ export default function PagePanel() {
         
         {/* titulo */}
         <h1 className="font-high-cruiser text-6xl text-[#4A0C32] mb-2">
-            Panel de administración de equipos
+            panel de administración de equipos
         </h1>
         <p className="text-[#4A0C32]">Gestión de solicitudes de registro de participantes</p>
         <div className="w-full h-0.5 bg-[#4A0C32] rounded-full mx-auto my-3">
