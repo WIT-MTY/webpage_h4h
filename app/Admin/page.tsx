@@ -140,7 +140,7 @@ export default function PageAdmin() {
           {kpiData.map((kpi) => (
             <div
               key={kpi.label}
-              className="bg-gray-50 rounded-lg p-4"
+              className="bg-gray-50 border-3 border-[#C4649F] rounded-lg p-4"
             >
               <p className="text-sm text-gray-500 mb-2">{kpi.label}</p>
               <p className="text-3xl font-medium" style={{ color: kpi.color }}>
@@ -151,7 +151,7 @@ export default function PageAdmin() {
         </div>
 
         {/* talla camisa chart */}
-        <div className="bg-white border border-gray-200 rounded-xl p-4 mt-4">
+        <div className="bg-white border-3 border-[#C4649F] rounded-xl p-4 mt-4">
           <h3 className="text-sm font-medium text-gray-700 mb-3">Talla de camisa</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={shirtSizeData}>
@@ -169,7 +169,7 @@ export default function PageAdmin() {
         </h2>
         <div className="grid grid-cols-2 gap-4 mt-4">
           {/* Card 1: Tipo de dieta */}
-          <div className="bg-white border border-gray-200 rounded-xl p-4">
+          <div className="bg-white border-3 border-[#C4649F] rounded-xl p-4">
             <h3 className="text-sm font-medium text-gray-700 mb-3">Tipo de dieta</h3>
             <div className="flex gap-3 mb-2">
               {dietTypeData.map((item) => (
@@ -202,7 +202,7 @@ export default function PageAdmin() {
           </div>
 
           {/* Card 2: Restricciones alimentarias */}
-          <div className="bg-white border border-gray-200 rounded-xl p-4">
+          <div className="bg-white border-3 border-[#C4649F] rounded-xl p-4">
             <h3 className="text-sm font-medium text-gray-700 mb-3">Restricciones alimentarias</h3>
             <div className="flex gap-3 mb-2">
               {restrictionsData.map((item) => (
@@ -236,7 +236,7 @@ export default function PageAdmin() {
         </div>
 
         {/* Detalle de restricciones */}
-        <div className="bg-white border border-gray-200 rounded-xl p-4 mt-4">
+        <div className="bg-white border-3 border-[#C4649F] rounded-xl p-4 mt-4">
           <h3 className="text-sm font-medium text-gray-700 mb-3">Detalle de restricciones reportadas</h3>
           <div className="space-y-0">
             {restrictionDetails.map((item, index) => (
@@ -263,7 +263,7 @@ export default function PageAdmin() {
         {/* Row 1: Carrera y Semestre */}
         <div className="grid grid-cols-2 gap-4 mt-4">
           {/* Alumnas por carrera */}
-          <div className="bg-white border border-gray-200 rounded-xl p-4">
+          <div className="bg-white border-3 border-[#C4649F] rounded-xl p-4">
             <h3 className="text-sm font-medium text-gray-700 mb-3">Alumnas por carrera</h3>
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={carreraData}>
@@ -276,7 +276,7 @@ export default function PageAdmin() {
           </div>
 
           {/* Alumnas por semestre */}
-          <div className="bg-white border border-gray-200 rounded-xl p-4">
+          <div className="bg-white border-3 border-[#C4649F] rounded-xl p-4">
             <h3 className="text-sm font-medium text-gray-700 mb-3">Alumnas por semestre</h3>
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={semestreData}>
@@ -292,7 +292,7 @@ export default function PageAdmin() {
         {/* Row 2: Universidades */}
         <div className="grid grid-cols-2 gap-4 mt-4">
           {/* Universidades mexicanas */}
-          <div className="bg-white border border-gray-200 rounded-xl p-4">
+          <div className="bg-white border-3 border-[#C4649F] rounded-xl p-4">
             <h3 className="text-sm font-medium text-gray-700 mb-3">Universidades mexicanas</h3>
             <ResponsiveContainer width="100%" height={180}>
               <BarChart data={universidadesMexData} layout="vertical">
@@ -305,7 +305,7 @@ export default function PageAdmin() {
           </div>
 
           {/* Universidades extranjeras */}
-          <div className="bg-white border border-gray-200 rounded-xl p-4">
+          <div className="bg-white border-3 border-[#C4649F] rounded-xl p-4">
             <h3 className="text-sm font-medium text-gray-700 mb-3">Universidades extranjeras</h3>
             <div className="space-y-0">
               {universidadesExtData.map((item, index) => (
@@ -329,7 +329,7 @@ export default function PageAdmin() {
         <h2 className="text-xs uppercase text-[#4A0C32] opacity-60 tracking-wide mt-8">
           DATOS GEOGRÁFICOS
         </h2>
-        <div className="bg-white border border-gray-200 rounded-xl p-4 mt-4">
+        <div className="bg-white border-3 border-[#C4649F] rounded-xl p-4 mt-4">
           <h3 className="text-sm font-medium text-gray-700 mb-3">Alumnas por estado</h3>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={estadoData}>
