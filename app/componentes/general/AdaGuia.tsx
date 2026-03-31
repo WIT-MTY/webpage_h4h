@@ -116,7 +116,7 @@ const AdaGuia: React.FC<AdaGuiaProps> = ({
                               : activeSection === 'quees'
                                 ? 'clamp(350px, min(75vw, 65dvh), 1100px)'
                                 : activeSection === 'contactanos'
-                                  ? 'clamp(380px, min(80vw, 72dvh), 1200px)'
+                                  ? 'clamp(280px, min(65vw, 55dvh), 850px)'
                                   : '240px',
                     height: 'auto',
                     maxWidth: '100vw',
