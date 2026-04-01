@@ -11,14 +11,14 @@ const GaleriaSection = () => {
         >
             <BackgroundDecor />
             <div className="relative z-10">
-                <div className="text-center max-w-4xl mx-auto px-4 md:px-6 mb-8 md:mb-12">
+                <div className="text-center max-w-6xl mx-auto px-4 md:px-6 mb-8 md:mb-12">
                     <h1 className="font-high-cruiser text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white text-center mb-6">
                         GALERÍA
                     </h1>
-                    <p className="text-white text-lg md:text-xl lg:text-2xl mb-2 leading-relaxed">
+                    <p className="text-white text-xl md:text-2xl lg:text-3xl mb-2 leading-snug">
                         ¡En Hack4Her nos comprometemos a que nunca falte la diversión!
                     </p>
-                    <p className="text-white text-lg md:text-xl lg:text-2xl font-light opacity-90">
+                    <p className="text-white text-xl md:text-2xl lg:text-3xl font-light opacity-90 leading-snug">
                         Mira cómo se vivió la edición de Hack4Her 2025.
                     </p>
                 </div>

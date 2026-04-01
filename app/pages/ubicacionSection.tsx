@@ -30,8 +30,12 @@ const googleMapsUrl =
     <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <BackgroundDecor mouseParallax mousePosition={mousePosition} />
         <style jsx>{`
+            /* Ocultar el sol superior derecha */
+            div :global(.top-10.right-1\/3) {
+                display: none;
+            }
             /* Ocultar la estrella superior centro-izquierda */
-            div :global(.absolute.top-24) {
+            div :global(.top-24.left-1\/4) {
                 display: none;
             }
         `}</style>

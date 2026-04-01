@@ -17,7 +17,7 @@ const AcercaSection = () => {
             </div>
 
             {/* Content Container */}
-            <div className="relative z-10 w-full max-w-full px-4 sm:px-6 md:px-12 lg:px-16 flex flex-col lg:flex-row items-start justify-between gap-8 md:gap-12 overflow-x-hidden">
+            <div className="relative z-10 w-full max-w-full pl-16 pr-4 sm:pl-20 sm:pr-6 md:pl-32 md:pr-12 lg:pl-44 lg:pr-16 flex flex-col lg:flex-row items-start justify-between gap-8 md:gap-12 overflow-x-hidden">
                 {/* Text Content */}
                 <div className="w-full lg:max-w-[min(100%,52rem)] space-y-6 md:space-y-8 text-left">
                     <h1 className="font-high-cruiser text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white uppercase tracking-wide leading-tight max-w-full">

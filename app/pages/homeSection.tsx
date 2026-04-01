@@ -136,7 +136,7 @@ const HomeSection = () => {
                             <img
                                 src="/images/figuras/HACK.svg"
                                 alt="HACK"
-                                className="h-[4.35rem] w-auto max-h-[16vw] max-w-[32vw] shrink-0 object-contain object-center sm:h-[5.25rem] sm:max-h-[14vw] md:h-[6.35rem] md:max-h-[12vw] lg:h-[4rem] lg:max-h-[5.5vw] xl:h-[4.5rem] xl:max-h-[5vw]"
+                                className="h-[4.65rem] w-auto max-h-[17vw] max-w-[33vw] shrink-0 object-contain object-center sm:h-[5.5rem] sm:max-h-[15vw] md:h-[6.65rem] md:max-h-[12.5vw] lg:h-[4rem] lg:max-h-[5.5vw] xl:h-[4.5rem] xl:max-h-[5vw]"
                             />
                             <img
                                 src="/images/figuras/4.svg"
