@@ -42,7 +42,7 @@ const ContactanosSection = () => {
 
         <div className="flex flex-col items-center justify-center relative z-10 mt-4 md:mt-6 lg:mt-8 px-4 pb-8">
           <div className="mb-0">
-            <img className="w-40 sm:w-48 md:w-52 lg:w-44 xl:w-48 max-w-[min(15vw,12rem)]" src="/images/h4h_logos/logo_h4h_corto.svg" alt="Logo H4H"></img>
+            <img className="w-48 sm:w-56 md:w-64 lg:w-56 xl:w-64 min-w-[180px] max-w-[min(25vw,20rem)]" src="/images/h4h_logos/logo_h4h_corto.svg" alt="Logo H4H"></img>
           </div>
           <div className="flex gap-3 sm:gap-4 mb-4 flex-wrap justify-center">
             <a href="https://www.instagram.com/hack4her.mty/" target="_blank"

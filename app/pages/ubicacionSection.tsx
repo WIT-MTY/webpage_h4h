@@ -67,15 +67,7 @@ const googleMapsUrl =
             boxSizing: "border-box" as const,
         }}
         >
-        <div
-            style={{
-            display: "grid",
-            gridTemplateColumns: "1.2fr 0.8fr",
-            gap: "2rem",
-            alignItems: "center",
-            width: "100%",
-            }}
-        >
+        <div className="flex flex-col lg:grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-8 items-center w-full">
             {/* ── Mapa ── */}
             <a
             href={googleMapsUrl}
