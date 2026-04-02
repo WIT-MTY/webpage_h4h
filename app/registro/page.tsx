@@ -846,12 +846,12 @@ export default function PageFormulario() {
                         <div className="space-y-4">
                             {/* Acuerdo 1: Código de Conducta MLH */}
                             <div className="flex items-start space-x-3">
-                                <input 
-                                    type="checkbox" 
+                                <input
+                                    type="checkbox"
                                     id="mlh-code-conduct"
-                                    checked={mlhConducta} onChange={(e) => setMlhConducta(e.target.checked)} 
-                                    className="mt-1 w-5 h-5 text-pink-600 bg-white border-gray-300 rounded focus:ring-pink-500"
-                                    
+                                    checked={mlhConducta} onChange={(e) => setMlhConducta(e.target.checked)}
+                                    className="mt-1 w-5 h-5 flex-shrink-0 text-pink-600 bg-white border-gray-300 rounded focus:ring-pink-500"
+
                                 />
                                 <label htmlFor="mlh-code-conduct" className="text-white text-sm md:text-base">
                                     He leído y acepto el{' '}
@@ -870,12 +870,12 @@ export default function PageFormulario() {
 
                             {/* Acuerdo 2: Información de logística del evento */}
                             <div className="flex items-start space-x-3">
-                                <input 
-                                    type="checkbox" 
-                                    id="mlh-logistics" 
+                                <input
+                                    type="checkbox"
+                                    id="mlh-logistics"
                                     checked={mlhLogistica} onChange={(e) => setMlhLogistica(e.target.checked)}
-                                    className="mt-1 w-5 h-5 text-pink-600 bg-white border-gray-300 rounded focus:ring-pink-500"
-                                    
+                                    className="mt-1 w-5 h-5 flex-shrink-0 text-pink-600 bg-white border-gray-300 rounded focus:ring-pink-500"
+
                                 />
                                 <label htmlFor="mlh-logistics" className="text-white text-sm md:text-base">
                                     Autorizo a compartir mi información de aplicación/registro con Major League Hacking para la administración del evento, clasificación y administración de MLH de acuerdo con la{' '}
