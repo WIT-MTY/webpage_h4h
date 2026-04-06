@@ -63,7 +63,7 @@ export default function PagePanel() {
               <div className="flex min-w-900px px-4 py-3 border-b-3 border-#C4649F] text-[#C4649F] text-xs font-semibold uppercase gap-4">
                 <div className="w-44 shrink-0">Nombre del equipo</div>
                 <div className="w-32 shrink-0">Código</div>
-                <div className="w-24 shrink-0">Líder</div>
+                <div className="w-32 shrink-0">Líder</div>
                 <div className="w-32 shrink-0">Participante 2</div>
                 <div className="w-32 shrink-0">Participante 3</div>
                 <div className="w-32 shrink-0">Participante 4</div>

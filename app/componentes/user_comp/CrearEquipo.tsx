@@ -5,74 +5,166 @@ interface EstadoProps {
     tieneEquipo: boolean;
 }
 
-const CrearEquipo = ({ tieneEquipo }: EstadoProps) => {
+const CrearEquipo = ({ tieneEquipo: tieneEquipoInicial }: EstadoProps) => {
 
     const [nombreEquipo, setNombreEquipo] = useState('');
     const [codigoEquipo, setCodigoEquipo] = useState('');
+    const [tieneEquipo, setTieneEquipo] = useState(tieneEquipoInicial);
+    const [equipoCreado, setEquipoCreado] = useState<{ nombre: string; codigo: string } | null>(null);
+    const [codigoGenerado, setCodigoGenerado] = useState('');
+    const [mostrarCodigo, setMostrarCodigo] = useState(false);
+
+    const handleCrearEquipo = () => {
+        if (!nombreEquipo.trim()) return;
+
+        // Simulación — reemplaza con fetch al backend
+        const codigoAleatorio = Math.random().toString(36).substring(2, 8).toUpperCase();
+        setCodigoGenerado(codigoAleatorio);
+        setMostrarCodigo(true);
+
+        // Cuando conectes el backend:
+        // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/equipos`, {
+        //     method: "POST",
+        //     body: JSON.stringify({ nombre: nombreEquipo }),
+        //     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }
+        // });
+        // const data = await res.json();
+        // setCodigoGenerado(data.codigo);
+        // setMostrarCodigo(true);
+    };
+
+    const handleConfirmarEquipo = () => {
+        setEquipoCreado({ nombre: nombreEquipo, codigo: codigoGenerado });
+        setTieneEquipo(true);
+        setMostrarCodigo(false);
+    };
+
+    const handleUnirse = () => {
+        if (!codigoEquipo.trim()) return;
+
+        // Simulación — reemplaza con fetch al backend
+        setEquipoCreado({ nombre: "Equipo encontrado", codigo: codigoEquipo });
+        setTieneEquipo(true);
+
+        // Cuando conectes el backend:
+        // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/equipos/unirse`, {
+        //     method: "POST",
+        //     body: JSON.stringify({ codigo: codigoEquipo }),
+        //     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }
+        // });
+        // if (res.ok) setTieneEquipo(true);
+    };
 
     return (
-        <div className="bg-[#C4649F] rounded-xl overflow-hidden w-full max-w-3xl transition-all duration-300">
-            <div className="p-6">
+        <div className="bg-white border-2 border-[#C4649F] rounded-2xl overflow-hidden w-full max-w-xl">
+            
+            <div className="bg-[#C4649F] px-6 py-4">
+                <h1 className="text-white font-bold text-xl">
+                    {tieneEquipo ? "Mi equipo" : "Equipos"}
+                </h1>
+            </div>
 
+            <div className="p-6">
                 {tieneEquipo ? (
-                    // Vista: ya tiene equipo
-                    <div className="space-y-2">
-                        <h1 className="text-white font-bold text-2xl">Tu equipo: <span className="text-pink-200 font-medium">Equipo X</span></h1>
-                        <div className="px-6 pb-2 pt-2 border-t border-white/10">
-                        <p className="text-white/70 text-sm">Estatus: <span className="text-white/70 font-medium">Incompleto</span></p>
-                        <p className="text-white/70 text-sm">Código: <span className="text-white/70 font-medium">ABC123</span></p>
-                        
+                    <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                            <h2 className="text-[#4A0C32] font-bold text-2xl">{equipoCreado?.nombre || "Equipo X"}</h2>
+                            <span className="px-3 py-1 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded-full">
+                                Incompleto
+                            </span>
                         </div>
-                        <div className="space-y-1"> 
-                        <h2 className="text-white">Integrantes:</h2>
-                        <ul className='list-disc list-inside'>
-                            <li>Integrante 1: <span className="text-pink-200 font-medium">Nombre Apellido</span></li>
-                            <li>Integrante 2: <span className="text-pink-200 font-medium">[Faltante]</span></li>
-                            <li>Integrante 3: <span className="text-pink-200 font-medium">[Faltante]</span></li>
-                            <li>integrante 4: <span className="text-pink-200 font-medium">[Faltante]</span></li>
-                        </ul>
+
+                        <div className="bg-[#F0CEE3]/40 rounded-lg px-4 py-3 flex items-center justify-between">
+                            <p className="text-[#4A0C32]/60 text-sm">Código de equipo</p>
+                            <p className="text-[#4A0C32] font-bold tracking-widest text-sm">{equipoCreado?.codigo || "—"}</p>
+                        </div>
+
+                        <div>
+                            <p className="text-[#4A0C32] font-semibold text-sm mb-2">Integrantes</p>
+                            <div className="space-y-2">
+                                {["Líder", "Integrante 2", "Integrante 3", "Integrante 4"].map((label, i) => (
+                                    <div key={i} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
+                                        <p className="text-[#4A0C32]/60 text-sm">{label}</p>
+                                        {i === 0
+                                            ? <p className="text-[#4A0C32] font-medium text-sm">Tú</p>
+                                            : <span className="text-xs text-gray-400 italic">Lugar disponible</span>
+                                        }
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
 
-                ) : (
-                    // Vista: no tiene equipo
-                    <div className="space-y-4">
-                        <div className="space-y-1"> 
-                        <h1 className="text-white font-bold text-2xl">Únete o crea un equipo</h1>
-                        <p className="text-white/50">¿Sin equipo? Conéctate con otras participantes en nuestro <a className="underline text-pink-300" href="https://discord.gg/e5ENU6DDe">Discord</a>.</p>
-                        <p className="text-white/50 ">Los equipos deben tener exactamente 4 integrantes para ser válidos.</p>
-                        <p className="text-white/50">Quien cree el equipo será asignada como líder.</p>
+                ) : mostrarCodigo ? (
+
+                    // Vista: código generado
+                    <div className="space-y-4 text-center">
+                        <p className="text-[#4A0C32] font-semibold">¡Equipo creado!</p>
+                        <p className="text-[#4A0C32]/60 text-sm">Comparte este código con tus compañeras para que se unan:</p>
+                        <div className="bg-[#F0CEE3]/40 rounded-lg px-6 py-4">
+                            <p className="text-[#4A0C32] font-bold tracking-widest text-3xl">{codigoGenerado}</p>
                         </div>
-                        <div>
-                            <label className="text-white/70 text-xs mb-1 block">Crear nuevo equipo</label>
+                        <button
+                            onClick={handleConfirmarEquipo}
+                            className="w-full py-2.5 bg-[#C4649F] text-white font-semibold text-sm rounded-lg hover:bg-[#4A0C32] transition-colors"
+                        >
+                            Continuar
+                        </button>
+                    </div>
+
+                ) : (
+
+                    // Vista: no tiene equipo
+                    <div className="space-y-5">
+                        <p className="text-[#4A0C32]/50 text-sm">
+                            Los equipos deben tener exactamente <span className="font-semibold text-[#4A0C32]/60">4 integrantes</span> para ser válidos. Quien cree el equipo será asignada como líder. El nombre del equipo debe ser apropiado y respetuoso.
+                        </p>
+                        <p className="text-[#4A0C32]/50 text-sm">
+                            ¿Sin equipo? Conéctate en nuestro{' '}
+                            <a className="text-[#C4649F] underline hover:text-[#4A0C32] transition-colors" href="https://discord.gg/e5ENU6DDe">Discord</a>.
+                        </p>
+
+                        <div className="space-y-2">
+                            <p className="text-[#4A0C32] font-semibold text-sm">Crear nuevo equipo</p>
                             <input
                                 type="text"
                                 placeholder="Nombre del equipo"
                                 value={nombreEquipo}
                                 onChange={(e) => setNombreEquipo(e.target.value)}
-                                className="w-full px-3 py-2 rounded-md bg-white/10 text-white placeholder-white/40 text-sm outline-none"
+                                className="w-full px-4 py-2.5 rounded-lg border border-[#C4649F]/30 text-[#4A0C32] placeholder-gray-400 text-sm outline-none focus:border-[#C4649F] transition-colors"
                             />
-                            <button className="mt-2 w-full py-2 bg-white text-[#C4649F] font-semibold text-sm rounded-md hover:bg-white/90 transition-colors">
+                            <button
+                                onClick={handleCrearEquipo}
+                                className="w-full py-2.5 bg-[#C4649F] text-white font-semibold text-sm rounded-lg hover:bg-[#4A0C32] transition-colors"
+                            >
                                 Crear equipo
                             </button>
                         </div>
 
-                        <div className="border-t border-white/20 pt-4">
-                            <label className="text-white/70 text-xs mb-1 block">Unirse a un equipo existente</label>
+                        <div className="flex items-center gap-3">
+                            <div className="flex-1 h-px bg-gray-200" />
+                            <p className="text-gray-400 text-xs">o</p>
+                            <div className="flex-1 h-px bg-gray-200" />
+                        </div>
+
+                        <div className="space-y-2">
+                            <p className="text-[#4A0C32] font-semibold text-sm">Unirse a un equipo existente</p>
                             <input
                                 type="text"
-                                placeholder="Código del equipo"
+                                placeholder="Ingresa el código del equipo"
                                 value={codigoEquipo}
                                 onChange={(e) => setCodigoEquipo(e.target.value)}
-                                className="w-full px-3 py-2 rounded-md bg-white/10 text-white placeholder-white/40 text-sm outline-none"
+                                className="w-full px-4 py-2.5 rounded-lg border border-[#C4649F]/30 text-[#4A0C32] placeholder-gray-400 text-sm outline-none focus:border-[#C4649F] transition-colors"
                             />
-                            <button className="mt-2 w-full py-2 bg-white text-[#C4649F] font-semibold text-sm rounded-md hover:bg-white/90 transition-colors">
-                                Unirse
+                            <button
+                                onClick={handleUnirse}
+                                className="w-full py-2.5 bg-white border border-[#C4649F] text-[#C4649F] font-semibold text-sm rounded-lg hover:bg-[#F0CEE3] transition-colors"
+                            >
+                                Unirse al equipo
                             </button>
                         </div>
                     </div>
                 )}
-
             </div>
         </div>
     );
