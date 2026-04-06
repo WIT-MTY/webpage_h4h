@@ -68,8 +68,8 @@ export default function PageUser() {
                 <h1 className='text-xl font-semibold mb-4'>Estatus de participación</h1>
                 {estatus !== null && (<EstadoUser descripcion={estatus.estatus} />)}
 
-                <h1 className='text-xl font-semibold mb-4'>Llegó el momento de formar tu equipo</h1>
-                <CrearEquipo tieneEquipo={false} />
+                {/*<h1 className='text-xl font-semibold mb-4'>Llegó el momento de formar tu equipo</h1>
+                <CrearEquipo tieneEquipo={false} />*/}
 
             </div>
         </div>
