@@ -1,41 +1,56 @@
  import { useState, useEffect } from "react";
-{/*
+
 interface Equipos {
-   id: number;
-  usuario_base_id: string;
+  id: number;
   nombre: string;
-  apellido: string; 
-  email: string;
-  fecha_nacimiento: string; 
-  telefono: string;   
-  linkedin_url?: string;
-  github_url?: string;  
-  cv_url: string;
-  vegana: boolean; 
-  tiene_restriccion_alimentaria: boolean;
-  detalle_restriccion_alimentaria?: string;
-  universidad_extranjera?: string;  
-  genero: string;
-  pais: string;
-  estado?: string;
-  semestre: string;
-  universidad_mexico?: string;
-  estatus: string;
-  carrera: string;
-  talla_playera: string; 
+  lider: string; 
+  participante2: string; 
+  participante3: string; 
+  participante4: string; 
+  fecha_creacion: string; 
+  fecha_validacion: string; 
+  estatus: string; 
 }
 
+{/*}
 const getToken = (): string | undefined =>
+
   document.cookie
     .split("; ")
     .find(row => row.startsWith("token="))
     ?.split("=")[1];
+*/}
 
+const EQUIPOS_MOCK: Equipos[] = [
+  {
+    id: 1,
+    nombre: "Team Alpha",
+    lider: "Ana García",
+    participante2: "Laura Martínez",
+    participante3: "Sofía López",
+    participante4: "María Torres",
+    fecha_creacion: "2024-03-01",
+    fecha_validacion: "2024-03-05",
+    estatus: "Incompleto",
+  },
+  {
+    id: 2,
+    nombre: "Team Beta",
+    lider: "Karla Ruiz",
+    participante2: "Diana Pérez",
+    participante3: "Valeria Cruz",
+    participante4: "",
+    fecha_creacion: "2024-03-02",
+    fecha_validacion: "",
+    estatus: "Aceptado",
+  },
+];
 
-export const useParticipantesData = () => {
+export const useEquiposData = () => {
   const [DATA, setDATA] = useState<Equipos[]>([]);
   const [loading, setLoading] = useState(true);
 
+  {/*
   const fetchEquipos = async () => {
     setLoading(true);
     try {
@@ -57,13 +72,18 @@ export const useParticipantesData = () => {
     } finally {
       setLoading(false);
     } 
-  };
+  }; */}
 
   useEffect(() => {
-    fetchEquipos);
-  }, []);
+    setDATA(EQUIPOS_MOCK);
+    setLoading(false);
 
-  return { DATA, loading, refetch: fetchEquipos };
+    //fetchEquipos);
+
+  }, []);
+  
+  //return { DATA, loading, refetch: fetchEquipos };
+  return { DATA, loading };
 };
 
-*/}
+
