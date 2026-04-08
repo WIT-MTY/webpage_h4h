@@ -23,6 +23,8 @@ interface Participante {
   estatus: string;
   carrera: string;
   talla_playera: string;
+  permiso_menor: string;
+  fecha_validacion: string;
 }
 
 const getToken = (): string | undefined =>

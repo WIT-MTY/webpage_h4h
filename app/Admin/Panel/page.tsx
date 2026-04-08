@@ -12,10 +12,10 @@ const FILTROS: { valor: FiltroEstado; label: string; bg: string; activeBg: strin
 
 export default function PagePanel() {
 
-  const { DATA, loading } = useParticipantesData();
+  const { DATA, loading, refetch} = useParticipantesData();
   const [expandida, setExpandida] = useState<number | null>(null);
   const [filtro, setFiltro] = useState<FiltroEstado>("Pendiente");
-  const [loadingId, setLoadingId] = useState<number | null>(null);
+  const [loadingId, setLoadingId] = useState<string | null>(null);
   if (loading) return <div className="p-8 text-[#4A0C32]">Cargando...</div>;
 
   const participantesFiltrados = DATA.filter(p => p.estatus === filtro);
@@ -30,37 +30,35 @@ export default function PagePanel() {
 
 
   // actualizar estatus de participante  
-  /*const handleStatusUpdate = async (id: number, nuevoEstatus: number) => {
-  setLoadingId(id); // Bloqueamos el botón visualmente
-  try {
-    const token = document.cookie
-      .split("; ")
-      .find(row => row.startsWith("token="))
-      ?.split("=")[1];
+  const handleStatusUpdate = async (usuarioBaseId: string, nuevoEstatus: number) => {
+    setLoadingId(usuarioBaseId);
+    try {
+      const token = document.cookie
+        .split("; ")
+        .find(row => row.startsWith("token="))
+        ?.split("=")[1];
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/participantes/${id}/estatus`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ estatus: nuevoEstatus }),
-    });
-    console.log("URL:", `${process.env.NEXT_PUBLIC_API_URL}/participantes/${id}/estatus`);
-    if (!response.ok) throw new Error("Error en la petición");
-
-
-    alert("Estado actualizado correctamente");
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/participantes/${usuarioBaseId}/estatus`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({ estatus: nuevoEstatus }),
+      });
     
-  } catch (error) {
-    console.error(error);
-    alert("Hubo un error al procesar la solicitud");
-  } finally {
-    setLoadingId(null); // Liberamos el estado de carga
-  }
-};*/
+      if (!response.ok) throw new Error("Error en la petición");
+        await refetch(); 
+        alert("Estado actualizado correctamente");
+    
+    } catch (error) {
+      console.error(error);
+      alert("Hubo un error al procesar la solicitud");
+    } finally {
+      setLoadingId(null);
+    }
+  };
   
-
 
   return (
     <div className="p-8">
@@ -99,14 +97,18 @@ export default function PagePanel() {
             <div className="flex-1 overflow-x-auto">
 
               {/* Header */}
-              <div className="flex min-w-900px px-4 py-3 border-b-3 border-#C4649F] text-[#C4649F] text-xs font-semibold uppercase gap-4">
-                <div className="w-44 shrink-0">Nombre</div>
-                <div className="w-28 shrink-0">Nacimiento</div>
-                <div className="w-24 shrink-0">Mayor de edad</div>
+              <div className="flex min-w-900px px-4 py-3 border-b-3 border-[#C4649F] text-[#C4649F] text-xs font-semibold uppercase gap-4">
+                <div className="w-60 shrink-0">Nombre</div>
+                <div className="w-44 shrink-0">Nacimiento</div>
+                <div className="w-44 shrink-0">Mayor de edad</div>
                 
-                <div className="w-32 shrink-0">País universidad</div>
+                <div className="w-44 shrink-0">País universidad</div>
                 <div className="w-44 shrink-0">Universidad</div>
-                <div className="w-24 shrink-0">CV</div>
+                <div className="w-44 shrink-0">CV</div>
+                <div className="w-44 shrink-0">Permiso</div>
+                {filtro !== "Pendiente" && (
+                  <div className="w-44 shrink-0">Fecha validación</div>
+            )}
               </div>
 
               {/* Filas */}
@@ -116,17 +118,17 @@ export default function PagePanel() {
                 </div>
               ) : (
                 participantesFiltrados.map((p) => (
-                  <div key={p.id} className="border-b border-white/10 last:border-0">
+                  <div key={p.id} className="border-b border-[#C4649F]/20 last:border-0">
 
                     {/* Fila principal */}
                     <div
-                      className="flex min-w-[900px] px-4 h-14 items-center gap-4 hover:bg-white/5 cursor-pointer transition-colors"
+                      className="flex min-w-[900px] px-4 min-h-[64px] items-center gap-4 hover:bg-pink-50 cursor-pointer transition-colors"
                       onClick={() => setExpandida(expandida === p.id ? null : p.id)}
                     >
-                      <div className="w-44 shrink-0">
+                      <div className="w-60 shrink-0">
                         <p className="text-black font-medium text-sm">{p.nombre} {p.apellido}</p>
                       </div>
-                      <div className="w-32 shrink-0">
+                      <div className="w-44 shrink-0">
                         <p className="text-black text-sm">
                           {new Date(p.fecha_nacimiento).toLocaleDateString('es-MX', {
                           day: '2-digit',
@@ -137,7 +139,7 @@ export default function PagePanel() {
                       </div>
                       
 
-                      <div className="w-28 shrink-0">
+                      <div className="w-44 shrink-0">
                         {!esMayorEdad(p.fecha_nacimiento) ? (
                         <span className="bg-red-200 text-red-900 text-xs font-bold px-2 py-0.5 rounded-full">No</span>
                       ) : (
@@ -146,16 +148,34 @@ export default function PagePanel() {
                       </div>
 
 
-                      <div className="w-32 shrink-0">
+                      <div className="w-44 shrink-0">
                         <p className="text-black text-sm">{p.pais}</p>
                       </div>
 
                       <div className="w-44 shrink-0">
                         <p className="text-black text-sm truncate">{p.universidad_mexico || p.universidad_extranjera}</p>
                       </div>
-                      <div className="w-24 shrink-0">
+
+                      <div className="w-44 shrink-0">
                         <a href={p.cv_url} target="_blank" rel="noopener noreferrer" className="text-pink-300 hover:text-pink-200 underline text-xs">Ver CV</a>
                       </div>
+
+                      <div className="w-44 shrink-0">
+                        {!esMayorEdad(p.fecha_nacimiento) ? (
+                        <a href={p.permiso_menor} target="_blank" rel="noopener noreferrer" className="text-pink-300 hover:text-pink-200 underline text-xs">Ver Permiso</a>
+                      ) : (
+                        <span className="text-pink-300 px-2 py-0.5 rounded-full">--</span>
+                        
+                      )}
+                      </div>
+                      
+                      {filtro !== "Pendiente" && (
+                      <div className="w-44 shrink-0">
+                        <p className="text-black text-sm">{p.fecha_validacion}</p>
+                      </div>
+                      )}
+
+                      
                     </div>
 
                     {/* Fila expandida */}
@@ -203,7 +223,35 @@ export default function PagePanel() {
 
                         </div>
 
+                        {filtro === "Pendiente" && (
+                          <div className="mt-6 pt-4 border-t border-[#C4649F]/30 flex gap-4 justify-end">
+                            <button
+                              disabled={loadingId === p.usuario_base_id}
+                              onClick={() => handleStatusUpdate(p.usuario_base_id, 1)}
+                              className={`px-6 py-2 text-white text-sm font-medium rounded-md transition-all 
+                              ${loadingId === p.usuario_base_id 
+                                ? "bg-gray-400 cursor-not-allowed" 
+                                : "bg-green-600 hover:bg-green-700 active:scale-95"}`}
+                            >
+                              {loadingId === p.usuario_base_id ? "Procesando..." : "✓ Aceptar"}
+                            </button>
+
+                            <button
+                              disabled={loadingId === p.usuario_base_id}
+                              onClick={() => handleStatusUpdate(p.usuario_base_id, 2)}
+                              className={`px-6 py-2 text-white text-sm font-medium rounded-md transition-all 
+                              ${loadingId === p.usuario_base_id 
+                                ? "bg-gray-400 cursor-not-allowed" 
+                                : "bg-red-600 hover:bg-red-700 active:scale-95"}`}
+                            >
+                              {loadingId === p.usuario_base_id ? "Procesando..." : "✗ Rechazar"}
+                            </button>
+                          </div>
+                        )}
+
+
                       </div>
+                    
                     )}
 
                   </div>
@@ -211,44 +259,7 @@ export default function PagePanel() {
               )}
             </div>
 
-          {/* Columna de acciones fija — solo en Pendientes */}
-          {filtro === "Pendiente" && (
-            <div className="shrink-0 w-60 border-l border-[#C4649F]">
-              <div className="px-4 py-3 border-b border-[#C4649F] text-[#C4649F] text-xs font-semibold uppercase">
-                Acciones
-              </div>
-              {participantesFiltrados.length === 0 ? (
-                <div className="py-8" />
-              ) : (
-                participantesFiltrados.map((p) => (
-                  <div key={p.id} className="px-3 py-4 grid grid-cols-2 gap-2 items-center min-h-[64px]">
- {/* <button
-    disabled={loadingId === p.id}
-    onClick={() => handleStatusUpdate(p.id, 1)}
-    className={`px-2 py-1 text-white text-[10px] font-medium rounded-md transition-all 
-      ${loadingId === p.id 
-        ? "bg-gray-400 cursor-not-allowed" 
-        : "bg-green-600 hover:bg-green-700 active:scale-95"}`}
-  >
-    {loadingId === p.id ? "..." : "Aceptar"}
-  </button>
-  
-  <button
-    disabled={loadingId === p.id}
-    onClick={() => handleStatusUpdate(p.id, 2)}
-    className={`px-2 py-1 text-white text-[10px] font-medium rounded-md transition-all 
-      ${loadingId === p.id 
-        ? "bg-gray-400 cursor-not-allowed" 
-        : "bg-red-600 hover:bg-red-700 active:scale-95"}`}
-  >
-    {loadingId === p.id ? "..." : "Rechazar"}
-  </button>*/}
-</div>
-                ))
-              )}
-            </div>
-          )}
-
+         
           </div>
         </div>
 
