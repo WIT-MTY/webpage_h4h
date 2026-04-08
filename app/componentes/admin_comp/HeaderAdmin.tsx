@@ -127,6 +127,7 @@ export default function HeaderAdmin() {
             alt="H4H Logo"
             className="h-40 w-auto"
           />
+          <p className="text-[#4A0C32] font-bold">Admin</p>
         </div>
 
         {/* Navegación */}
