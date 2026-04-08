@@ -12,10 +12,10 @@ const FILTROS: { valor: FiltroEstado; label: string; bg: string; activeBg: strin
 export default function PagePanel() {
 
   const { DATA, loading } = useEquiposData();
-  const [expandida, setExpandida] = useState<number | null>(null);
   const [filtro, setFiltro] = useState<FiltroEstado>("Incompleto");
-  const [loadingId, setLoadingId] = useState<number | null>(null);
   if (loading) return <div className="p-8 text-[#4A0C32]">Cargando...</div>;
+
+
 
   const participantesFiltrados = DATA.filter(p => p.estatus === filtro);
 
@@ -38,19 +38,19 @@ export default function PagePanel() {
 
         {/* Botones de filtro */}
         <div className="flex gap-3 mb-4">
-          {FILTROS.map(({ valor, label, bg, activeBg }) => (
-            <button
-              key={valor}
-              onClick={() => { setFiltro(valor); setExpandida(null); }}
-              className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${filtro === valor ? activeBg : bg}`}
-            >
-              {label}
-              <span className="ml-2 opacity-70">
-                ({DATA.filter(p => p.estatus === valor).length})
-              </span>
-            </button>
-          ))}
-        </div>
+        {FILTROS.map(({ valor, label, bg, activeBg }) => (
+          <button
+            key={valor}
+            onClick={() => setFiltro(valor)}
+            className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${filtro === valor ? activeBg : bg}`}
+          >
+            {label}
+            <span className="ml-2 opacity-70">
+              ({DATA.filter(e => e.estatus === valor).length})
+            </span>
+          </button>
+        ))}
+      </div>
 
         {/* Tabla */}
         <div className="border-3 border-[#C4649F] bg-white rounded-lg overflow-hidden">
