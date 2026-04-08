@@ -1,6 +1,10 @@
 'use client';
 import HeaderAdmin from '../componentes/admin_comp/HeaderAdmin';
 import { useState } from 'react';
+import { useMetricas1Data } from '../hooks/utils/useMetricas1Data';
+import { useMetricas2Data } from '../hooks/utils/useMetricas2Data';
+import { useMetricas3Data } from '../hooks/utils/useMetricas3Data';
+
 import {
   BarChart,
   Bar,
@@ -13,107 +17,194 @@ import {
   Cell,
 } from 'recharts';
 
-// TypeScript types
-interface KPIData {
-  label: string;
-  value: number;
-  color: string;
-}
 
-interface PieData {
-  name: string;
-  value: number;
-  color: string;
-}
 
 interface BarData {
   name: string;
   value: number;
 }
 
-interface RestrictionDetail {
-  name: string;
-  count: number;
-}
 
-// Mock data constants
-const kpiData: KPIData[] = [
-  { label: 'Pendientes', value: 32, color: '#BA7517' },
-  { label: 'Aceptadas', value: 0, color: '#3B6D11' },
-  { label: 'Rechazadas', value: 0, color: '#A32D2D' },
-  { label: 'Mexicanas aceptadas', value: 0, color: '#185FA5' },
-  { label: 'Extranjeras aceptadas', value: 0, color: '#534AB7' },
-];
-
-const dietTypeData: PieData[] = [
-  { name: 'No vegana', value: 75, color: '#639922' },
-  { name: 'Vegana', value: 25, color: '#1D9E75' },
-];
-
-const restrictionsData: PieData[] = [
-  { name: 'Sin restricciones', value: 65, color: '#378ADD' },
-  { name: 'Con restricciones', value: 35, color: '#D85A30' },
-];
-
-const restrictionDetails: RestrictionDetail[] = [
-  { name: 'Intolerancia a la lactosa', count: 8 },
-  { name: 'Celiaquía / intolerancia al gluten', count: 5 },
-  { name: 'Alergia a frutos secos', count: 4 },
-  { name: 'Alergia a mariscos', count: 3 },
-  { name: 'Vegetariana', count: 3 },
-  { name: 'Alergia al huevo', count: 2 },
-  { name: 'Alergia a la soya', count: 1 },
-];
-
-const carreraData: BarData[] = [
-  { name: 'ITC', value: 18 },
-  { name: 'IIS', value: 12 },
-  { name: 'IDA', value: 8 },
-  { name: 'IMT', value: 5 },
-  { name: 'Otra', value: 3 },
-];
-
-const semestreData: BarData[] = [
-  { name: '3°', value: 5 },
-  { name: '4°', value: 10 },
-  { name: '5°', value: 14 },
-  { name: '6°', value: 8 },
-  { name: '7°', value: 6 },
-  { name: '8°', value: 3 },
-];
-
-const universidadesMexData: BarData[] = [
-  { name: 'Tec MTY', value: 20 },
-  { name: 'UANL', value: 10 },
-  { name: 'UDEM', value: 7 },
-  { name: 'UVM', value: 5 },
-];
-
-const universidadesExtData: RestrictionDetail[] = [
-  { name: 'uni 1', count: 2 },
-  { name: 'uni 2', count: 1 },
-  { name: 'uni 3', count: 1 },
-  { name: 'uni 4', count: 1 },
-];
-
-const estadoData: BarData[] = [
-  { name: 'Nuevo León', value: 22 },
-  { name: 'CDMX', value: 8 },
-  { name: 'Jalisco', value: 6 },
-  { name: 'Coahuila', value: 4 },
-  { name: 'Tamaulipas', value: 3 },
-  { name: 'Otro', value: 3 },
-];
-
-const shirtSizeData: BarData[] = [
-  { name: 'XS', value: 4 },
-  { name: 'S', value: 14 },
-  { name: 'M', value: 18 },
-  { name: 'L', value: 8 },
-  { name: 'XL', value: 3 },
-];
 
 export default function PageAdmin() {
+  const { metricas1, loading1, error1 } = useMetricas1Data();
+  const { metricas2, loading2, error2  } = useMetricas2Data();
+  const { metricas3, loading3, error3 } = useMetricas3Data();
+
+  if (loading1) {
+    return (
+      <div className="p-8 flex justify-center items-center min-h-screen">
+        <div className="text-[#4A0C32]">Cargando métricas...</div>      </div>
+    );
+  }
+
+  
+  if (error1) {
+    return (
+      <div className="p-8">
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          Error al cargar métricas: {error1}
+        </div>
+      </div>
+    );
+  }
+
+  if (!metricas1) {
+    return (
+      <div className="p-8">
+        <div className="text-[#4A0C32]">No hay datos disponibles</div>
+      </div>
+    );
+  }
+
+  if (loading2) {
+    return (
+      <div className="p-8 flex justify-center items-center min-h-screen">
+        <div className="text-[#4A0C32]">Cargando métricas...</div>      </div>
+    );
+  }
+
+  
+  if (error2) {
+    return (
+      <div className="p-8">
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          Error al cargar métricas: {error1}
+        </div>
+      </div>
+    );
+  }
+
+  if (!metricas2) {
+    return (
+      <div className="p-8">
+        <div className="text-[#4A0C32]">No hay datos disponibles</div>
+      </div>
+    );
+  }
+
+  if (loading3) {
+    return (
+      <div className="p-8 flex justify-center items-center min-h-screen">
+        <div className="text-[#4A0C32]">Cargando métricas...</div>      </div>
+    );
+  }
+
+  
+  if (error3) {
+    return (
+      <div className="p-8">
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          Error al cargar métricas: {error1}
+        </div>
+      </div>
+    );
+  }
+
+  if (!metricas3) {
+    return (
+      <div className="p-8">
+        <div className="text-[#4A0C32]">No hay datos disponibles</div>
+      </div>
+    );
+  }
+
+  // Seccion 1 metricas
+  const kpiData = [
+    { 
+      label: "Pendientes", 
+      value: metricas1.estatus?.find(e => e.estatus === "Pendiente")?.total || 0,
+      color: "#EAB308"
+    },
+    { 
+      label: "Aceptados", 
+      value: metricas1.estatus?.find(e => e.estatus === "Aceptado")?.total || 0,
+      color: "#22C55E"
+    },
+    { 
+      label: "Rechazados", 
+      value: metricas1.estatus?.find(e => e.estatus === "Rechazado")?.total || 0,
+      color: "#EF4444"
+    },
+    { 
+      label: "Mexicanas aceptadas", 
+      value: metricas1.nacionalidad?.find(f => f.tipo === "Mexicanas")?.total || 0,
+      color: "#096FE8"
+    },
+    { 
+      label: "Extranjeras aceptadas", 
+      value: metricas1.nacionalidad?.find(f => f.tipo === "Extranjeras")?.total || 0,
+      color: "#5105AD"
+    }
+  ];
+
+  
+  const shirtSizeData = metricas1.tallas?.map(item => ({
+    name: item.talla,
+    value: item.total
+  })) || [];
+
+
+  const dietTypeData = metricas1.veganas?.map(item => ({
+    name: item.tipo === "Veganas" ? "Vegano/a" : "No vegano/a",
+    value: item.total,
+    color: item.tipo === "Veganas" ? "#7F77DD" : "#C4649F"
+  })) || [];
+
+  
+  const restrictionsData = metricas1.restricciones?.map(item => ({
+    name: item.restriccion === "Con restricción" ? "Sí" : "No",
+    value: item.total,
+    color: item.restriccion === "Con restricción" ? "#EF4444" : "#22C55E"
+  })) || [];
+
+  
+  const restrictionDetails = (() => {
+    const detalles = metricas1.detalle_restricciones || [];
+    const conteo: { [key: string]: number } = {};
+    
+    detalles.forEach(detalle => {
+      if (detalle) {
+        conteo[detalle] = (conteo[detalle] || 0) + 1;
+      }
+    });
+    
+    return Object.entries(conteo)
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count);
+  })();
+
+  //Seccion 2 metricas
+  const carreraData = metricas2.carreras?.map(item => ({
+    name: item.carrera,
+    value: item.total
+  })) || [];
+
+  const semestreData = metricas2.semestres?.map(item => ({
+    name: item.semestre,
+    value: item.total
+  })) || [];
+
+  const universidadesMexData = metricas2.universidades_mexico?.map(item => ({
+    name: item.universidad,
+    value: item.total
+  })) || [];
+
+  const universidadesExtData = metricas2.universidades_extranjeras?.map(item => ({
+    name: item.universidad,
+    value: item.total
+  })) || [];
+
+  //Seccion 3 metricas
+  const estadoData = metricas3.estados?.map(item => ({
+    name: item.estado,
+    value: item.total
+  })) || [];
+
+
+
+
+  
   
 
   return (
@@ -243,9 +334,6 @@ export default function PageAdmin() {
               <div key={item.name}>
                 <div className="flex items-center justify-between py-2.5">
                   <span className="text-sm text-gray-700">{item.name}</span>
-                  <span className="px-2 py-0.5 bg-gray-100 rounded text-xs font-medium text-gray-600">
-                    {item.count}
-                  </span>
                 </div>
                 {index < restrictionDetails.length - 1 && (
                   <div className="w-full h-px bg-gray-200" />
@@ -307,21 +395,28 @@ export default function PageAdmin() {
           {/* Universidades extranjeras */}
           <div className="bg-white border-3 border-[#C4649F] rounded-xl p-4">
             <h3 className="text-sm font-medium text-gray-700 mb-3">Universidades extranjeras</h3>
-            <div className="space-y-0">
-              {universidadesExtData.map((item, index) => (
-                <div key={item.name}>
-                  <div className="flex items-center justify-between py-2.5">
-                    <span className="text-sm text-gray-700">{item.name}</span>
-                    <span className="px-2 py-0.5 bg-gray-100 rounded text-xs font-medium text-gray-600">
-                      {item.count}
-                    </span>
-                  </div>
-                  {index < universidadesExtData.length - 1 && (
-                    <div className="w-full h-px bg-gray-200" />
-                  )}
+        
+              {universidadesExtData.length > 0 ? (
+                <div className="space-y-0">
+                  {universidadesExtData.map((item, index) => (
+                    <div key={item.name}>
+                      <div className="flex items-center justify-between py-2.5">
+                        <span className="text-sm text-gray-700">{item.name}</span>
+                          <span className="px-2 py-0.5 bg-gray-100 rounded text-xs font-medium text-gray-600">
+                            {item.value}
+                          </span>
+                      </div>
+                        {index < universidadesExtData.length - 1 && (
+                          <div className="w-full h-px bg-gray-200" />
+                        )}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              ) : (
+                <div className="text-center text-gray-500 py-8">
+                  No hay universidades extranjeras registradas
+        </div>
+        )}
           </div>
         </div>
 
