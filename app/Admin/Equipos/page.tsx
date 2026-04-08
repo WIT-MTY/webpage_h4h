@@ -15,13 +15,7 @@ export default function PagePanel() {
   const [filtro, setFiltro] = useState<FiltroEstado>("Incompleto");
   if (loading) return <div className="p-8 text-[#4A0C32]">Cargando...</div>;
 
-
-
   const participantesFiltrados = DATA.filter(p => p.estatus === filtro);
-
-
-
-  
 
   return (
     <div className="p-8">
