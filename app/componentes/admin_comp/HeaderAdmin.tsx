@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 const NAV_ITEMS = [
     {
@@ -54,6 +55,7 @@ const NAV_ITEMS = [
 export default function HeaderAdmin() {
   const pathname = usePathname();
   const router = useRouter(); 
+  const [isOpen, setIsOpen] = useState(false);
 
   const logout = async () => {
     try {
@@ -77,52 +79,91 @@ export default function HeaderAdmin() {
 };
 
   return (
-    <aside className="w-56 min-h-screen flex flex-col shrink-0 border-r border-[#4A0C32]/20" style={{ background: "#F0CEE3" }}>
+    <>
+      {/* Botón hamburguesa: solo en pantallas de móvil y tablets ── */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-[#F0CEE3] border border-[#4A0C32]/20 text-[#4A0C32] shadow"
+        aria-label="Abrir menú"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
 
-      {/* Logo y título */}
-      <div className="px-6 py-6 border-b border-[#4A0C32]/20">
-        <img
-          src="/images/h4h_logos/logo_h4h_corto.svg"
-          alt="H4H Logo"
-          className="h-10 w-auto mb-2"
+      {isOpen && (
+        <div
+          className="md:static md:translate-x-0 md:h-full md:self-stretch md:shrink-0"
+          onClick={() => setIsOpen(false)}
         />
-        <h1 className="text-2xl text-[#4A0C32]">Admin</h1>
-      </div>
+      )}
 
-      {/* Navegación vertical */}
-      <nav className="flex flex-col flex-1 px-4 py-6 gap-1">
-        {NAV_ITEMS.map(({ label, href, icon }) => {
-          const isActive = pathname === href;
-          return (
-            <Link
-              key={href}
-              href={href}
-              className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors
-                ${isActive
-                  ? "bg-[#4A0C32] text-white"
-                  : "text-[#4A0C32] hover:bg-[#4A0C32]/10"
-                }`}
-            >
-              {icon}
-              <span>{label}</span>
-            </Link>
-          );
-        })}
-      </nav>
-
-      {/* Cerrar sesión */}
-      <div className="px-4 pb-6 border-t border-[#4A0C39]/20 pt-4">
+      {/* ── Sidebar ── */}
+      <aside
+        style={{ background: "#F0CEE3" }}
+        className={`
+          fixed top-0 left-0 z-50 h-full w-56 flex flex-col
+          border-r border-[#4A0C32]/20
+          transition-transform duration-300 ease-in-out
+          ${isOpen ? "translate-x-0" : "-translate-x-full"}
+          md:static md:translate-x-0 md:h-auto md:self-stretch md:shrink-0
+        `}
+      >
+        {/* Botón cerrar sesión en móvil */}
         <button
-          onClick={logout}
-          className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-[#4A0C32]  hover:bg-[#4A0C32]/30 transition-colors"
+          onClick={() => setIsOpen(false)}
+          className="md:hidden self-end m-4 p-1 text-[#4A0C32]"
+          aria-label="Cerrar menú"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
-          <span>Cerrar sesión</span>
         </button>
-      </div>
 
-    </aside>
+        {/* Logo */}
+        <div className="px-6 py-6 border-b border-[#4A0C32]/20">
+          <img
+            src="/images/h4h_logos/logo_h4h_corto.svg"
+            alt="H4H Logo"
+            className="h-40 w-auto"
+          />
+        </div>
+
+        {/* Navegación */}
+        <nav className="flex flex-col flex-1 px-4 py-6 gap-1">
+          {NAV_ITEMS.map(({ label, href, icon }) => {
+            const isActive = pathname === href;
+            return (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setIsOpen(false)}
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors
+                  ${isActive
+                    ? "bg-[#4A0C32] text-white"
+                    : "text-[#4A0C32] hover:bg-[#4A0C32]/10"
+                  }`}
+              >
+                {icon}
+                <span>{label}</span>
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Cerrar sesión */}
+        <div className="px-4 pb-6 border-t border-[#4A0C32]/20 pt-4">
+          <button
+            onClick={logout}
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-[#4A0C32] hover:bg-[#4A0C32]/30 transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            <span>Cerrar sesión</span>
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }

@@ -36,7 +36,7 @@ export default function PagePanel() {
               ) : (
                 data.porEquipo.map((equipo) => (
                   <div key={equipo.nombre} className="border-b border-[#C4649F]/20 last:border-0">
-                    <div className="flex min-w-[900px] px-4 h-14 items-center gap-4 hover:bg-pink-50 transition-colors">
+                    <div className="flex px-4 h-14 items-center gap-4 hover:bg-pink-50 transition-colors">
                       <div className="w-60 shrink-0">
                         <p className="text-black font-medium text-sm">{equipo.nombre}</p>
                       </div>
@@ -68,7 +68,7 @@ export default function PagePanel() {
             data.metricas.map((reto) => (
               <div 
                 key={reto.titulo} 
-                className="bg-white border-3 border-[#C4649F]/30 rounded-lg p-4 flex items-center justify-between hover:border-[#C4649F] transition-colors"
+                className="bg-white border-3 rounded-lg p-4 flex items-center justify-between border-[#C4649F] transition-colors"
               >
                 <p className="text-[#4A0C32] font-medium text-sm flex-1 mr-4">
                   {reto.titulo}
