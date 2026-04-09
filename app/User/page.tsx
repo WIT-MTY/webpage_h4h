@@ -1,7 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import HeaderUser from '../componentes/user_comp/HeaderUser';
 import EstadoUser from '../componentes/user_comp/EstadoUser';
 import { useFetchProtegido } from '../hooks/utils/useFetchProtegido';
 import CrearEquipo from '../componentes/user_comp/CrearEquipo';
@@ -74,16 +73,36 @@ export default function PageUser() {
           <div className="flex-1 space-y-4">
             <h2 className='text-xl font-semibold'>Estatus de participación</h2>
               {estatus !== null && <EstadoUser descripcion={estatus.estatus} />}
+            
+            {estatus?.estatus ==="Aceptado" && 
+              (
+                <div className="flex-1">
+                  <h2 className='text-xl font-semibold mb-4'>Llegó el momento de elegir tu reto</h2>
+                  <ElegirReto tieneReto={false} esLider={true} />
+                </div>
+              ) || (
+                <div className="flex-1">
+                </div>
+              )
+            }
 
-            <h2 className='text-xl font-semibold'>Llegó el momento de elegir tu reto</h2>
-            <ElegirReto tieneReto={false} esLider={true} />
           </div>
+         
 
+          
           {/* Columna derecha: Equipo */}
-            <div className="flex-1">
-              <h2 className='text-xl font-semibold mb-4'>Llegó el momento de formar tu equipo</h2>
-              <CrearEquipo tieneEquipo={false} />
-            </div>
+          {estatus?.estatus ==="Aceptado" && 
+            (
+              <div className="flex-1">
+                <h2 className='text-xl font-semibold mb-4'>Llegó el momento de formar tu equipo</h2>
+                <CrearEquipo tieneEquipo={false} />
+              </div>
+            ) ||
+            (
+              <div className="flex-1">
+              </div>
+            )
+          } 
 
         </div>
                 

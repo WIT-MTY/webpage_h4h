@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react';
 import { useInfoRetosData } from '@/app/hooks/utils/useInfoRetosData';
+
 interface EstadoProps {
     tieneReto: boolean;
     esLider: boolean;

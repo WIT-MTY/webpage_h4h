@@ -103,7 +103,7 @@ export default function UserProfile() {
 
           <div>
             <p className="text-white/60 text-sm mb-1">Fecha de nacimiento</p>
-            <p className="text-white font-medium">{usuario.fecha_nacimiento}</p>
+            <p className="text-white font-medium">{new Date(usuario.fecha_nacimiento).toLocaleDateString("es-MX", {timeZone: "UTC"})}</p>
           </div>
 
           <div>

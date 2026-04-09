@@ -13,7 +13,7 @@ const FILTROS: { valor: FiltroEstado; label: string; bg: string; activeBg: strin
 export default function PagePanel() {
 
   const { DATA, loading, refetch} = useParticipantesData();
-  const [expandida, setExpandida] = useState<number | null>(null);
+  const [expandida, setExpandida] = useState<string | null>(null);
   const [filtro, setFiltro] = useState<FiltroEstado>("Pendiente");
   const [loadingId, setLoadingId] = useState<string | null>(null);
   if (loading) return <div className="p-8 text-[#4A0C32]">Cargando...</div>;
@@ -118,12 +118,12 @@ export default function PagePanel() {
                 </div>
               ) : (
                 participantesFiltrados.map((p) => (
-                  <div key={p.id} className="border-b border-[#C4649F]/20 last:border-0">
+                  <div key={p.usuario_base_id} className="border-b border-[#C4649F]/20 last:border-0">
 
                     {/* Fila principal */}
                     <div
                       className="flex min-w-[900px] px-4 min-h-[64px] items-center gap-4 hover:bg-pink-50 cursor-pointer transition-colors"
-                      onClick={() => setExpandida(expandida === p.id ? null : p.id)}
+                      onClick={() => setExpandida(expandida === p.usuario_base_id ? null : p.usuario_base_id)}
                     >
                       <div className="w-60 shrink-0">
                         <p className="text-black font-medium text-sm">{p.nombre} {p.apellido}</p>
@@ -179,7 +179,7 @@ export default function PagePanel() {
                     </div>
 
                     {/* Fila expandida */}
-                    {expandida === p.id && (
+                    {expandida === p.usuario_base_id && (
                       <div className="px-6 pb-6 pt-4 bg-white/5 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
 
                         <div className="space-y-3">

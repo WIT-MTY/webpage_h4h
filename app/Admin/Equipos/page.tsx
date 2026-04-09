@@ -105,11 +105,26 @@ export default function PagePanel() {
                       </div>
 
                       <div className="w-32 shrink-0">
-                        <p className="text-black font-medium text-sm">{p.fecha_creacion}</p>
+                        <p className="text-black font-medium text-sm">{new Date(p.fecha_creacion).toLocaleString("es-MX", {
+                          timeZone: "UTC",
+                          day: "2-digit",
+                          month: "2-digit",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}</p>
+                        
                       </div>
 
                       <div className="w-32 shrink-0">
-                        <p className="text-black font-medium text-sm">{p.fecha_validacion}</p>
+                        <p className="text-black font-medium text-sm">{new Date(p.fecha_validacion).toLocaleString("es-MX", {
+                          timeZone: "UTC",
+                          day: "2-digit",
+                          month: "2-digit",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}</p>
                       </div>
 
                     </div>
