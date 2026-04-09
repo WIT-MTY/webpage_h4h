@@ -74,7 +74,7 @@ export default function PageUser() {
             <h2 className='text-xl font-semibold'>Estatus de participación</h2>
               {estatus !== null && <EstadoUser descripcion={estatus.estatus} />}
             
-            {estatus?.estatus ==="Aceptado" && 
+            {/* {estatus?.estatus ==="Aceptado" && 
               (
                 <div className="flex-1">
                   <h2 className='text-xl font-semibold mb-4'>Llegó el momento de elegir tu reto</h2>
@@ -86,12 +86,12 @@ export default function PageUser() {
               )
             }
 
-          </div>
+          </div> */}
          
 
           
           {/* Columna derecha: Equipo */}
-          {estatus?.estatus ==="Aceptado" && 
+          {/* {estatus?.estatus ==="Aceptado" && 
             (
               <div className="flex-1">
                 <h2 className='text-xl font-semibold mb-4'>Llegó el momento de formar tu equipo</h2>
@@ -102,7 +102,7 @@ export default function PageUser() {
               <div className="flex-1">
               </div>
             )
-          } 
+          } */}
 
         </div>
                 
