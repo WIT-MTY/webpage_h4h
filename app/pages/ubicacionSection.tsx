@@ -30,8 +30,12 @@ const googleMapsUrl =
     <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <BackgroundDecor mouseParallax mousePosition={mousePosition} />
         <style jsx>{`
+            /* Ocultar el sol superior derecha */
+            div :global(.top-10.right-1\/3) {
+                display: none;
+            }
             /* Ocultar la estrella superior centro-izquierda */
-            div :global(.absolute.top-24) {
+            div :global(.top-24.left-1\/4) {
                 display: none;
             }
         `}</style>
@@ -42,7 +46,7 @@ const googleMapsUrl =
         className="relative z-10"
         style={{
         width: "100%",
-        maxWidth: "1000px",
+        maxWidth: "min(90vw, 1400px)",
         marginLeft: "auto",
         marginRight: "auto",
         paddingLeft: "2rem",
@@ -67,15 +71,7 @@ const googleMapsUrl =
             boxSizing: "border-box" as const,
         }}
         >
-        <div
-            style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "2rem",
-            alignItems: "center",
-            width: "100%",
-            }}
-        >
+        <div className="flex flex-col lg:grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-8 items-center w-full">
             {/* ── Mapa ── */}
             <a
             href={googleMapsUrl}
@@ -102,8 +98,10 @@ const googleMapsUrl =
                 style={{
                 position: "relative",
                 width: "100%",
+                minWidth: "min(350px, 100%)",
+                height: "0",
                 paddingBottom: "75%",
-                height: 0,
+                minHeight: "min(300px, 75vw)",
                 borderRadius: "1rem",
                 overflow: "hidden",
                 border: "3px solid rgba(255,40,113,0.6)",

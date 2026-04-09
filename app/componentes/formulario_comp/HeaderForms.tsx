@@ -33,7 +33,7 @@ export default function HeaderForms() {
                     {/* Línea decorativa */}
                 </div>
 
-                <nav className="hidden md:flex items-center">
+                <nav className="flex items-center">
                 {isSesionPage ? (
                 <Link 
                     href="/registro" 
@@ -51,8 +51,8 @@ export default function HeaderForms() {
                     
                 </Link>
                 )}
-            </nav>
-</div>
+                </nav>
+                </div>
 
            </div> 
         </header>

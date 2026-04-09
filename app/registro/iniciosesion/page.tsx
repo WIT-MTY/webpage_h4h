@@ -76,7 +76,7 @@ export default function PageFormulario() {
                             {/* Disposición vertical en lugar de grid */}
                             <div className="flex flex-col space-y-4">
                                 <div>
-                                    <p className="text-white mb-2">Correo Electrónico</p>
+                                    <p className="text-white mb-2">Correo Electrónico <span className="text-red-400">*</span></p>
                                     <input 
                                         type="email" 
                                         value={correo}

@@ -136,17 +136,17 @@ const HomeSection = () => {
                             <img
                                 src="/images/figuras/HACK.svg"
                                 alt="HACK"
-                                className="h-11 w-auto max-h-[12vw] max-w-[25vw] shrink-0 object-contain object-center sm:h-14 sm:max-h-[10vw] md:h-[4.35rem] md:max-h-[8vw] lg:h-[5.35rem] lg:max-h-[7vw]"
+                                className="h-[4.65rem] w-auto max-h-[17vw] max-w-[33vw] shrink-0 object-contain object-center sm:h-[5.5rem] sm:max-h-[15vw] md:h-[6.65rem] md:max-h-[12.5vw] lg:h-[4rem] lg:max-h-[5.5vw] xl:h-[4.5rem] xl:max-h-[5vw]"
                             />
                             <img
                                 src="/images/figuras/4.svg"
                                 alt="4"
-                                className="h-[4.75rem] w-auto max-h-[18vw] max-w-[20vw] shrink-0 object-contain object-center sm:h-[5.75rem] sm:max-h-[16vw] md:h-[7.25rem] md:max-h-[14vw] lg:h-[9.25rem] lg:max-h-[12vw]"
+                                className="h-[4.75rem] w-auto max-h-[18vw] max-w-[20vw] shrink-0 object-contain object-center sm:h-[5.75rem] sm:max-h-[16vw] md:h-[7.25rem] md:max-h-[14vw] lg:h-[9rem] lg:max-h-[11vw] xl:h-[9.5rem] xl:max-h-[10vw]"
                             />
                             <img
                                 src="/images/figuras/HER.svg"
                                 alt="HER"
-                                className="h-11 w-auto max-h-[12vw] max-w-[25vw] shrink-0 object-contain object-center sm:h-14 sm:max-h-[10vw] md:h-[4.35rem] md:max-h-[8vw] lg:h-[5.35rem] lg:max-h-[7vw]"
+                                className="h-[3.75rem] w-auto max-h-[14vw] max-w-[28vw] shrink-0 object-contain object-center sm:h-[4.5rem] sm:max-h-[12vw] md:h-[5.5rem] md:max-h-[10vw] lg:h-[4rem] lg:max-h-[5.5vw] xl:h-[4.5rem] xl:max-h-[5vw]"
                             />
                         </div>
                     </div>
@@ -167,12 +167,15 @@ const HomeSection = () => {
                     <BotonForms />
 
                     {/* Discord Button */}
-                    <button
-                        type="button"
-                        className="w-full sm:w-auto bg-transparent hover:bg-white/10 text-white font-montserrat text-xl sm:text-2xl md:text-3xl font-semibold rounded-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] py-5 px-8 sm:py-6 sm:px-11 md:py-7 md:px-12 min-h-[3.5rem] sm:min-h-0 border-[3px] border-[#411037]"
-                    >
-                        Discord
-                    </button>
+                    <a href="https://discord.gg/nPj88kyzkm" target="_blank" rel="noopener noreferrer">
+                        <button
+                            type="button"
+                            className="w-full sm:w-auto bg-transparent hover:bg-white/10 text-white font-montserrat text-xl sm:text-2xl md:text-3xl font-semibold rounded-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] py-5 px-8 sm:py-6 sm:px-11 md:py-7 md:px-12 min-h-[3.5rem] sm:min-h-0 border-[3px] border-[#411037]"
+                        >
+                            Discord
+                        
+                        </button>
+                    </a>
                 </div>
             </div>
       </Section>

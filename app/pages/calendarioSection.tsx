@@ -134,7 +134,15 @@ const CalendarioSection = () => {
       className="relative min-h-screen overflow-hidden py-20 px-4"
       style={{ backgroundColor: "#4A0C32" }}
     >
-      <BackgroundDecor />
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <BackgroundDecor />
+        <style jsx>{`
+          /* Ocultar la estrella superior centro-izquierda */
+          div :global(.top-24) {
+            display: none;
+          }
+        `}</style>
+      </div>
 
       <div className="relative z-10 max-w-5xl mx-auto">
         <div className="text-center mb-14">
@@ -154,7 +162,7 @@ const CalendarioSection = () => {
         {/* --> panel muy pronto */}
         <div className="relative">
           <div
-            className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center gap-3 z-20"
+            className="absolute -inset-4 rounded-2xl flex flex-col items-center justify-center gap-3 z-20"
             style={{
               backdropFilter: "blur(6px)",
               WebkitBackdropFilter: "blur(6px)",

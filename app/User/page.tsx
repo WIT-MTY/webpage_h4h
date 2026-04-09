@@ -1,9 +1,11 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import HeaderUser from '../componentes/user_comp/HeaderUser';
 import EstadoUser from '../componentes/user_comp/EstadoUser';
 import { useFetchProtegido } from '../hooks/utils/useFetchProtegido';
+import CrearEquipo from '../componentes/user_comp/CrearEquipo';
+import ElegirReto from '../componentes/user_comp/ElegirReto';
+
 
 // 
 interface EstatusParticipante {
@@ -52,22 +54,37 @@ export default function PageUser() {
         );
     }
     
-    return (
-        <div className="p-8">
-            <div className="space-y-4">
-                <h1 className="font-high-cruiser text-6xl text-[#4A0C32] transition-colors">
-                    ¡Bienvenida!
-                </h1>
-                <p className="text-[#4A0C32]">Revisa aquí los siguientes pasos para seguir tu camino a Hack4Her.</p>
-
-                <div className="w-full h-0.5 bg-[#4A0C32] rounded-full mx-auto">
-                    {/* Línea decorativa */}
-                </div>
-                <h1 className='text-xl font-semibold mb-4'>Estatus de participación</h1>
-                {estatus !== null && (<EstadoUser descripcion={estatus.estatus} />)}
-
-            </div>
-        </div>
+  return (
+    <div className="p-8">
+      <div className="space-y-4">
+        <h1 className="font-high-cruiser text-6xl text-[#4A0C32] transition-colors">
+          ¡Bienvenida!
+        </h1>
         
-    );
+        <p className="text-[#4A0C32]">Revisa aquí los siguientes pasos para seguir tu camino a Hack4Her.</p>
+
+        <div className="w-full h-0.5 bg-[#4A0C32] rounded-full mx-auto">
+          {/* Línea decorativa */}
+        </div>
+                 
+        <div className="flex gap-6 items-start">
+
+          {/* Columna izquierda: Estatus y Reto */}
+          <div className="flex-1 space-y-4">
+            <h2 className='text-xl font-semibold'>Estatus de participación</h2>
+              {estatus !== null && <EstadoUser descripcion={estatus.estatus} />}
+            
+            
+
+          </div> 
+         
+
+          
+          
+
+        </div>
+                
+      </div>
+    </div>
+  );
 }
