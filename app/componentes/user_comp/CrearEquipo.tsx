@@ -1,92 +1,142 @@
 'use client'
 import { useState } from 'react';
+import { useInfoEquipoData } from '@/app/hooks/utils/useInfoEquipoData';
 
-interface EstadoProps {
-    tieneEquipo: boolean;
-}
 
-const CrearEquipo = ({ tieneEquipo: tieneEquipoInicial }: EstadoProps) => {
+const CrearEquipo = () => {
+
+    const { infoEquipo, loadingInfo, refetch } = useInfoEquipoData();
 
     const [nombreEquipo, setNombreEquipo] = useState('');
     const [codigoEquipo, setCodigoEquipo] = useState('');
-    const [tieneEquipo, setTieneEquipo] = useState(tieneEquipoInicial);
-    const [equipoCreado, setEquipoCreado] = useState<{ nombre: string; codigo: string } | null>(null);
     const [codigoGenerado, setCodigoGenerado] = useState('');
     const [mostrarCodigo, setMostrarCodigo] = useState(false);
+    const [errorUnirse, setErrorUnirse] = useState('');
 
-    const handleCrearEquipo = () => {
+   const equipoActivo = infoEquipo;
+
+    const handleCrearEquipo = async () => {
         if (!nombreEquipo.trim()) return;
 
-        // Simulación — reemplaza con fetch al backend
-        const codigoAleatorio = Math.random().toString(36).substring(2, 8).toUpperCase();
-        setCodigoGenerado(codigoAleatorio);
-        setMostrarCodigo(true);
+        try {
+            const BASE = process.env.NEXT_PUBLIC_API_URL;
+            const token = document.cookie
+                .split("; ")
+                .find(row => row.startsWith("token="))
+                ?.split("=")[1];
 
-        // Cuando conectes el backend:
-        // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/equipos`, {
-        //     method: "POST",
-        //     body: JSON.stringify({ nombre: nombreEquipo }),
-        //     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }
-        // });
-        // const data = await res.json();
-        // setCodigoGenerado(data.codigo);
-        // setMostrarCodigo(true);
+            const res = await fetch(`${BASE}/create`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ nombre: nombreEquipo }),
+            });
+
+            if (!res.ok) throw new Error(`Error ${res.status}`);
+
+            const data = await res.json();
+            setCodigoGenerado(data.codigo); 
+            setMostrarCodigo(true);
+
+        } catch (error) {
+            console.error('Error al crear equipo:', error);
+        }
     };
 
-    const handleConfirmarEquipo = () => {
-        setEquipoCreado({ nombre: nombreEquipo, codigo: codigoGenerado });
-        setTieneEquipo(true);
+    const handleConfirmarEquipo = async () => {
         setMostrarCodigo(false);
+        await refetch();
     };
-
-    const handleUnirse = () => {
+    
+    const handleUnirse = async () => {
         if (!codigoEquipo.trim()) return;
+        setErrorUnirse('');
 
-        // Simulación — reemplaza con fetch al backend
-        setEquipoCreado({ nombre: "Equipo encontrado", codigo: codigoEquipo });
-        setTieneEquipo(true);
+        try {
+            const BASE = process.env.NEXT_PUBLIC_API_URL;
+            const token = document.cookie
+                .split("; ")
+                .find(row => row.startsWith("token="))
+                ?.split("=")[1];
 
-        // Cuando conectes el backend:
-        // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/equipos/unirse`, {
-        //     method: "POST",
-        //     body: JSON.stringify({ codigo: codigoEquipo }),
-        //     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }
-        // });
-        // if (res.ok) setTieneEquipo(true);
+            const res = await fetch(`${BASE}/join/${codigoEquipo}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!res.ok) {
+                if (res.status === 404) {
+                    setErrorUnirse('El código no corresponde a ningún equipo.');
+                } else if (res.status === 400) {
+                setErrorUnirse('Este equipo ya está lleno.');
+                }
+                return;
+            }
+
+            await refetch();
+
+        } catch (error) {
+            setErrorUnirse('Ocurrió un error, intenta de nuevo.');
+        }
     };
+
+    if (loadingInfo) {
+        return (
+            <div className="bg-white border-2 border-[#C4649F] rounded-2xl overflow-hidden w-full max-w-xl">
+                <div className="bg-[#C4649F] px-6 py-4">
+                    <h1 className="text-white font-bold text-xl">Equipos</h1>
+                </div>
+                <div className="p-6">
+                    <p className="text-[#4A0C32]/60 text-sm">Cargando...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="bg-white border-2 border-[#C4649F] rounded-2xl overflow-hidden w-full max-w-xl">
             
             <div className="bg-[#C4649F] px-6 py-4">
                 <h1 className="text-white font-bold text-xl">
-                    {tieneEquipo ? "Mi equipo" : "Equipos"}
+                    {equipoActivo ? "Mi equipo" : "Equipos"}
                 </h1>
             </div>
 
             <div className="p-6">
-                {tieneEquipo ? (
+                {equipoActivo ? (
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                            <h2 className="text-[#4A0C32] font-bold text-2xl">{equipoCreado?.nombre || "Equipo X"}</h2>
+                            <h2 className="text-[#4A0C32] font-bold text-2xl">{equipoActivo?.nombre}</h2>
                             <span className="px-3 py-1 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded-full">
-                                Incompleto
+                                {equipoActivo?.estatus}
                             </span>
                         </div>
 
                         <div className="bg-[#F0CEE3]/40 rounded-lg px-4 py-3 flex items-center justify-between">
                             <p className="text-[#4A0C32]/60 text-sm">Código de equipo</p>
-                            <p className="text-[#4A0C32] font-bold tracking-widest text-sm">{equipoCreado?.codigo || "—"}</p>
+                            <p className="text-[#4A0C32] font-bold tracking-widest text-sm">Pendiente *</p>
                         </div>
 
                         <div>
                             <p className="text-[#4A0C32] font-semibold text-sm mb-2">Integrantes</p>
                             <div className="space-y-2">
-                                {["Líder", "Integrante 2", "Integrante 3", "Integrante 4"].map((label, i) => (
+                                {[
+                                    equipoActivo?.lider,
+                                    equipoActivo?.participante2,
+                                    equipoActivo?.participante3,
+                                    equipoActivo?.participante4,
+                                ].map((nombre, i) => (
                                     <div key={i} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
-                                        <p className="text-[#4A0C32]/60 text-sm">{label}</p>
-                                        {i === 0
-                                            ? <p className="text-[#4A0C32] font-medium text-sm">Tú</p>
+                                        <p className="text-[#4A0C32]/60 text-sm">
+                                            {i === 0 ? "Líder" : `Integrante ${i + 1}`}
+                                        </p>
+                                        {nombre
+                                            ? <p className="text-[#4A0C32] font-medium text-sm">{nombre}</p>
                                             : <span className="text-xs text-gray-400 italic">Lugar disponible</span>
                                         }
                                     </div>
@@ -153,9 +203,15 @@ const CrearEquipo = ({ tieneEquipo: tieneEquipoInicial }: EstadoProps) => {
                                 type="text"
                                 placeholder="Ingresa el código del equipo"
                                 value={codigoEquipo}
-                                onChange={(e) => setCodigoEquipo(e.target.value)}
+                                onChange={(e) => {
+                                    setCodigoEquipo(e.target.value);
+                                    setErrorUnirse(''); // limpia el error al escribir
+                                }}
                                 className="w-full px-4 py-2.5 rounded-lg border border-[#C4649F]/30 text-[#4A0C32] placeholder-gray-400 text-sm outline-none focus:border-[#C4649F] transition-colors"
                             />
+                            {errorUnirse && (
+                                <p className="text-red-500 text-xs mt-1">{errorUnirse}</p>
+                            )}
                             <button
                                 onClick={handleUnirse}
                                 className="w-full py-2.5 bg-white border border-[#C4649F] text-[#C4649F] font-semibold text-sm rounded-lg hover:bg-[#F0CEE3] transition-colors"

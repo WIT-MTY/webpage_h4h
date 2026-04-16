@@ -5,6 +5,7 @@ import EstadoUser from '../componentes/user_comp/EstadoUser';
 import { useFetchProtegido } from '../hooks/utils/useFetchProtegido';
 import CrearEquipo from '../componentes/user_comp/CrearEquipo';
 import ElegirReto from '../componentes/user_comp/ElegirReto';
+import { useInfoEquipoData } from '../hooks/utils/useInfoEquipoData';
 
 
 // 
@@ -16,6 +17,8 @@ export default function PageUser() {
 
     const router = useRouter();
       const { fetchProtegido } = useFetchProtegido();
+      const { infoEquipo, loadingInfo } = useInfoEquipoData();
+      const tieneEquipo = !infoEquipo;
       const [estatus, setEstatus] = useState<EstatusParticipante | null>(null);
       const [loading, setLoading] = useState(true);
 
@@ -69,16 +72,26 @@ export default function PageUser() {
                  
         <div className="flex gap-6 items-start">
 
-          {/* Columna izquierda: Estatus y Reto */}
+         
           <div className="flex-1 space-y-4">
             <h2 className='text-xl font-semibold'>Estatus de participación</h2>
-              {estatus !== null && <EstadoUser descripcion={estatus.estatus} />}
-            
-            
+            {estatus !== null && <EstadoUser descripcion={estatus.estatus} />}
 
           </div> 
          
-
+          {/* Unirse/Crear Equipo */}
+          {estatus?.estatus ==="Aceptado" && 
+            (
+              <div className="flex-1">
+                <h2 className='text-xl font-semibold mb-4'>Llegó el momento de formar tu equipo</h2>
+                <CrearEquipo />
+              </div>
+            ) ||
+            (
+              <div className="flex-1">
+              </div>
+            )
+          } 
           
           
 
