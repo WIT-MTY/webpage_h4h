@@ -79,21 +79,7 @@ export default function PageUser() {
 
           </div> 
          
-          {/* Unirse/Crear Equipo */}
-          {estatus?.estatus ==="Aceptado" && 
-            (
-              <div className="flex-1">
-                <h2 className='text-xl font-semibold mb-4'>Llegó el momento de formar tu equipo</h2>
-                <CrearEquipo />
-              </div>
-            ) ||
-            (
-              <div className="flex-1">
-              </div>
-            )
-          } 
-          
-          
+
 
         </div>
                 
