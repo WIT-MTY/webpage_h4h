@@ -17,11 +17,63 @@ import {
   Cell,
 } from 'recharts';
 
-
-
 interface BarData {
   name: string;
   value: number;
+}
+
+function ChartModal({ title, onClose, children }: {
+  title: string;
+  onClose: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white rounded-xl p-6 w-[90vw] max-w-4xl shadow-xl"
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-base font-semibold text-gray-800">{title}</h3>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-700 text-xl font-bold leading-none"
+          >
+            ✕
+          </button>
+        </div>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+
+function ChartCard({ title, borderColor = '#C4649F', className = '', onExpand, children }: {
+  title: string;
+  borderColor?: string;
+  className?: string;
+  onExpand: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      className={`bg-white rounded-xl p-4 cursor-pointer group ${className}`}
+      style={{ border: `3px solid ${borderColor}` }}
+      onClick={onExpand}
+    >
+      <div className="flex justify-between items-center mb-3">
+        <h3 className="text-sm font-medium text-gray-700">{title}</h3>
+        <span className="text-xs text-[#C4649F] opacity-0 group-hover:opacity-100 transition-opacity">
+          Ampliar
+        </span>
+      </div>
+      {children}
+    </div>
+  );
 }
 
 
@@ -30,6 +82,13 @@ export default function PageAdmin() {
   const { metricas1, loading1, error1 } = useMetricas1Data();
   const { metricas2, loading2, error2  } = useMetricas2Data();
   const { metricas3, loading3, error3 } = useMetricas3Data();
+
+  const [expandedChart, setExpandedChart] = useState<string | null>(null);
+  const closeModal = () => setExpandedChart(null);
+
+  const [showAllRestrictions, setShowAllRestrictions] = useState(false);
+
+  
 
   if (loading1) {
     return (
@@ -109,6 +168,8 @@ export default function PageAdmin() {
     );
   }
 
+
+  
   // Seccion 1 metricas
   const kpiData = [
     { 
@@ -189,6 +250,8 @@ export default function PageAdmin() {
     name: item.universidad,
     value: item.total
   })) || [];
+
+  
 
   const universidadesExtData = metricas2.universidades_extranjeras?.map(item => ({
     name: item.universidad,
@@ -330,17 +393,27 @@ export default function PageAdmin() {
         <div className="bg-white border-3 border-[#C4649F] rounded-xl p-4 mt-4">
           <h3 className="text-sm font-medium text-gray-700 mb-3">Detalle de restricciones reportadas</h3>
           <div className="space-y-0">
-            {restrictionDetails.map((item, index) => (
+            {(showAllRestrictions ? restrictionDetails : restrictionDetails.slice(0, 5)).map((item, index, arr) => (
               <div key={item.name}>
                 <div className="flex items-center justify-between py-2.5">
                   <span className="text-sm text-gray-700">{item.name}</span>
                 </div>
-                {index < restrictionDetails.length - 1 && (
-                  <div className="w-full h-px bg-gray-200" />
-                )}
+                {index < arr.length - 1 && <div className="w-full h-px bg-gray-200" />}
               </div>
             ))}
           </div>
+          {restrictionDetails.length > 5 && (
+
+          <button
+            onClick={() => setShowAllRestrictions(prev => !prev)}
+            className="mt-3 text-xs text-[#C4649F] hover:underline w-full text-center"
+          >
+            {showAllRestrictions
+            ? 'Ver menos'
+            : `Ver más`}
+          </button>
+          )}
+          
         </div>
 
         {/* Seccion 3: DATOS ACADÉMICOS */}
@@ -351,17 +424,36 @@ export default function PageAdmin() {
         {/* Row 1: Carrera y Semestre */}
         <div className="grid grid-cols-2 gap-4 mt-4">
           {/* Alumnas por carrera */}
-          <div className="bg-white border-3 border-[#C4649F] rounded-xl p-4">
-            <h3 className="text-sm font-medium text-gray-700 mb-3">Alumnas por carrera</h3>
+          <ChartCard title="Alumnas por carrera (Top 3)" onExpand={() => setExpandedChart('alumnas_carrera')}>
             <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={carreraData}>
+              <BarChart data={carreraData.slice(0, 3)}>
                 <XAxis dataKey="name" tick={{ fill: '#374151', fontSize: 12 }} axisLine={{ stroke: '#D1D5DB' }} tickLine={{ stroke: '#D1D5DB' }} />
                 <YAxis tick={{ fill: '#374151', fontSize: 12 }} axisLine={{ stroke: '#D1D5DB' }} tickLine={{ stroke: '#D1D5DB' }} />
                 <Tooltip contentStyle={{ fontSize: '13px', color: '#111827' }} />
                 <Bar dataKey="value" fill="#7F77DD" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
-          </div>
+            {carreraData.length > 5 && (
+              <p className="text-xs text-gray-400 mt-1 text-right">Clic para ver completo</p>
+            )}
+          </ChartCard>
+
+          {expandedChart === 'alumnas_carrera' && (
+            <ChartModal title="Alumnas por carrera" onClose={closeModal}>
+              <div className="overflow-x-auto">
+                <div style={{ width: Math.max(500, carreraData.length*80), height: 700 }}>
+                  <ResponsiveContainer height={700}>   
+                    <BarChart data={carreraData}>
+                      <XAxis dataKey="name" tick={{ fill: '#374151', fontSize: 12 }} axisLine={{ stroke: '#D1D5DB' }} tickLine={{ stroke: '#D1D5DB' }} />
+                      <YAxis tick={{ fill: '#374151', fontSize: 12 }} axisLine={{ stroke: '#D1D5DB' }} tickLine={{ stroke: '#D1D5DB' }} />
+                      <Tooltip contentStyle={{ fontSize: '13px', color: '#111827' }} />
+                      <Bar dataKey="value" fill="#7F77DD" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+            </ChartModal>
+          )}
 
           {/* Alumnas por semestre */}
           <div className="bg-white border-3 border-[#C4649F] rounded-xl p-4">
@@ -380,17 +472,36 @@ export default function PageAdmin() {
         {/* Row 2: Universidades */}
         <div className="grid grid-cols-2 gap-4 mt-4">
           {/* Universidades mexicanas */}
-          <div className="bg-white border-3 border-[#C4649F] rounded-xl p-4">
-            <h3 className="text-sm font-medium text-gray-700 mb-3">Universidades mexicanas</h3>
+          <ChartCard title="Universidades mexicanas (Top 3)" onExpand={() => setExpandedChart('universidades')}>
             <ResponsiveContainer width="100%" height={180}>
-              <BarChart data={universidadesMexData} layout="vertical">
+              <BarChart data={universidadesMexData.slice(0, 3)} layout="vertical">
                 <XAxis type="number" tick={{ fill: '#374151', fontSize: 12 }} axisLine={{ stroke: '#D1D5DB' }} tickLine={{ stroke: '#D1D5DB' }} />
-                <YAxis type="category" dataKey="name" tick={{ fill: '#374151', fontSize: 12 }} width={70} axisLine={{ stroke: '#D1D5DB' }} tickLine={{ stroke: '#D1D5DB' }} />
+                <YAxis type="category" dataKey="name" tick={{ fill: '#374151', fontSize: 12 }} width={150} axisLine={{ stroke: '#D1D5DB' }} tickLine={{ stroke: '#D1D5DB' }} />
                 <Tooltip contentStyle={{ fontSize: '13px', color: '#111827' }} />
                 <Bar dataKey="value" fill="#378ADD" radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
-          </div>
+            {universidadesMexData.length > 5 && (
+              <p className="text-xs text-gray-400 mt-1 text-right">Clic para ver completo</p>
+            )}
+          </ChartCard>
+
+          {expandedChart === 'universidades' && (
+            <ChartModal title="Universidades mexicanas" onClose={closeModal}>
+              <div className="overflow-y-auto max-h-[65vh]">
+                <div style={{ height: Math.max(300, universidadesMexData.length * 40) }}>
+                  <ResponsiveContainer height={700}>   
+                    <BarChart data={universidadesMexData} layout="vertical">
+                      <XAxis type="number" tick={{ fill: '#374151', fontSize: 12 }} axisLine={{ stroke: '#D1D5DB' }} tickLine={{ stroke: '#D1D5DB' }} />
+                      <YAxis type="category" dataKey="name" tick={{ fill: '#374151', fontSize: 12 }} width={300} axisLine={{ stroke: '#D1D5DB' }} tickLine={{ stroke: '#D1D5DB' }} />
+                      <Tooltip contentStyle={{ fontSize: '13px', color: '#111827' }} />
+                      <Bar dataKey="value" fill="#378ADD" radius={[0, 4, 4, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+            </ChartModal>
+          )}
 
           {/* Universidades extranjeras */}
           <div className="bg-white border-3 border-[#C4649F] rounded-xl p-4">
@@ -424,17 +535,36 @@ export default function PageAdmin() {
         <h2 className="text-xs uppercase text-[#4A0C32] opacity-60 tracking-wide mt-8">
           DATOS GEOGRÁFICOS
         </h2>
-        <div className="bg-white border-3 border-[#C4649F] rounded-xl p-4 mt-4">
-          <h3 className="text-sm font-medium text-gray-700 mb-3">Alumnas por estado</h3>
+        <ChartCard title="Alumnas por estado" onExpand={() => setExpandedChart('alumnas_estado')}>
           <ResponsiveContainer width="100%" height={220}>
-            <BarChart data={estadoData}>
+            <BarChart data={estadoData.slice(0, 5)}>
               <XAxis dataKey="name" tick={{ fill: '#374151', fontSize: 12 }} interval={0} axisLine={{ stroke: '#D1D5DB' }} tickLine={{ stroke: '#D1D5DB' }} />
               <YAxis tick={{ fill: '#374151', fontSize: 12 }} axisLine={{ stroke: '#D1D5DB' }} tickLine={{ stroke: '#D1D5DB' }} />
               <Tooltip contentStyle={{ fontSize: '13px', color: '#111827' }} />
               <Bar dataKey="value" fill="#D85A30" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
-        </div>
+          {estadoData.length > 5 && (
+              <p className="text-xs text-gray-400 mt-1 text-right">Clic para ver completo</p>
+            )}
+        </ChartCard>
+
+        {expandedChart === 'alumnas_estado' && (
+          <ChartModal title="Alumnas por estado" onClose={closeModal}>
+            <div className="overflow-y-auto">
+              <div style={{ width: Math.max(400, carreraData.length*80), height: 700 }}>
+                <ResponsiveContainer height={700}>   
+                  <BarChart data={estadoData}>
+                    <XAxis dataKey="name" tick={{ fill: '#374151', fontSize: 12 }} interval={0} axisLine={{ stroke: '#D1D5DB' }} tickLine={{ stroke: '#D1D5DB' }} />
+                    <YAxis tick={{ fill: '#374151', fontSize: 12 }} axisLine={{ stroke: '#D1D5DB' }} tickLine={{ stroke: '#D1D5DB' }} />
+                    <Tooltip contentStyle={{ fontSize: '13px', color: '#111827' }} />
+                    <Bar dataKey="value" fill="#D85A30" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </ChartModal>
+        )}
 
     </div>
   );
