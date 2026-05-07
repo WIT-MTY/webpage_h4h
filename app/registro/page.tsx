@@ -255,7 +255,10 @@ export default function PageFormulario() {
         // Opcionales
         formData.append("linkedin_url", linkedin);
         formData.append("github_url", github);
-        
+
+        // Consentimiento MLH
+        formData.append('autoriza_correos_mlh', String(mlhAutoPromocional));
+
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
             method: "POST",
             body: formData,

@@ -29,7 +29,7 @@ export default function PagePanel() {
   };
 
 
-  // actualizar estatus de participante  
+  // actualizar estatus de participante
   const handleStatusUpdate = async (usuarioBaseId: string, nuevoEstatus: number) => {
     setLoadingId(usuarioBaseId);
     try {
@@ -46,11 +46,11 @@ export default function PagePanel() {
         },
         body: JSON.stringify({ estatus: nuevoEstatus }),
       });
-    
+
       if (!response.ok) throw new Error("Error en la petición");
-        await refetch(); 
+        await refetch();
         alert("Estado actualizado correctamente");
-    
+
     } catch (error) {
       console.error(error);
       alert("Hubo un error al procesar la solicitud");
@@ -58,7 +58,7 @@ export default function PagePanel() {
       setLoadingId(null);
     }
   };
-  
+
 
   return (
     <div className="p-8">
@@ -71,7 +71,7 @@ export default function PagePanel() {
         <div className="w-full h-0.5 bg-[#4A0C32] rounded-full mx-auto my-3">
             {/* Línea decorativa */}
         </div>
-        
+
 
         {/* Botones de filtro */}
         <div className="flex gap-3 mb-4">
