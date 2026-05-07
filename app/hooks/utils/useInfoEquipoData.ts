@@ -23,39 +23,58 @@ export const useInfoEquipoData = () => {
     const [infoEquipo, setInfoEquipo] = useState<Equipos | null>(null);
     const [loadingInfo, setLoadingInfo] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [tieneEquipo, setTieneEquipo] = useState<boolean>(false);
 
     const fetchInfoEquipo = async () => {
         setLoadingInfo(true);
         try {
             const BASE = process.env.NEXT_PUBLIC_API_URL;
             const token = getToken();
-
-            const res = await fetch(`${BASE}/myteam`, {
+            
+            const res = await fetch(`${BASE}/equipos/myteam`, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
             });
 
+            console.log("=== DEBUG EQUIPO ===");
+console.log("Token usado:", token);
+console.log("Status respuesta:", res.status);
+
+
+
+
+        
+
             if (res.status === 404) {
-                setInfoEquipo(null); 
-                return;
-            }
+    setTieneEquipo(false);
+    setInfoEquipo(null);
+    return;
+}
 
             if (!res.ok) {
                 throw new Error(`Error ${res.status}: ${res.statusText}`);
             }
 
             const data = await res.json();
-            if (data.message) {
-                setInfoEquipo(null); // sin equipo
-                return;
-            }
+            console.log("Data recibida:", JSON.stringify(data, null, 2));
+console.log("Data recibida:", data);
 
-            setInfoEquipo(data);
 
-        } catch (error) {
+if (!data || data.message === "No perteneces a ningún equipo") {
+    console.log("La participante no pertenece a ningún equipo");
+    setTieneEquipo(false);
+    setInfoEquipo(null);
+    return;
+}
+
+console.log("La participante pertenece al equipo:", data.nombre);
+setTieneEquipo(true);
+setInfoEquipo(data);
+        } catch (err) {
             console.error("Error al cargar info sobre equipo de participante:", error);
+            setError(err instanceof Error ? err.message : "Error desconocido");
         } finally {
             setLoadingInfo(false);
         } 
@@ -65,7 +84,7 @@ export const useInfoEquipoData = () => {
         fetchInfoEquipo();
     }, []);
   
-    return { infoEquipo, loadingInfo, refetch: fetchInfoEquipo };
+    return { infoEquipo, loadingInfo, error, refetch: fetchInfoEquipo };
 };
 
 

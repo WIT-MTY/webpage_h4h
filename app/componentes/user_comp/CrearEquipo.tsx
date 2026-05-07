@@ -25,7 +25,7 @@ const CrearEquipo = () => {
                 .find(row => row.startsWith("token="))
                 ?.split("=")[1];
 
-            const res = await fetch(`${BASE}/create`, {
+            const res = await fetch(`${BASE}/equipos/create`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
