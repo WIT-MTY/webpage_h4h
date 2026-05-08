@@ -10,6 +10,7 @@ interface Equipos {
   fecha_creacion: string; 
   fecha_validacion: string; 
   estatus: string; 
+  codigo: string;
 }
 
 const getToken = (): string | undefined =>
@@ -23,22 +24,25 @@ export const useInfoEquipoData = () => {
     const [infoEquipo, setInfoEquipo] = useState<Equipos | null>(null);
     const [loadingInfo, setLoadingInfo] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [tieneEquipo, setTieneEquipo] = useState<boolean>(false);
 
     const fetchInfoEquipo = async () => {
         setLoadingInfo(true);
         try {
             const BASE = process.env.NEXT_PUBLIC_API_URL;
             const token = getToken();
-
-            const res = await fetch(`${BASE}/myteam`, {
+            
+            const res = await fetch(`${BASE}/equipos/myteam`, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
             });
 
+    
             if (res.status === 404) {
-                setInfoEquipo(null); 
+                setTieneEquipo(false);
+                setInfoEquipo(null);
                 return;
             }
 
@@ -47,15 +51,17 @@ export const useInfoEquipoData = () => {
             }
 
             const data = await res.json();
-            if (data.message) {
-                setInfoEquipo(null); // sin equipo
+    
+            if (!data || data.message === "No perteneces a ningún equipo") {
+                setTieneEquipo(false);
+                setInfoEquipo(null);
                 return;
             }
 
+            setTieneEquipo(true);
             setInfoEquipo(data);
-
-        } catch (error) {
-            console.error("Error al cargar info sobre equipo de participante:", error);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "Error desconocido");
         } finally {
             setLoadingInfo(false);
         } 
@@ -65,7 +71,7 @@ export const useInfoEquipoData = () => {
         fetchInfoEquipo();
     }, []);
   
-    return { infoEquipo, loadingInfo, refetch: fetchInfoEquipo };
+    return { infoEquipo, loadingInfo, error, tieneEquipo, refetch: fetchInfoEquipo };
 };
 
 

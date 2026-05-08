@@ -88,6 +88,7 @@ export default function PageFormulario() {
     const [especificacionRestriccion, setEspecificacionRestriccion] = useState("");
     const [mlhConducta, setMlhConducta] = useState(false);
     const [mlhLogistica, setMlhLogistica] = useState(false);
+    const [mlhAutoPromocional, setMlhAutoPromocional] = useState(false);
     const [tieneRestriccion, setTieneRestriccion] = useState<boolean>(false);
     const [permisoFile, setPermisoFile] = useState<File | null>(null);
     const [cvFile, setCvFile] = useState<File | null>(null);
@@ -254,7 +255,10 @@ export default function PageFormulario() {
         // Opcionales
         formData.append("linkedin_url", linkedin);
         formData.append("github_url", github);
-        
+
+        // Consentimiento MLH
+        formData.append('autoriza_correos_mlh', String(mlhAutoPromocional));
+
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
             method: "POST",
             body: formData,
@@ -907,6 +911,20 @@ export default function PageFormulario() {
                                     . <span className="text-red-400">*</span>
                                 </label>
                                 {errores.mlhLogistica && <p className="text-red-400 text-sm mt-1">{errores.mlhLogistica}</p>}
+                            </div>
+
+                            <div className="flex items-start space-x-3">
+                                <input
+                                    type="checkbox"
+                                    id="mlh-auto-promocional"
+                                    checked={mlhAutoPromocional} onChange={(e) => setMlhAutoPromocional(e.target.checked)}
+                                    className="mt-1 w-5 h-5 shrink-0 text-pink-600 bg-white border-gray-300 rounded focus:ring-pink-500"
+
+                                />
+                                <label htmlFor="mlh-auto-promocional" className="text-white text-sm md:text-base">
+                                    Autorizo a MLH a enviarme correos electrónicos ocasionales sobre eventos relevantes, oportunidades profesionales y anuncios de la comunidad
+                                </label>
+                                
                             </div>
 
                             {/* Nota informativa */}

@@ -5,7 +5,9 @@ import { useInfoEquipoData } from '@/app/hooks/utils/useInfoEquipoData';
 
 const CrearEquipo = () => {
 
-    const { infoEquipo, loadingInfo, refetch } = useInfoEquipoData();
+    const { infoEquipo, loadingInfo, tieneEquipo, refetch } = useInfoEquipoData();
+    //const { infoEquipo, loadingInfo, refetch } = useInfoEquipoData();
+    
 
     const [nombreEquipo, setNombreEquipo] = useState('');
     const [codigoEquipo, setCodigoEquipo] = useState('');
@@ -15,6 +17,7 @@ const CrearEquipo = () => {
 
    const equipoActivo = infoEquipo;
 
+   // Función para crear un nuevo equipo
     const handleCrearEquipo = async () => {
         if (!nombreEquipo.trim()) return;
 
@@ -25,7 +28,7 @@ const CrearEquipo = () => {
                 .find(row => row.startsWith("token="))
                 ?.split("=")[1];
 
-            const res = await fetch(`${BASE}/create`, {
+            const res = await fetch(`${BASE}/equipos/create`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -34,7 +37,11 @@ const CrearEquipo = () => {
                 body: JSON.stringify({ nombre: nombreEquipo }),
             });
 
-            if (!res.ok) throw new Error(`Error ${res.status}`);
+            if (!res.ok) {
+                const errorData = await res.text();
+                console.error("Error del servidor:", errorData);
+                throw new Error(`Error ${res.status}: ${errorData}`);
+            }
 
             const data = await res.json();
             setCodigoGenerado(data.codigo); 
@@ -61,7 +68,7 @@ const CrearEquipo = () => {
                 .find(row => row.startsWith("token="))
                 ?.split("=")[1];
 
-            const res = await fetch(`${BASE}/join/${codigoEquipo}`, {
+            const res = await fetch(`${BASE}/equipos/join/${codigoEquipo}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -70,13 +77,26 @@ const CrearEquipo = () => {
             });
 
             if (!res.ok) {
-                if (res.status === 404) {
-                    setErrorUnirse('El código no corresponde a ningún equipo.');
-                } else if (res.status === 400) {
-                setErrorUnirse('Este equipo ya está lleno.');
-                }
-                return;
-            }
+    const errorData = await res.json();
+    
+    switch (res.status) {
+        case 400:
+            setErrorUnirse(errorData.error || 'No puedes unirte a este equipo.');
+            break;
+        case 401:
+            setErrorUnirse('Tu sesión ha expirado, vuelve a iniciar sesión.');
+            break;
+        case 404:
+            setErrorUnirse('El código no corresponde a ningún equipo.');
+            break;
+        case 500:
+            setErrorUnirse('Ocurrió un error inesperado, intenta de nuevo.');
+            break;
+        default:
+            setErrorUnirse(errorData.error || 'Ocurrió un error, intenta de nuevo.');
+    }
+    return;
+}
 
             await refetch();
 
@@ -103,23 +123,25 @@ const CrearEquipo = () => {
             
             <div className="bg-[#C4649F] px-6 py-4">
                 <h1 className="text-white font-bold text-xl">
-                    {equipoActivo ? "Mi equipo" : "Equipos"}
+                    {tieneEquipo ? "Mi equipo" : "Equipos"}
                 </h1>
             </div>
 
             <div className="p-6">
-                {equipoActivo ? (
+                {tieneEquipo ? (
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
                             <h2 className="text-[#4A0C32] font-bold text-2xl">{equipoActivo?.nombre}</h2>
-                            <span className="px-3 py-1 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded-full">
+                            <span className={`px-3 py-1 text-xs font-semibold rounded-full ${equipoActivo?.estatus === "Aceptado"
+                                ? "bg-green-100 text-green-700"
+                                : "bg-yellow-100 text-yellow-700"}`}>
                                 {equipoActivo?.estatus}
                             </span>
                         </div>
 
                         <div className="bg-[#F0CEE3]/40 rounded-lg px-4 py-3 flex items-center justify-between">
                             <p className="text-[#4A0C32]/60 text-sm">Código de equipo</p>
-                            <p className="text-[#4A0C32] font-bold tracking-widest text-sm">Pendiente *</p>
+                            <p className="text-[#4A0C32] font-bold tracking-widest text-sm">{equipoActivo?.codigo}</p>
                         </div>
 
                         <div>
@@ -150,7 +172,7 @@ const CrearEquipo = () => {
                     // Vista: código generado
                     <div className="space-y-4 text-center">
                         <p className="text-[#4A0C32] font-semibold">¡Equipo creado!</p>
-                        <p className="text-[#4A0C32]/60 text-sm">Comparte este código con tus compañeras para que se unan:</p>
+                        <p className="text-[#4A0C32]/60 text-sm">Comparte este código con tu equipo para que se unan:</p>
                         <div className="bg-[#F0CEE3]/40 rounded-lg px-6 py-4">
                             <p className="text-[#4A0C32] font-bold tracking-widest text-3xl">{codigoGenerado}</p>
                         </div>
@@ -167,7 +189,7 @@ const CrearEquipo = () => {
                     // Vista: no tiene equipo
                     <div className="space-y-5">
                         <p className="text-[#4A0C32]/50 text-sm">
-                            Los equipos deben tener exactamente <span className="font-semibold text-[#4A0C32]/60">4 integrantes</span> para ser válidos. Quien cree el equipo será asignada como líder. El nombre del equipo debe ser apropiado y respetuoso.
+                            Los equipos deben tener exactamente <span className="font-semibold text-[#4A0C32]/60">4 integrantes</span> para ser válidos (incluyendo al menos a una mujer por equipo). Quien cree el equipo será asignada como líder. El nombre del equipo debe ser apropiado y respetuoso.
                         </p>
                         <p className="text-[#4A0C32]/50 text-sm">
                             ¿Sin equipo? Conéctate en nuestro{' '}
