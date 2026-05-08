@@ -38,15 +38,7 @@ export const useInfoEquipoData = () => {
                 },
             });
 
-            console.log("=== DEBUG EQUIPO ===");
-console.log("Token usado:", token);
-console.log("Status respuesta:", res.status);
-
-
-
-
-        
-
+    
             if (res.status === 404) {
     setTieneEquipo(false);
     setInfoEquipo(null);
@@ -84,7 +76,7 @@ setInfoEquipo(data);
         fetchInfoEquipo();
     }, []);
   
-    return { infoEquipo, loadingInfo, error, refetch: fetchInfoEquipo };
+    return { infoEquipo, loadingInfo, error, tieneEquipo, refetch: fetchInfoEquipo };
 };
 
 
