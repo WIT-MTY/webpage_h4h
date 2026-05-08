@@ -21,7 +21,7 @@ export default function HeaderForms() {
                 <img src={"/images/h4h_logos/logo_h4h_blanco.svg"} className='w-200 md:w-150'></img>
 
                 <p className="text-center md:text-xl text-white/90 leading-relaxed max-w-7xl mx-auto">
-                    Hack4Her es una iniciativa de WIT en colaboración con Arca Continental. En su segunda edición, reúne tecnología, creatividad y liderazgo para impulsar el talento universitario, conectar ideas y generar oportunidades de crecimiento profesional. 
+                    Hack4Her es una iniciativa de <span className="font-extrabold text-pink-400">WIT</span> en colaboración con <span className="font-extrabold text-pink-400">Arca Continental</span>. En su segunda edición, reúne tecnología, creatividad y liderazgo para impulsar el talento universitario, conectar ideas y generar oportunidades de crecimiento profesional. 
                 </p>
 
                 <p className="text-center md:text-xl text-white/90 leading-relaxed max-w-7xl mx-auto">
