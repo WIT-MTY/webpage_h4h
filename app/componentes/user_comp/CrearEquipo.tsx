@@ -132,14 +132,16 @@ const CrearEquipo = () => {
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
                             <h2 className="text-[#4A0C32] font-bold text-2xl">{equipoActivo?.nombre}</h2>
-                            <span className="px-3 py-1 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded-full">
+                            <span className={`px-3 py-1 text-xs font-semibold rounded-full ${equipoActivo?.estatus === "Aceptado"
+                                ? "bg-green-100 text-green-700"
+                                : "bg-yellow-100 text-yellow-700"}`}>
                                 {equipoActivo?.estatus}
                             </span>
                         </div>
 
                         <div className="bg-[#F0CEE3]/40 rounded-lg px-4 py-3 flex items-center justify-between">
                             <p className="text-[#4A0C32]/60 text-sm">Código de equipo</p>
-                            <p className="text-[#4A0C32] font-bold tracking-widest text-sm">Pendiente *</p>
+                            <p className="text-[#4A0C32] font-bold tracking-widest text-sm">{equipoActivo?.codigo}</p>
                         </div>
 
                         <div>

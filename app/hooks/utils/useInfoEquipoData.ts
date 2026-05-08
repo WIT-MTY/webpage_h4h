@@ -10,6 +10,7 @@ interface Equipos {
   fecha_creacion: string; 
   fecha_validacion: string; 
   estatus: string; 
+  codigo: string;
 }
 
 const getToken = (): string | undefined =>
@@ -40,30 +41,25 @@ export const useInfoEquipoData = () => {
 
     
             if (res.status === 404) {
-    setTieneEquipo(false);
-    setInfoEquipo(null);
-    return;
-}
+                setTieneEquipo(false);
+                setInfoEquipo(null);
+                return;
+            }
 
             if (!res.ok) {
                 throw new Error(`Error ${res.status}: ${res.statusText}`);
             }
 
             const data = await res.json();
-            console.log("Data recibida:", JSON.stringify(data, null, 2));
-console.log("Data recibida:", data);
+    
+            if (!data || data.message === "No perteneces a ningún equipo") {
+                setTieneEquipo(false);
+                setInfoEquipo(null);
+                return;
+            }
 
-
-if (!data || data.message === "No perteneces a ningún equipo") {
-    console.log("La participante no pertenece a ningún equipo");
-    setTieneEquipo(false);
-    setInfoEquipo(null);
-    return;
-}
-
-console.log("La participante pertenece al equipo:", data.nombre);
-setTieneEquipo(true);
-setInfoEquipo(data);
+            setTieneEquipo(true);
+            setInfoEquipo(data);
         } catch (err) {
             console.error("Error al cargar info sobre equipo de participante:", error);
             setError(err instanceof Error ? err.message : "Error desconocido");
