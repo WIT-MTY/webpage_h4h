@@ -61,7 +61,6 @@ export const useInfoEquipoData = () => {
             setTieneEquipo(true);
             setInfoEquipo(data);
         } catch (err) {
-            console.error("Error al cargar info sobre equipo de participante:", error);
             setError(err instanceof Error ? err.message : "Error desconocido");
         } finally {
             setLoadingInfo(false);
