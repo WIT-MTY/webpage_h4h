@@ -39,7 +39,7 @@ const CrearEquipo = () => {
 
             if (!res.ok) {
                 const errorData = await res.text();
-                console.error("Error del servidor:", errorData);
+                //console.error("Error del servidor:", errorData);
                 throw new Error(`Error ${res.status}: ${errorData}`);
             }
 
