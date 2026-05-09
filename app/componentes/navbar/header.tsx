@@ -16,7 +16,7 @@ const Header = ({ onSectionChange }: HeaderProps) => {
     const handleScroll = () => {
       const sections = [
         "home", "inicio", "acerca", "quees", "ubicacion", "calendario",
-        "retos", "equipo", "galeria", "faq", "contactanos"
+        "retos", "equipo", "patrocinador", "galeria", "faq", "contactanos"
       ];
 
       const scrollPosition = window.scrollY + 200; 
@@ -79,7 +79,7 @@ const Header = ({ onSectionChange }: HeaderProps) => {
             <Link href="#ubicacion" onClick={() => setIsMenuOpen(false)} className="hover:text-secundario-morado-700 transition-colors"> Ubicación </Link>
             <Link href="#calendario" onClick={() => setIsMenuOpen(false)} className="hover:text-secundario-morado-700 transition-colors"> Cronograma </Link>
             <Link href="#equipo" onClick={() => setIsMenuOpen(false)} className="hover:text-secundario-morado-700 transition-colors"> Equipo </Link>
-            {/* <Link href="#patrocinador" onClick={() => setIsMenuOpen(false)} className="hover:text-secundario-morado-700 transition-colors"> Colaborador </Link> */}
+            <Link href="#patrocinador" onClick={() => setIsMenuOpen(false)} className="hover:text-secundario-morado-700 transition-colors"> Colaborador </Link> 
             <Link href="#faq" onClick={() => setIsMenuOpen(false)} className="hover:text-secundario-morado-700 transition-colors"> FAQ </Link>
             <Link href="#contactanos" onClick={() => setIsMenuOpen(false)} className="hover:text-secundario-morado-700 transition-colors"> Contáctanos </Link>
           </div>

@@ -25,11 +25,12 @@ const sectionStyles: { [key: string]: SectionStyle } = {
         ubicacion: {top: '40%', left: '85%', rotation: 20, size: 'w-50 md:w-70', mess: '¡Aquí nos vemos!', up_mess: 80, left_mess: 50},
         calendario: {top: '60%', left: '10%', rotation: -15, size: 'w-50 md:w-70', mess: '¡Algo increíble se viene!', up_mess: 40, left_mess: 50},
         retos: {top: '55%', left: '80%', rotation: 25, size: 'w-50 md:w-70', mess: '¡Los retos están por llegar!', up_mess: 140, left_mess: 50},
-        equipo: {top: '85%', left: '84%', rotation: 35, size: 'w-50 md:w-70', mess: '!Conoce al equipo detrás de H4H!', up_mess: 80, left_mess: 50},
-        patrocinador: {top: '60%', left: '15%', rotation: -1, size: 'w-50 md:w-70', mess: '!Conoce a nuestro patrocinador!', up_mess: 200, left_mess: 60},
+        equipo: {top: '85%', left: '84%', rotation: 35, size: 'w-50 md:w-70', mess: '¡Conoce al equipo detrás de H4H!', up_mess: 80, left_mess: 50},
+        patrocinador: {top: '35%', left: '13%', rotation: -1, size: 'w-50 md:w-70', mess: '¡Conoce a nuestro patrocinador!', up_mess: 100, left_mess: 50},
         galeria: {top: '35%', left: '80%', rotation: 40, size: 'w-50 md:w-70', mess: '¡Revive el H4H!', up_mess: 100, left_mess: 50},
         faq: {top: '35%', left: '86%', rotation: 30, size: 'w-50 md:w-70', mess: '¡Si tienes dudas, estás en el lugar correcto!', up_mess: 80, left_mess: 50},
         contactanos: {top: '40%', left: '50%', rotation: 15, size: 'w-50 md:w-70', mess: '¡Estamos aquí para lo que necesites!', up_mess: 190, left_mess: 50}
+        
 };
 
 const AdaGuia: React.FC<AdaGuiaProps> = ({
