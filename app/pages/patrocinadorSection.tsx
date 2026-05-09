@@ -29,15 +29,15 @@ const PatrocinadorSection = () => {
             alt="Logo de Arca Continental"
             className="h-auto max-w-4/5 mx-auto"
           />
-          <p className="text-xs md:text-xs lg:text-xl leading-relaxed font-light">
+          <p className="text-xs text-black md:text-xs lg:text-xl leading-relaxed font-light">
             Por segundo año consecutivo, la colaboración entre Arca Continental y el Tecnológico de Monterrey hace posible Hack4Her. Quienes destaquen en el reto podrán abrir la puerta a futuras oportunidades y formar parte de proyectos dentro del Digital Nest de Arca Continental.
           </p>
 
-          <p className="text-xs md:text-xs lg:text-xl leading-relaxed font-light">
+          <p className="text-xs text-black md:text-xs lg:text-xl leading-relaxed font-light">
             Uno de los embotelladores de Coca-Cola más importantes del mundo, que en 2026 celebra 100 años como el primer embotellador de Coca-Cola en México. Cuenta con operaciones en cinco países y atiende a más de 130 millones de consumidores.
           </p>
 
-          <p className="text-xs md:text-xs lg:text-xl leading-relaxed font-light">
+          <p className="text-xs text-black md:text-xs lg:text-xl leading-relaxed font-light">
             A través de su Digital Nest, Arca Continental integra expertos en tecnología digital, ciencia de datos y estrategia comercial para desarrollar soluciones dirigidas a clientes y eficiencia operativa.
           </p>
         </div>
