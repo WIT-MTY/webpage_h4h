@@ -26,7 +26,7 @@ const QueEsSection = () => {
                 {/* Text Content - Right Side */}
                 <div className="w-full lg:w-5/6 space-y-8 text-right ml-auto">
                     <p className="text-white font-montserrat font-normal text-xl md:text-2xl lg:text-3xl leading-snug max-w-[90vw] sm:max-w-[52ch] md:max-w-[56ch] lg:max-w-[58ch] ml-auto">
-                        Somos un hackathon gratuito de 24 horas, organizado por y para mujeres estudiantes que te invita a proponer soluciones innovadoras a desafíos reales, participar en talleres dinámicos y conectar con una comunidad diversa de profesionales de la industria.
+                        Somos un hackathon gratuito de 24 horas, organizado por mujeres para impulsar el talento femenino universitario. Ven a proponer soluciones innovadoras a desafíos reales, participar en talleres dinámicos y conectar con una comunidad diversa de profesionales de la industria.
                     </p>
                 </div>
             </div>

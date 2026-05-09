@@ -21,25 +21,25 @@ const PatrocinadorSection = () => {
           COLABORADOR
         </h1>
       </div>
-
-      <div className="flex justify-center w-full z-10 relative">
-        <div className="max-w-4xl px-6 md:px-8 text-center space-y-6 mb-12 z-10 relative">
-          <p className="text-xl md:text-2xl lg:text-2xl text-white leading-relaxed font-light">
-            Arca Continental, uno de los embotelladores de Coca-Cola más grandes del mundo con presencia en 5 países.
-          </p>
-          <p className="text-xl md:text-2xl lg:text-2xl text-white leading-relaxed font-light">
-            El AC Digital Nest, es el equipo del desarrollo digital de la fuerza de ventas de Arca Continental y más de un millón de tiendas de abarrotes y pequeños comercios en Latinoamérica.
-          </p>
-        </div>
-      </div>
       
       <div className="flex justify-center w-full z-10 relative">
-        <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg md:max-w-xl lg:max-w-2xl p-8 md:p-10 hover:scale-105 transition-transform duration-300 mx-auto">
+        <div className="bg-white rounded-2xl shadow-xl w-full max-w-4/5 md:max-w-4/5 lg:max-w-9/10 p-8 md:p-10 hover:scale-105 transition-transform duration-300 mx-auto text-center space-y-4">
           <img 
-            src="/images/colaborador_images/ACDigitalNest.png" 
+            src="/images/colaborador_images/AC_100aniv_Digital_Nest_logo.png" 
             alt="Logo de Arca Continental"
-            className="w-full h-auto object-contain"
-            />
+            className="h-auto max-w-4/5 mx-auto"
+          />
+          <p className="text-xs md:text-xs lg:text-xl leading-relaxed font-light">
+            Por segundo año consecutivo, la colaboración entre Arca Continental y el Tecnológico de Monterrey hace posible Hack4Her. Quienes destaquen en el reto podrán abrir la puerta a futuras oportunidades y formar parte de proyectos dentro del Digital Nest de Arca Continental.
+          </p>
+
+          <p className="text-xs md:text-xs lg:text-xl leading-relaxed font-light">
+            Uno de los embotelladores de Coca-Cola más importantes del mundo, que en 2026 celebra 100 años como el primer embotellador de Coca-Cola en México. Cuenta con operaciones en cinco países y atiende a más de 130 millones de consumidores.
+          </p>
+
+          <p className="text-xs md:text-xs lg:text-xl leading-relaxed font-light">
+            A través de su Digital Nest, Arca Continental integra expertos en tecnología digital, ciencia de datos y estrategia comercial para desarrollar soluciones dirigidas a clientes y eficiencia operativa.
+          </p>
         </div>
       </div>
       
