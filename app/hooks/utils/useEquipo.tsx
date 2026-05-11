@@ -111,7 +111,7 @@ export const useEquipo = () => {
             }  
         },
 
-        {img:"/images/equipo_images/Regina Flores.png",
+        /*{img:"/images/equipo_images/Regina Flores.png",
         nombre: "regina elizabeth flores sosa",
         puesto: "coordinadora",
         area: "software",
@@ -119,7 +119,7 @@ export const useEquipo = () => {
             correo:"reg.flores0015@gmail.com",
             linkedin:"https://www.linkedin.com/in/reginaf/"
             }  
-        },
+        },*/
 
         {img:"/images/equipo_images/Valeria Rosado.png",
         nombre: "valeria rosado",
@@ -191,7 +191,7 @@ export const useEquipo = () => {
             }  
         },
 
-        {img:"/images/equipo_images/Regina Rodríguez.png",
+        /*{img:"/images/equipo_images/Regina Rodríguez.png",
         nombre: "regina valeria rodríguez romero",
         puesto: "coordinadora",
         area: "proyectos",
@@ -199,7 +199,7 @@ export const useEquipo = () => {
             correo:"A00841628@tec.mx",
             linkedin:"https://www.linkedin.com/in/reginavaleriarodromero0207/"
             }  
-        },
+        },*/
 
         {img:"/images/equipo_images/Paulina Posada.png",
         nombre: "paulina posada vega ",
