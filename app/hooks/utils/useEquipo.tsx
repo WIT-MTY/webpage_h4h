@@ -91,7 +91,7 @@ export const useEquipo = () => {
             }
         },
 
-        {img:"/images/equipo_images/Gali.png",
+        /*{img:"/images/equipo_images/Gali.png",
         nombre: "anna galilea restrepo martínez",
         puesto: "coordinadora",
         area: "software",
@@ -99,7 +99,7 @@ export const useEquipo = () => {
             correo:"galilearestrepom@gmail.com",
             linkedin:"https://www.linkedin.com/in/galilea-restrepo/"
             }  
-        },
+        },*/
 
         {img:"/images/equipo_images/Dana2.png",
         nombre: "dana elizabeth torres estrada",
