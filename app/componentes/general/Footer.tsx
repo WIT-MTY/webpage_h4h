@@ -6,9 +6,8 @@ import LogoWIT from "./LogoWIT";
 const Footer = () => {
 
     return (
-        <div className="w-full border-t flex space-x-40 flex-row items-center justify-center py-10 text-4xl gap-3">
-            
-            
+        <div className="w-full border-t flex flex-col items-center justify-center py-10 text-4xl gap-8">
+
             {/* Redes de H4H */}
             <div className="flex space-x-2 items-center">
                 <Logo image_logo="/images/h4h_logos/logo_h4h_corto_negro.svg" w_logo="w-20"/>
@@ -20,9 +19,13 @@ const Footer = () => {
                 </a>
             </div>
 
+            {/* Logo de WIT centrado */}
+            <div className="flex justify-center">
+                <LogoWIT image_logo="/images/wit_logos/logo_wit_negro.png" w_logo="w-40"/>
+            </div>
+
             {/* Redes de WIT */}
             <div className="flex space-x-2 items-center">
-                <LogoWIT image_logo="/images/wit_logos/logo_wit_negro.png"/>
                 <a href="https://www.linkedin.com/company/82364150/" target="_blank">
                     <FaLinkedin className="text-neutro-negro"/>
                 </a>
@@ -34,7 +37,7 @@ const Footer = () => {
                 </a>
              </div>
 
-            
+
         </div>
     )
 }

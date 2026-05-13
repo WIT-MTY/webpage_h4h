@@ -16,22 +16,22 @@ export default function HeaderForms() {
                 <div className='absolute'>
                 <BotonRegreso />
                 </div>
-            <div className="max-w-7xl mx-auto flex flex-col items-center justify-center space-y-6">
-                
-                <img src={"/images/h4h_logos/logo_h4h_blanco.svg"} className='w-200 md:w-150'></img>
+            <div className="max-w-7xl mx-auto flex flex-col items-center justify-center space-y-3">
+
+                <img src={"/images/h4h_logos/logo_h4h_blanco.svg"} className='w-200 md:w-150 mb-2'></img>
 
                 <p className="text-center md:text-xl text-white/90 leading-relaxed max-w-7xl mx-auto">
-                    Hack4Her es una iniciativa de <span className="font-extrabold text-pink-400">WIT</span> en colaboración con <span className="font-extrabold text-pink-400">Arca Continental</span>. En su segunda edición, reúne tecnología, creatividad y liderazgo para impulsar el talento universitario, conectar ideas y generar oportunidades de crecimiento profesional. 
+                    Hack4Her es una iniciativa de <span className="font-extrabold text-pink-400">WIT</span> en colaboración con <span className="font-extrabold text-pink-400">Arca Continental</span>. En su segunda edición, reúne tecnología, creatividad y liderazgo para impulsar el talento universitario, conectar ideas y generar oportunidades de crecimiento profesional.
                 </p>
 
-                <p className="text-center md:text-xl text-white/90 leading-relaxed max-w-7xl mx-auto">
+                <p className="text-center md:text-xl text-white/90 leading-relaxed max-w-7xl mx-auto mb-6">
                     Sé parte de esta experiencia y lleva tus ideas al siguiente nivel.
                 </p>
 
-                <h2 className="text-4xl md:text-6xl font-semibold text-purple-200 text-center">
-                    Registro
+                <h2 className="text-3xl md:text-4xl font-high-cruiser text-white text-center">
+                    REGISTRO
                 </h2>
-                <div className="w-24 h-1 bg-purple-300 rounded-full mx-auto">
+                <div className="w-48 md:w-56 h-1 bg-pink-400 rounded-full mx-auto mt-2">
                     {/* Línea decorativa */}
                 </div>
 

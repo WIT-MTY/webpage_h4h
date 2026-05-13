@@ -22,8 +22,8 @@ const ContactanosSection = () => {
         />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row justify-between gap-8 lg:gap-12 pb-10 md:pb-12 lg:pb-16 xl:pb-20 relative z-10 pt-20 md:pt-24 lg:pt-28">
-          <div className="text-center lg:text-left w-full lg:w-1/2 mt-8 md:mt-12 lg:mt-16">
+        <div className="flex flex-col lg:flex-row justify-between gap-8 lg:gap-12 pb-10 md:pb-12 lg:pb-16 xl:pb-20 relative z-10 pt-32 md:pt-36 lg:pt-30">
+          <div className="text-center lg:text-left w-full lg:w-1/2 mt-4 md:mt-6 lg:mt-8">
             <h1 className="font-high-cruiser text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl text-white mb-6 z-10 underline">
               CONTÁCTANOS
             </h1>
@@ -31,7 +31,7 @@ const ContactanosSection = () => {
 
           </div>
 
-          <div className="text-center lg:text-right w-full lg:w-1/2 mt-8 md:mt-12 lg:mt-16">
+          <div className="text-center lg:text-right w-full lg:w-1/2 mt-4 md:mt-6 lg:mt-8">
             <h1 className="font-high-cruiser text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl text-white mb-6 z-10 underline">
               EXPLORA
             </h1>

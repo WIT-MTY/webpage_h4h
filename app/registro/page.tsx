@@ -1,8 +1,9 @@
 'use client';
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import HeaderForms from "../componentes/formulario_comp/HeaderForms";
 import FileUpload from "../componentes/registro/FileUpload";
 import { useFormData } from "../hooks/utils/useFormData";
+import BackgroundDecor from "../componentes/general/BackgroundDoodles";
 
 
 export default function PageFormulario() {
@@ -72,6 +73,47 @@ export default function PageFormulario() {
     useEffect(() => { if (GENEROS.length)       setGeneros(GENEROS);           }, [GENEROS]);
     useEffect(() => { if (CARRERAS.length)      setCarreras(CARRERAS);         }, [CARRERAS]);
     useEffect(() => { if (SEMESTRES.length)     setSemestres(SEMESTRES);       }, [SEMESTRES]);
+
+    // Refs para detectar click fuera de los selectores
+    const generoRef = useRef<HTMLDivElement>(null);
+    const tallaRef = useRef<HTMLDivElement>(null);
+    const paisRef = useRef<HTMLDivElement>(null);
+    const estadoRef = useRef<HTMLDivElement>(null);
+    const universidadRef = useRef<HTMLDivElement>(null);
+    const carreraRef = useRef<HTMLDivElement>(null);
+    const semestreRef = useRef<HTMLDivElement>(null);
+
+    // Click outside para cerrar selectores
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (generoRef.current && !generoRef.current.contains(event.target as Node)) {
+                setIsGeneroOpen(false);
+            }
+            if (tallaRef.current && !tallaRef.current.contains(event.target as Node)) {
+                setIsTallaOpen(false);
+            }
+            if (paisRef.current && !paisRef.current.contains(event.target as Node)) {
+                setIsPaisOpen(false);
+            }
+            if (estadoRef.current && !estadoRef.current.contains(event.target as Node)) {
+                setIsEstadoOpen(false);
+            }
+            if (universidadRef.current && !universidadRef.current.contains(event.target as Node)) {
+                setIsUniversidadOpen(false);
+            }
+            if (carreraRef.current && !carreraRef.current.contains(event.target as Node)) {
+                setIsCarreraOpen(false);
+            }
+            if (semestreRef.current && !semestreRef.current.contains(event.target as Node)) {
+                setIsSemestreOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     ////////////////////
     // Estados para inputs de texto
@@ -292,12 +334,18 @@ export default function PageFormulario() {
     
 
     return (
-        
-        <section className="w-full min-h-screen overflow-y-auto flex flex-col items-center justify-center relative" style={{ background: "#761450" }}>
-            <HeaderForms />
 
+        <section className="w-full min-h-screen overflow-y-auto flex flex-col items-center justify-center relative" style={{ background: "linear-gradient(180deg, #AC1C75, #761450, #5F1040)" }}>
+            {/* Background Decorations */}
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                <BackgroundDecor />
+            </div>
 
-            <main className="w-full px-4 py-8">
+            <div className="relative z-10 w-full">
+                <HeaderForms />
+            </div>
+
+            <main className="w-full px-4 py-8 relative z-10">
                 {loading ? (
                
                     <div className="flex items-center justify-center min-h-96">
@@ -370,7 +418,7 @@ export default function PageFormulario() {
                                     {errores.apellidos && <p className="text-red-400 text-sm mt-1">{errores.apellidos}</p>}
                             </div>
 
-                            <div className="relative">
+                            <div className="relative" ref={generoRef}>
                                 <p className="text-white mb-2">Género<span className="text-red-400">*</span></p>
                                 <button
                                     type="button"
@@ -402,7 +450,7 @@ export default function PageFormulario() {
                                 {errores.genero && <p className="text-red-400 text-sm mt-1">{errores.genero}</p>}
                             </div>
 
-                            <div className="relative">
+                            <div className="relative" ref={tallaRef}>
                                 <p className="text-white mb-2">Talla de playera<span className="text-red-400">*</span></p>
                                 <button
                                     type="button"
@@ -488,7 +536,7 @@ export default function PageFormulario() {
                         <h2 className="text-white text-xl font-semibold mb-4">Datos académicos</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                            <div className="relative">
+                            <div className="relative" ref={paisRef}>
                                 <p className="text-white mb-2">Ubicación de tu universidad<span className="text-red-400">*</span></p>
                                 <button
                                     type="button"
@@ -540,7 +588,7 @@ export default function PageFormulario() {
 
                             {selectedPais === "México" && (
                             <>
-                            <div className="relative">
+                            <div className="relative" ref={estadoRef}>
                                 <p className="text-white mb-2">Estado donde se encuentra tu universidad (en México)<span className="text-red-400">*</span></p>
                                 <button
                                     type="button"
@@ -591,12 +639,12 @@ export default function PageFormulario() {
                                 {errores.estado && <p className="text-red-400 text-sm mt-1">{errores.estado}</p>}
                             </div>
 
-                            <div className="relative">
+                            <div className="relative" ref={universidadRef}>
                                 <p className="text-white mb-2">Universidad (en México)<span className="text-red-400">*</span></p>
                                 <button
                                     type="button"
                                     onClick={() => selectedEstadoId && setIsUniversidadOpen(!isUniversidadOpen)}
-                                    className={`w-full flex items-center justify-between gap-2 bg-white px-4 py-3 rounded-md text-black 
+                                    className={`w-full flex items-center justify-between gap-2 bg-white px-4 py-3 rounded-md text-black
                                     ${!selectedEstadoId ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
                                 >
                                 <span>{selectedUniversidad || "Selecciona una universidad"}</span>
@@ -657,7 +705,7 @@ export default function PageFormulario() {
                             </div>
                             )}
                             
-                            <div className="relative">
+                            <div className="relative" ref={carreraRef}>
                                 <p className="text-white mb-2">Selecciona tu carrera (o afín)<span className="text-red-400">*</span></p>
                                 <button
                                     type="button"
@@ -706,7 +754,7 @@ export default function PageFormulario() {
                                 {errores.carrera && <p className="text-red-400 text-sm mt-1">{errores.carrera}</p>}
                             </div>
 
-                            <div className="relative">
+                            <div className="relative" ref={semestreRef}>
                                 <p className="text-white mb-2">Semestre actual<span className="text-red-400">*</span></p>
                                 <button
                                     type="button"
@@ -951,7 +999,7 @@ export default function PageFormulario() {
                         </p>
                     )}
 
-                    <button type="submit" className="w-full bg-purple-600 text-white py-4 rounded-lg hover:bg-purple-700 transition-colors text-lg font-semibold">
+                    <button type="submit" className="w-full text-white font-montserrat text-base sm:text-lg md:text-xl font-semibold rounded-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] py-4 px-6 border-[3px]" style={{ backgroundColor: '#4F123F', borderColor: '#4F123F' }}>
                         Enviar registro
                     </button>
                 </form>

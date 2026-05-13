@@ -23,7 +23,7 @@ const PatrocinadorSection = () => {
       </div>
       
       <div className="flex justify-center w-full z-10 relative">
-        <div className="bg-white rounded-2xl shadow-xl w-full max-w-4/5 md:max-w-4/5 lg:max-w-9/10 p-8 md:p-10 hover:scale-105 transition-transform duration-300 mx-auto text-center space-y-4">
+        <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl md:max-w-3xl lg:max-w-4xl p-6 md:p-8 hover:scale-105 transition-transform duration-300 mx-auto text-center space-y-4">
           <img 
             src="/images/colaborador_images/AC_100aniv_Digital_Nest_logo.png" 
             alt="Logo de Arca Continental"
