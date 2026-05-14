@@ -11,14 +11,34 @@ export default function HeaderForms() {
     const isFormsPage = pathname === '/registro';
 
     return (
-        <header className="w-full  shadow-md py-4 px-6">
+        <>
+        {/* Mini Navbar con logos */}
+        <div className="w-full bg-white/100 shadow-sm py-4 px-6">
+            <div className="max-w-7xl mx-auto flex items-center justify-center relative">
+                {/* Logo WIT - izquierda */}
+                <div className="absolute left-0 flex items-center">
+                    <img src="/images/wit_logos/logo_wit_morado.png" alt="Logo WIT" className="h-12 sm:h-14 md:h-20 w-auto" />
+                </div>
+
+                {/* Logo Hack4Her - centro */}
+                <div className="flex items-center justify-center">
+                    <img src="/images/h4h_logos/hack4herlogoinicio:registro.png" alt="Logo Hack4Her" className="h-10 sm:h-12 md:h-20 w-auto" />
+                </div>
+
+                {/* Logo ARCA Digital Nest - derecha */}
+                <div className="absolute right-0 flex items-center">
+                    <img src="/images/colaborador_images/AC_100aniv_Digital_Nest_logo.png" alt="Logo ARCA Digital Nest" className="h-12 sm:h-14 md:h-16 w-auto" />
+                </div>
+            </div>
+        </div>
+
+        {/* Header principal con información */}
+        <header className="w-full shadow-md py-4 px-6 relative">
             <div className=''>
-                <div className='absolute'>
+                <div className='absolute left-6 top-50 z-10'>
                 <BotonRegreso />
                 </div>
-            <div className="max-w-7xl mx-auto flex flex-col items-center justify-center space-y-3">
-
-                <img src={"/images/h4h_logos/logo_h4h_blanco.svg"} className='w-200 md:w-150 mb-2'></img>
+          <div className="max-w-7xl mx-auto flex flex-col items-center justify-center space-y-3 pt-10 md:pt-16"> 
 
                 <p className="text-center md:text-xl text-white/90 leading-relaxed max-w-7xl mx-auto">
                     Hack4Her es una iniciativa de <span className="font-extrabold text-pink-400">WIT</span> en colaboración con <span className="font-extrabold text-pink-400">Arca Continental</span>. En su segunda edición, reúne tecnología, creatividad y liderazgo para impulsar el talento universitario, conectar ideas y generar oportunidades de crecimiento profesional.
@@ -56,7 +76,8 @@ export default function HeaderForms() {
                 </nav>
                 </div>
 
-           </div> 
+           </div>
         </header>
+        </>
     );
 }

@@ -77,16 +77,16 @@ const HomeSection = () => {
             </div>
 
             {/* Logo ARCA - positioned on the left */}
-            <div className="absolute left-0 sm:left-0 md:left-0 lg:left-0 top-[4%] sm:top-[5%] md:top-[6%] z-20 pointer-events-none">
+            <div className="absolute left-0 sm:left-0 md:left-0 lg:left-0 top-[2%] sm:top-[4%] md:top-[5%] lg:top-[6%] z-20 pointer-events-none">
                 <img
                     src="/images/colaborador_images/logo arca home.svg"
                     alt="Logo ARCA"
-                    className="w-100 sm:w-90 md:w-90 lg:w-70 xl:w-60 h-auto opacity-100"
+                    className="w-50 sm:w-70 md:w-80 lg:w-70 xl:w-60 h-auto opacity-100"
                 />
             </div>
 
             {/* Content — scroll del documento (sin contenedor interno que atrape la rueda táctil) */}
-            <div className="relative z-10 w-full flex flex-col items-center gap-3 sm:gap-4 md:gap-5 lg:gap-6 px-2 sm:px-3 md:px-4 pt-14 sm:pt-20 md:pt-24 pb-8 sm:pb-10 md:pb-12">
+            <div className="relative z-10 w-full flex flex-col items-center gap-3 sm:gap-4 md:gap-5 lg:gap-6 px-2 sm:px-3 md:px-4 pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-10 md:pb-12">
                 {/* Countdown Timer */}
                 <div className="w-full max-w-sm backdrop-blur-sm rounded-xl px-0 py-2 sm:py-2.5 md:py-3 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.12)]" style={{ backgroundColor: '#4F123F4D' }}>
                     <div className="grid grid-cols-2 gap-x-1 gap-y-1.5 sm:flex sm:flex-row sm:items-center sm:justify-center sm:gap-1.5 md:gap-2">
