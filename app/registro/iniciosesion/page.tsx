@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import HeaderForms from "@/app/componentes/formulario_comp/HeaderForms";
+import BackgroundDecor from "@/app/componentes/general/BackgroundDoodles";
 
 
 export default function PageFormulario() {
@@ -59,16 +60,22 @@ export default function PageFormulario() {
 
    
     return (
-        <section className="w-full min-h-screen flex flex-col relative" style={{ background: "#761450" }}>
-            <HeaderForms />
-            <div className="w-full h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 relative">
+        <section className="w-full min-h-screen flex flex-col relative" style={{ background: "linear-gradient(180deg, #AC1C75, #761450, #5F1040)" }}>
+            {/* Background Decorations */}
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                <BackgroundDecor />
+            </div>
+
+            <div className="relative z-10 w-full">
+                <HeaderForms />
+            </div>
+
+            <div className="w-full h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 relative z-10">
                 
                 
                 
                 <main className="w-full max-w-md mx-auto">
-                    <h1 className="text-3xl font-bold text-white text-center mb-6 mt-8">Iniciar sesión</h1>
-                    
-                    <form className="space-y-6 pb-20" onSubmit={handleSubmit}>
+                    <form className="space-y-6 pb-20 mt-8" onSubmit={handleSubmit}>
                         {/* Campos de datos en disposición vertical */}
                         <div className="bg-white/10 p-8 rounded-lg">
                             <h2 className="text-white text-xl font-semibold mb-4">Ingresa tus datos</h2>
@@ -120,9 +127,10 @@ export default function PageFormulario() {
                         </div>
 
                         {/* Botón de inicio de sesión */}
-                        <button 
-                            type="submit" 
-                            className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors text-lg font-semibold"
+                        <button
+                            type="submit"
+                            className="w-full text-white font-montserrat text-base sm:text-lg md:text-xl font-semibold rounded-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] py-4 px-6 border-[3px]"
+                            style={{ backgroundColor: '#4F123F', borderColor: '#4F123F' }}
                         >
                             Iniciar Sesión
                         </button>

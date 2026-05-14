@@ -45,10 +45,6 @@ const Header = ({ onSectionChange }: HeaderProps) => {
   return (
     <header className="fixed top-0 w-full z-50 transition-all duration-300">
       <nav className="px-6 py-3 flex font-montserrat font-semibold text-white">
-        
-        <div className="hidden lg:block z-50"> {/* logo no visible en celular */}
-          {isHome && <Logo image_logo="/images/wit_logos/logo_wit_blanco.png" w_logo="w-40" />}
-        </div>
 
         <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden text-white focus:outline-none z-50">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

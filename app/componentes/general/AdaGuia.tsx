@@ -29,8 +29,9 @@ const sectionStyles: { [key: string]: SectionStyle } = {
         patrocinador: {top: '35%', left: '13%', rotation: -1, size: 'w-50 md:w-70', mess: '¡Conoce a nuestro patrocinador!', up_mess: 100, left_mess: 50},
         galeria: {top: '35%', left: '80%', rotation: 40, size: 'w-50 md:w-70', mess: '¡Revive el H4H!', up_mess: 100, left_mess: 50},
         faq: {top: '35%', left: '86%', rotation: 30, size: 'w-50 md:w-70', mess: '¡Si tienes dudas, estás en el lugar correcto!', up_mess: 80, left_mess: 50},
-        contactanos: {top: '40%', left: '50%', rotation: 15, size: 'w-50 md:w-70', mess: '¡Estamos aquí para lo que necesites!', up_mess: 190, left_mess: 50}
-        
+        contactanos: {top: '40%', left: '50%', rotation: 15, size: 'w-50 md:w-70', mess: '¡Estamos aquí para lo que necesites!', up_mess: 190, left_mess: 50},
+        registro: {top: '50%', left: '85%', rotation: 20, size: 'w-50 md:w-70', mess: '¡Llena el formulario y únete a la aventura!', up_mess: 120, left_mess: 50}
+
 };
 
 const AdaGuia: React.FC<AdaGuiaProps> = ({
@@ -111,7 +112,7 @@ const AdaGuia: React.FC<AdaGuiaProps> = ({
                     transform: `rotate(${frozen ? frozenRotation : style.rotation}deg)`,
                     width:
                         activeSection === 'acerca'
-                            ? 'clamp(400px, min(85vw, 75dvh), 1280px)'
+                            ? 'clamp(450px, min(75vw, 70dvh), 1200px)'
                             : activeSection === 'home'
                               ? '0px'
                               : activeSection === 'quees'
@@ -120,7 +121,9 @@ const AdaGuia: React.FC<AdaGuiaProps> = ({
                                   ? 'clamp(280px, min(65vw, 55dvh), 850px)'
                                   : activeSection === 'retos'
                                     ? '400px'
-                                    : '240px',
+                                    : activeSection === 'registro'
+                                      ? '300px'
+                                      : '240px',
                     height: 'auto',
                     maxWidth: '100vw',
                 }}
