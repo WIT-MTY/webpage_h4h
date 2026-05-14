@@ -9,7 +9,7 @@ export default function HeaderForms() {
     const pathname = usePathname();
     const isSesionPage = pathname === '/registro/iniciosesion';
     const isFormsPage = pathname === '/registro';
-    
+
     return (
         <header className="w-full  shadow-md py-4 px-6">
             <div className=''>
@@ -28,10 +28,10 @@ export default function HeaderForms() {
                     Sé parte de esta experiencia y lleva tus ideas al siguiente nivel.
                 </p>
 
-                <h2 className="text-3xl md:text-4xl font-high-cruiser text-white text-center">
-                    REGISTRO
+                <h2 className="text-3xl md:text-4xl font-high-cruiser text-white text-center mt-12">
+                    {isSesionPage ? 'INICIAR SESIÓN' : 'REGISTRO'}
                 </h2>
-                <div className="w-48 md:w-56 h-1 bg-pink-400 rounded-full mx-auto mt-2">
+                <div className={`h-1 bg-pink-400 rounded-full mx-auto mt-2 ${isSesionPage ? 'w-64 md:w-80' : 'w-48 md:w-56'}`}>
                     {/* Línea decorativa */}
                 </div>
 
