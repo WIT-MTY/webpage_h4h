@@ -246,8 +246,8 @@ export default function PageFormulario() {
         if (!cvFile) nuevosErrores.cv = "El CV es requerido";
         if (!mlhConducta) nuevosErrores.mlhConducta = "Debes aceptar el Código de Conducta";
         if (!mlhLogistica) nuevosErrores.mlhLogistica = "Debes aceptar los términos de MLH";
+        if (cvFile && cvFile.size > 5 * 1024 * 1024) {nuevosErrores.cv = "El CV no debe superar 5MB";}
         
-
         setErrores(nuevosErrores);
         return Object.keys(nuevosErrores).length === 0;
     };
@@ -864,7 +864,15 @@ export default function PageFormulario() {
                             <FileUpload 
                                 label="Carga tu CV"
                                 required={true}
-                                onFileChange={setCvFile}
+                                onFileChange={(file) => {
+                                    if (file && file.size > 5 * 1024 * 1024) {
+                                        setErrores(prev => ({ ...prev, cv: "El CV no debe superar 5MB" }));
+                                        setCvFile(null);
+                                    } else {
+                                        setErrores(prev => ({ ...prev, cv: "" }));
+                                        setCvFile(file);
+                                    }
+                                }}
                             />
                             {errores.cv && <p className="text-red-400 text-sm mt-1">{errores.cv}</p>}
 
