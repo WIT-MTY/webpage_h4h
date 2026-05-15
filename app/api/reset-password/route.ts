@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
 
   const supabase = await createClientForServer()
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/registro/actualizar`,
+    redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
   })
 
   console.log('Supabase error:', error) //

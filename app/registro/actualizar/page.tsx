@@ -1,16 +1,46 @@
-// app/registro/actualizar/page.tsx
 'use client'
 
-import { useActionState } from 'react'
-import { updatePassword } from '@/app/registro/actions'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import HeaderForms from '@/app/componentes/formulario_comp/HeaderForms'
 import BackgroundDecor from '@/app/componentes/general/BackgroundDoodles'
 
 export default function Page() {
-  const [state, formAction, isPending] = useActionState(updatePassword, {
-    error: '',
-    success: '',
-  })
+  const router = useRouter()
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
+  const [isPending, setIsPending] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!password) { setError('La contraseña es requerida'); return }
+    if (password.length < 6) { setError('Mínimo 6 caracteres'); return }
+
+    setIsPending(true)
+    setError('')
+
+    try {
+      const res = await fetch('/api/update-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        setError(data.message || 'Ocurrió un error')
+      } else {
+        setSuccess('Contraseña actualizada correctamente')
+        setTimeout(() => router.push('/registro/iniciosesion'), 2000)
+      }
+    } catch {
+      setError('Error al conectar con el servidor')
+    } finally {
+      setIsPending(false)
+    }
+  }
 
   return (
     <section
@@ -26,7 +56,7 @@ export default function Page() {
 
       <div className="w-full h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 relative z-10">
         <main className="w-full max-w-md mx-auto">
-          <form className="space-y-6 pb-20 mt-8" action={formAction}>
+          <form className="space-y-6 pb-20 mt-8" onSubmit={handleSubmit}>
             <div className="bg-white/10 p-8 rounded-lg">
               <h2 className="text-white text-xl font-semibold mb-4">Actualizar contraseña</h2>
               <div className="flex flex-col space-y-4">
@@ -36,7 +66,8 @@ export default function Page() {
                   </p>
                   <input
                     type="password"
-                    name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="w-full p-3 rounded-md bg-white text-black"
                     placeholder="Ingresa tu nueva contraseña"
                   />
@@ -44,8 +75,8 @@ export default function Page() {
               </div>
             </div>
 
-            {state.error && <p className="text-red-400 text-sm text-center">{state.error}</p>}
-            {state.success && <p className="text-green-400 text-sm text-center">{state.success}</p>}
+            {error && <p className="text-red-400 text-sm text-center">{error}</p>}
+            {success && <p className="text-green-400 text-sm text-center">{success}</p>}
 
             <button
               type="submit"
