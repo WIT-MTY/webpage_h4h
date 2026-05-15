@@ -55,27 +55,27 @@ const Header = ({ onSectionChange }: HeaderProps) => {
             )}
           </svg>
         </button>
-        
-        <div 
+
+        <div
           className={`${isMenuOpen ? "flex" : "hidden"}
-            lg:flex lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:p-6 lg:py-1 
+            lg:flex lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:p-6 lg:py-1
             lg:rounded-r-4xl lg:rounded-s-4xl lg:transition-all lg:duration-300
             fixed left-0 mx-20 p-6 rounded-2xl shadow-lg
             flex-col items-center space-y-5
             lg:flex-row lg:space-y-0 lg:space-x-6 lg:mx-0 lg:top-auto lg:shadow-none`}
-            
+
             style={{backgroundColor: isHome && !isMenuOpen ? "transparent" : "#703D5C"}}
         >
           <div className="flex flex-col lg:flex-row items-center space-y-8 lg:space-y-0 lg:space-x-6">
             {!isHome && (
             <Link href="#home" onClick={() => setIsMenuOpen(false)} className="hover:text-secundario-morado-700 transition-colors" scroll={true}>Inicio</Link>
             )}
-            
+
             <Link href="#acerca" onClick={() => setIsMenuOpen(false)} className="hover:text-secundario-morado-700 transition-colors"> Acerca </Link>
             <Link href="#ubicacion" onClick={() => setIsMenuOpen(false)} className="hover:text-secundario-morado-700 transition-colors"> Ubicación </Link>
             <Link href="#calendario" onClick={() => setIsMenuOpen(false)} className="hover:text-secundario-morado-700 transition-colors"> Cronograma </Link>
             <Link href="#equipo" onClick={() => setIsMenuOpen(false)} className="hover:text-secundario-morado-700 transition-colors"> Equipo </Link>
-            <Link href="#patrocinador" onClick={() => setIsMenuOpen(false)} className="hover:text-secundario-morado-700 transition-colors"> Colaborador </Link> 
+            <Link href="#patrocinador" onClick={() => setIsMenuOpen(false)} className="hover:text-secundario-morado-700 transition-colors"> Colaborador </Link>
             <Link href="#faq" onClick={() => setIsMenuOpen(false)} className="hover:text-secundario-morado-700 transition-colors"> FAQ </Link>
             <Link href="#contactanos" onClick={() => setIsMenuOpen(false)} className="hover:text-secundario-morado-700 transition-colors"> Contáctanos </Link>
           </div>
