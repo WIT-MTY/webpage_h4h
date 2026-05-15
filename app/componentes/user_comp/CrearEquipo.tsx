@@ -193,7 +193,7 @@ const CrearEquipo = () => {
                         </p>
                         <p className="text-[#4A0C32]/50 text-sm">
                             ¿Sin equipo? Conéctate en nuestro{' '}
-                            <a className="text-[#C4649F] underline hover:text-[#4A0C32] transition-colors" href="https://discord.gg/e5ENU6DDe">Discord</a>.
+                            <a className="text-[#C4649F] underline hover:text-[#4A0C32] transition-colors" href="https://discord.gg/kwVpDGpebU">Discord</a>.
                         </p>
 
                         <div className="space-y-2">

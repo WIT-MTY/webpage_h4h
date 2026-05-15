@@ -54,7 +54,7 @@ export default function HeaderForms() {
         {/* Header principal con información */}
         <header className="w-full shadow-md py-4 px-6 relative">
             <div className=''>
-                <div className='absolute left-6 top-50 z-10'>
+                <div className='absolute left-6 top-[400px] md:top-[480px] z-10'>
                 <BotonRegreso />
                 </div>
           <div className="max-w-7xl mx-auto flex flex-col items-center justify-center space-y-3 pt-10 md:pt-16"> 
