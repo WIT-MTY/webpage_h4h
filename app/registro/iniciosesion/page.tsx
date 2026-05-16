@@ -3,17 +3,98 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import HeaderForms from "@/app/componentes/formulario_comp/HeaderForms";
 import BackgroundDecor from "@/app/componentes/general/BackgroundDoodles";
+import { createClientForBrowser } from "@/lib/client";
 
+function FormRecuperacion({ onVolver }: { onVolver: () => void }) {
+  const supabase = createClientForBrowser()
+  const [email, setEmail] = useState('')
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
+  const [isPending, setIsPending] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!email) { setError('El correo es requerido'); return }
+
+    setIsPending(true)
+    setError('')
+    setSuccess('')
+
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+      })
+
+      if (error) {
+        setError(error.message || 'Ocurrió un error')
+      } else {
+        setSuccess('Correo enviado. Revisa tu bandeja de entrada y abre el enlace en este mismo navegador.')
+      }
+    } catch {
+      setError('Error al conectar con el servidor')
+    } finally {
+      setIsPending(false)
+    }
+  }
+
+  return (
+    <form className="space-y-6 pb-20 mt-8" onSubmit={handleSubmit}>
+      <div className="bg-white/10 p-8 rounded-lg">
+        <h2 className="text-white text-xl font-semibold mb-4">¿Olvidaste tu contraseña?</h2>
+        <div className="flex flex-col space-y-4">
+          <div>
+            <p className="text-white mb-2">
+              Correo Electrónico <span className="text-red-400">*</span>
+            </p>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full p-3 rounded-md bg-white text-black"
+              placeholder="Ingresa tu correo"
+            />
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={onVolver}
+          className="mt-4 text-[#bd699c] underline hover:text-pink-600 transition-colors"
+        >
+          Volver a iniciar sesión
+        </button>
+      </div>
+
+      {error && <p className="text-red-400 text-sm text-center">{error}</p>}
+      {success && <p className="text-green-400 text-sm text-center">{success}</p>}
+
+      <button
+        type="submit"
+        disabled={isPending}
+        className="w-full text-white font-montserrat text-base sm:text-lg md:text-xl font-semibold rounded-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] py-4 px-6 border-[3px] disabled:opacity-60"
+        style={{ backgroundColor: '#4F123F', borderColor: '#4F123F' }}
+      >
+        {isPending ? 'Enviando...' : 'Enviar correo de recuperación'}
+      </button>
+      <p className="text-white/80 text-xs text-center">
+        Importante: abre el enlace de recuperación en este mismo navegador.
+      </p>
+    </form>
+  )
+}
+
+type Paso = 'iniciosesion' | 'recuperacion' 
 
 export default function PageFormulario() {
     
     const router = useRouter();
 
     const [correo, setCorreo] = useState("");
+    const [paso, setPaso] = useState<Paso>('iniciosesion')
     const [contrasena, setContrasena] = useState("");
     const [errores, setErrores] = useState<Record<string, string>>({});
     const [errorGeneral, setErrorGeneral] = useState("");
     const [mostrarContrasena, setMostrarContrasena] = useState(false);
+    const [mailSent, setMailSent] = useState(false);
 
     const validar = (): boolean => {
         const nuevosErrores: Record<string, string> = {};
@@ -58,6 +139,8 @@ export default function PageFormulario() {
 
     };
 
+    
+
    
     return (
         <section className="w-full min-h-screen flex flex-col relative" style={{ background: "linear-gradient(180deg, #AC1C75, #761450, #5F1040)" }}>
@@ -75,6 +158,9 @@ export default function PageFormulario() {
                 
                 
                 <main className="w-full max-w-md mx-auto">
+
+                     {/* Inicio de sesion */}
+                    {paso === 'iniciosesion' && (
                     <form className="space-y-6 pb-20 mt-8" onSubmit={handleSubmit}>
                         {/* Campos de datos en disposición vertical */}
                         <div className="bg-white/10 p-8 rounded-lg">
@@ -123,6 +209,12 @@ export default function PageFormulario() {
                                 {errores.contrasena && <p className="text-red-400 text-sm mt-1">{errores.contrasena}</p>}
                             </div>
                                 {errorGeneral && <p className="text-red-400 text-sm text-center">{errorGeneral}</p>}
+                                <button 
+                                        type="button"
+                                        onClick={() => setPaso('recuperacion')} 
+                                        className="flex items-center space-x-2 text-[#bd699c] underline hover:text-pink-600 transition-colors text-lg font-medium group">
+                                        ¿Olvidaste tu contraseña?
+                                    </button>
                             </div>
                         </div>
 
@@ -135,6 +227,14 @@ export default function PageFormulario() {
                             Iniciar Sesión
                         </button>
                     </form>
+                    )}
+
+                    {/* Recuperar contrasenia */}
+                    {paso === 'recuperacion' && (
+  <FormRecuperacion onVolver={() => setPaso('iniciosesion')} />
+)}
+
+
                 </main>
             </div>
         </section>
