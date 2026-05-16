@@ -1,12 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import HeaderForms from '@/app/componentes/formulario_comp/HeaderForms'
 import BackgroundDecor from '@/app/componentes/general/BackgroundDoodles'
 import { createClientForBrowser } from '@/lib/client'
 
-export default function Page() {
+function ActualizarContrasenaContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const code = searchParams.get('code')
@@ -16,7 +16,7 @@ export default function Page() {
   const [isPending, setIsPending] = useState(false)
   const [isValidatingLink, setIsValidatingLink] = useState(true)
   const [canUpdatePassword, setCanUpdatePassword] = useState(false)
-  const [mostrarContrasena, setMostrarContrasena] = useState(false);
+  const [mostrarContrasena, setMostrarContrasena] = useState(false)
 
   useEffect(() => {
     let isMounted = true
@@ -65,22 +65,14 @@ export default function Page() {
 
     validateRecoveryLink()
 
-    return () => {
-      isMounted = false
-    }
+    return () => { isMounted = false }
   }, [code])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (isValidatingLink || !canUpdatePassword) return
-    if (!password) {
-      setError('La contraseña es requerida')
-      return
-    }
-    if (password.length < 6) {
-      setError('Mínimo 6 caracteres')
-      return
-    }
+    if (!password) { setError('La contraseña es requerida'); return }
+    if (password.length < 6) { setError('Mínimo 6 caracteres'); return }
 
     setIsPending(true)
     setError('')
@@ -166,15 +158,24 @@ export default function Page() {
               className="w-full text-white font-montserrat text-base sm:text-lg md:text-xl font-semibold rounded-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] py-4 px-6 border-[3px] disabled:opacity-60"
               style={{ backgroundColor: '#4F123F', borderColor: '#4F123F' }}
             >
-              {isValidatingLink
-                ? 'Validando enlace...'
-                : isPending
-                  ? 'Actualizando...'
-                  : 'Actualizar contraseña'}
+              {isValidatingLink ? 'Validando enlace...' : isPending ? 'Actualizando...' : 'Actualizar contraseña'}
             </button>
           </form>
         </main>
       </div>
     </section>
+  )
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={
+      <section className="w-full min-h-screen flex items-center justify-center"
+        style={{ background: 'linear-gradient(180deg, #AC1C75, #761450, #5F1040)' }}>
+        <p className="text-white">Cargando...</p>
+      </section>
+    }>
+      <ActualizarContrasenaContent />
+    </Suspense>
   )
 }
