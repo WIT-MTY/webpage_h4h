@@ -1,11 +1,12 @@
 'use client';
-import { useActionState, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import HeaderForms from "@/app/componentes/formulario_comp/HeaderForms";
 import BackgroundDecor from "@/app/componentes/general/BackgroundDoodles";
-import { sendResetPasswordEmail } from '@/app/registro/actions'
+import { createClientForBrowser } from "@/lib/client";
 
 function FormRecuperacion({ onVolver }: { onVolver: () => void }) {
+  const supabase = createClientForBrowser()
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
@@ -20,18 +21,14 @@ function FormRecuperacion({ onVolver }: { onVolver: () => void }) {
     setSuccess('')
 
     try {
-      const res = await fetch('/api/reset-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
       })
 
-      const data = await res.json()
-
-      if (!res.ok) {
-        setError(data.message || 'Ocurrió un error')
+      if (error) {
+        setError(error.message || 'Ocurrió un error')
       } else {
-        setSuccess('Correo enviado. Revisa tu bandeja de entrada.')
+        setSuccess('Correo enviado. Revisa tu bandeja de entrada y abre el enlace en este mismo navegador.')
       }
     } catch {
       setError('Error al conectar con el servidor')
@@ -78,6 +75,9 @@ function FormRecuperacion({ onVolver }: { onVolver: () => void }) {
       >
         {isPending ? 'Enviando...' : 'Enviar correo de recuperación'}
       </button>
+      <p className="text-white/80 text-xs text-center">
+        Importante: abre el enlace de recuperación en este mismo navegador.
+      </p>
     </form>
   )
 }
@@ -103,9 +103,6 @@ export default function PageFormulario() {
         setErrores(nuevosErrores);
         return Object.keys(nuevosErrores).length === 0;
     };
-
-   
-    
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -243,6 +240,3 @@ export default function PageFormulario() {
         </section>
     );
 }
-
-
-
