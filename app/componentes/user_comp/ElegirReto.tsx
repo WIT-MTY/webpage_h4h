@@ -92,6 +92,7 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
                                 </div>
                             ))}
                         </div>
+                        <ClausulaPatrocinador />
                     </div>
 
                 ) : (
@@ -100,9 +101,13 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
                     <div className="space-y-5">
 
                         {!esLider ? (
-                            <p className="text-[#4A0C32]/50 text-sm bg-yellow-50 border border-yellow-200 rounded-lg px-4 py-3">
-                                Solo la líder del equipo puede seleccionar las opciones de reto.
-                            </p>
+                            <div className="space-y-2">
+                                <p className="text-[#4A0C32]/50 text-sm bg-yellow-50 border border-yellow-200 rounded-lg px-4 py-3">
+                                    Solo la líder del equipo puede seleccionar las opciones de reto.
+                                </p>
+                                <ClausulaPatrocinador />
+                                
+                            </div>
                         ) : (
                             <div className="space-y-2">
                             <p className="text-[#4A0C32]/50 text-sm bg-yellow-50 border border-yellow-200 rounded-lg px-4 py-3">
@@ -153,6 +158,7 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
                                                     >
                                                         Opción 2
                                                     </button>
+                
                                                 </div>
                                             )}
                                         </div>
@@ -195,3 +201,42 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
 }
 
 export default ElegirReto;
+
+const ClausulaPatrocinador = () => {
+    const [expandido, setExpandido] = useState(false);
+    return(
+    <div className="text-xs text-[#4A0C32]/60 bg-[#F0CEE3]/50 border border-[#C4649F] rounded-lg p-3">
+       
+        <div className={expandido ? '' : 'line-clamp-1'}>
+            <p className="font-semibold text-sm text-[#4A0C32] mb-1">
+                Aceptación de Términos y Condiciones – Hackathon 2026
+            </p>
+            <div className="space-y-2">
+            <p>
+                Al registrarme y/o participar en el Hackathon 2026, manifiesto mi consentimiento expreso y acepto que todas las ideas, propuestas, desarrollos, soluciones, materiales o entregables que genere, de forma individual o colectiva, podrán ser utilizados, adaptados, modificados, reproducidos, implementados y explotados por Arca Continental, S.A.B. de C.V., o cualquiera de sus filiales o empresas del grupo, para cualquier fin y sin limitación temporal o territorial.
+            </p>
+            
+            <p>
+                Asimismo, cedo de manera total, gratuita, irrevocable y exclusiva a favor de Arca Continental todos los derechos patrimoniales de propiedad intelectual que pudieran derivarse de dichas creaciones, renunciando a cualquier reclamación presente o futura.
+            </p>
+                
+            <p>
+                Reconozco que durante el evento podré tener acceso a información confidencial o reservada de Arca Continental, incluyendo información interna, materiales, procesos y datos compartidos, por lo que me obligo a mantener su estricta confidencialidad, incluso con posterioridad a la conclusión del evento.
+            </p>
+            
+            <p>
+                Manifiesto que las creaciones que genere no infringen derechos de terceros y que cuento con la capacidad legal para aceptar los presentes términos. Autorizo el tratamiento de mis datos personales conforme al Aviso de Privacidad aplicable de Arca Continental. Los presentes términos se rigen por las leyes de los Estados Unidos Mexicanos y cualquier controversia será sometida a los tribunales competentes de Monterrey, Nuevo León.
+            </p>
+            </div>
+        </div>
+
+            <button
+                type="button"
+                onClick={() => setExpandido(!expandido)}
+                className="mt-2 text-[#C4649F] hover:text-[#4A0C32] text-xs font-semibold transition-colors"
+            >
+                {expandido ? 'Ver menos ▲' : 'Ver más ▼'}
+            </button>
+    </div>
+    )
+};

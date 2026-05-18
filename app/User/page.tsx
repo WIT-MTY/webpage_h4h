@@ -77,6 +77,20 @@ export default function PageUser() {
             <h2 className='text-xl font-semibold'>Estatus de participación</h2>
             {estatus !== null && <EstadoUser descripcion={estatus.estatus} />}
 
+            {/* Elegir reto */}
+          {estatus?.estatus ==="Aceptado" && 
+            (
+              <div className="flex-1">
+                <h2 className='text-xl font-semibold mb-4'>Llegó el momento de elegir tu reto</h2>
+                <ElegirReto tieneReto={true} esLider={true} />
+              </div>
+            ) ||
+            (
+              <div className="flex-1">
+              </div>
+            )
+              
+          } 
           </div> 
 
           {/* Unirse/Crear Equipo */}
@@ -92,6 +106,8 @@ export default function PageUser() {
               </div>
             )
           } 
+
+          
          
 
 
