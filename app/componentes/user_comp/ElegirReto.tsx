@@ -7,6 +7,11 @@ interface EstadoProps {
     esLider: boolean;
 }
 
+interface ClausulaProps {
+    aceptoClausula: boolean;
+    onChange: (checked: boolean) => void;
+}
+
 interface Reto {
     id: number;
     nombre: string;
@@ -18,7 +23,11 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
     const [tieneReto, setTieneReto] = useState(tieneRetoInicial);
     const [opcion1, setOpcion1] = useState<Reto | null>(null);
     const [opcion2, setOpcion2] = useState<Reto | null>(null);
+    const [aceptoClausula, setAceptoClausula] = useState(false);
     const [error, setError] = useState('');
+    {/* mock */}
+    const [integrantesAceptaron, setIntegrantesAceptaron] = useState(4);
+    const todosAceptaron = integrantesAceptaron === 4;
 
     const handleSeleccionar = (reto: Reto, opcion: 1 | 2) => {
         if (opcion === 1) {
@@ -42,6 +51,11 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
             setError('Las dos opciones deben ser diferentes.');
             return;
         }
+
+        if (!todosAceptaron) {
+            setError('Todos los integrantes deben aceptar los términos y condiciones.');
+            return;
+        }   
 
         // Simulación — reemplaza con fetch al backend
         setTieneReto(true);
@@ -72,8 +86,8 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
             </div>
 
             <div className="p-6">
-                {tieneReto ? (
 
+                {tieneReto ? (
                     // Vista: ya tiene retos seleccionados
                     <div className="space-y-4">
                         <p className="text-[#4A0C32]/60 text-sm">Tu equipo ha seleccionado las siguientes opciones de reto:</p>
@@ -92,7 +106,10 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
                                 </div>
                             ))}
                         </div>
-                        <ClausulaPatrocinador />
+                        <ClausulaPatrocinador 
+                            aceptoClausula={aceptoClausula} 
+                            onChange={setAceptoClausula} 
+                        />
                     </div>
 
                 ) : (
@@ -100,24 +117,22 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
                     // Vista: selección de retos
                     <div className="space-y-5">
 
-                        {!esLider ? (
-                            <div className="space-y-2">
-                                <p className="text-[#4A0C32]/50 text-sm bg-yellow-50 border border-yellow-200 rounded-lg px-4 py-3">
-                                    Solo la líder del equipo puede seleccionar las opciones de reto.
-                                </p>
-                                <ClausulaPatrocinador />
-                                
-                            </div>
-                        ) : (
-                            <div className="space-y-2">
-                            <p className="text-[#4A0C32]/50 text-sm bg-yellow-50 border border-yellow-200 rounded-lg px-4 py-3">
+                       {/* Instrucciones */}
+                        <div className="space-y-2">
+                            <p className="text-[#4A0C32]/50 text-sm">
                                 Solo la líder del equipo puede seleccionar las opciones de reto.
                             </p>
                             <p className="text-[#4A0C32]/50 text-sm">
-                                Selecciona dos retos en orden de preferencia. Comenta con tu equipo antes de confirmar.
+                                Decidan en equipo los retos qué más les interesan en orden de preferencia antes de confirmar su selección.
                             </p>
-                            </div>
-                        )}
+                            <p className="text-[#4A0C32]/50 text-sm">
+                                Todos los participantes deben aceptar los términos y condiciones para completar su participación y selección de reto.
+                            </p>
+                            <p className="text-[#4A0C32]/50 text-sm">
+                                Seleccionen los dos retos en orden de preferencia.
+                            </p>
+                        </div>
+                        
 
                         {/* Lista de retos */}
                         <div className="space-y-3">
@@ -183,7 +198,7 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
 
                         {error && <p className="text-red-500 text-xs">{error}</p>}
 
-                        {esLider && (
+                        {esLider && !todosAceptaron &&(
                             <button
                                 onClick={handleConfirmar}
                                 disabled={!opcion1 || !opcion2}
@@ -191,7 +206,17 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
                             >
                                 Confirmar selección
                             </button>
+                            
                         )}
+
+
+                        <div className="space-y-2">
+                            <ClausulaPatrocinador 
+                                aceptoClausula={aceptoClausula} 
+                                onChange={setAceptoClausula}  
+                            />
+                        </div>
+                        
 
                     </div>
                 )}
@@ -202,41 +227,69 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
 
 export default ElegirReto;
 
-const ClausulaPatrocinador = () => {
+const ClausulaPatrocinador = ({ aceptoClausula, onChange }: ClausulaProps) => {
     const [expandido, setExpandido] = useState(false);
-    return(
-    <div className="text-xs text-[#4A0C32]/60 bg-[#F0CEE3]/50 border border-[#C4649F] rounded-lg p-3">
-       
-        <div className={expandido ? '' : 'line-clamp-1'}>
-            <p className="font-semibold text-sm text-[#4A0C32] mb-1">
-                Aceptación de Términos y Condiciones – Hackathon 2026
-            </p>
-            <div className="space-y-2">
-            <p>
-                Al registrarme y/o participar en el Hackathon 2026, manifiesto mi consentimiento expreso y acepto que todas las ideas, propuestas, desarrollos, soluciones, materiales o entregables que genere, de forma individual o colectiva, podrán ser utilizados, adaptados, modificados, reproducidos, implementados y explotados por Arca Continental, S.A.B. de C.V., o cualquiera de sus filiales o empresas del grupo, para cualquier fin y sin limitación temporal o territorial.
-            </p>
-            
-            <p>
-                Asimismo, cedo de manera total, gratuita, irrevocable y exclusiva a favor de Arca Continental todos los derechos patrimoniales de propiedad intelectual que pudieran derivarse de dichas creaciones, renunciando a cualquier reclamación presente o futura.
-            </p>
-                
-            <p>
-                Reconozco que durante el evento podré tener acceso a información confidencial o reservada de Arca Continental, incluyendo información interna, materiales, procesos y datos compartidos, por lo que me obligo a mantener su estricta confidencialidad, incluso con posterioridad a la conclusión del evento.
-            </p>
-            
-            <p>
-                Manifiesto que las creaciones que genere no infringen derechos de terceros y que cuento con la capacidad legal para aceptar los presentes términos. Autorizo el tratamiento de mis datos personales conforme al Aviso de Privacidad aplicable de Arca Continental. Los presentes términos se rigen por las leyes de los Estados Unidos Mexicanos y cualquier controversia será sometida a los tribunales competentes de Monterrey, Nuevo León.
-            </p>
+
+    return (
+        <div className='space-y-2'>
+            {!aceptoClausula && (
+                <p className="text-[#4A0C32]/50 text-sm bg-yellow-50 border border-yellow-200 rounded-lg px-4 py-3">
+                    Para completar tu participación y selección de reto, es necesario que aceptes los términos y condiciones.
+                </p>
+            )}
+
+            <div className="border rounded-xl overflow-hidden transition-colors bg-[#F0CEE3]/50 border-[#C4649F]">
+
+                {/* Header */}
+                <div className="px-4 py-3 border-b transition-colors bg-[#C4649F]/20 border-[#C4649F]/30">
+                    <label className="flex items-start gap-3 cursor-pointer">
+
+                        {!aceptoClausula && (
+                        <input
+                            type="checkbox"
+                            checked={aceptoClausula}
+                            onChange={(e) => onChange(e.target.checked)}
+                            className="mt-0.5 w-4 h-4 accent-[#C4649F] shrink-0"
+                        />)}
+
+                        <span className="text-xs leading-relaxed font-semibold text-[#4A0C32]"
+                       >
+                            {aceptoClausula 
+                                ? 'Aceptaste los Términos y Condiciones – Hackathon 2026'
+                                : 'Aceptación de Términos y Condiciones – Hackathon 2026'
+                            }
+                            {!aceptoClausula && <span className="text-red-500 ml-1">*</span>}
+                        </span>
+                    </label>
+                </div>
+
+                {/* Contenido colapsable */}
+                <div className="px-4 pt-3 pb-1">
+                    <div className={`text-xs text-[#4A0C32]/70 space-y-2 leading-relaxed ${expandido ? '' : 'line-clamp-2'}`}>
+                        <p>
+                            Al registrarme y/o participar en el Hackathon 2026, manifiesto mi consentimiento expreso y acepto que todas las ideas, propuestas, desarrollos, soluciones, materiales o entregables que genere, de forma individual o colectiva, podrán ser utilizados, adaptados, modificados, reproducidos, implementados y explotados por Arca Continental, S.A.B. de C.V., o cualquiera de sus filiales o empresas del grupo, para cualquier fin y sin limitación temporal o territorial.
+                        </p>
+                        <p>
+                            Asimismo, cedo de manera total, gratuita, irrevocable y exclusiva a favor de Arca Continental todos los derechos patrimoniales de propiedad intelectual que pudieran derivarse de dichas creaciones, renunciando a cualquier reclamación presente o futura.
+                        </p>
+                        <p>
+                            Reconozco que durante el evento podré tener acceso a información confidencial o reservada de Arca Continental, incluyendo información interna, materiales, procesos y datos compartidos, por lo que me obligo a mantener su estricta confidencialidad, incluso con posterioridad a la conclusión del evento.
+                        </p>
+                        <p>
+                            Manifiesto que las creaciones que genere no infringen derechos de terceros y que cuento con la capacidad legal para aceptar los presentes términos. Autorizo el tratamiento de mis datos personales conforme al Aviso de Privacidad aplicable de Arca Continental. Los presentes términos se rigen por las leyes de los Estados Unidos Mexicanos y cualquier controversia será sometida a los tribunales competentes de Monterrey, Nuevo León.
+                        </p>
+                    </div>
+
+                    <button
+                        type="button"
+                        onClick={() => setExpandido(!expandido)}
+                        className="mt-2 mb-3 text-[#C4649F] hover:text-[#4A0C32] text-xs font-semibold transition-colors flex items-center gap-1"
+                    >
+                        {expandido ? 'Ver menos ▲' : 'Leer términos completos ▼'}
+                    </button>
+                </div>
+
             </div>
         </div>
-
-            <button
-                type="button"
-                onClick={() => setExpandido(!expandido)}
-                className="mt-2 text-[#C4649F] hover:text-[#4A0C32] text-xs font-semibold transition-colors"
-            >
-                {expandido ? 'Ver menos ▲' : 'Ver más ▼'}
-            </button>
-    </div>
-    )
+    );
 };

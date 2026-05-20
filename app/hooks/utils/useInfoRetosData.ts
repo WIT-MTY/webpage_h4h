@@ -76,7 +76,7 @@ export const useInfoRetosData = () => {
     setDATA(RETOS_MOCK);
     setLoading(false);
 
-    //fetchEquipos);
+    //fetchEquipos;
 
   }, []);
   

@@ -909,7 +909,7 @@ export default function PageFormulario() {
                                     type="checkbox"
                                     id="mlh-code-conduct"
                                     checked={mlhConducta} onChange={(e) => setMlhConducta(e.target.checked)}
-                                    className="mt-1 w-5 h-5 flex-shrink-0 text-pink-600 bg-white border-gray-300 rounded focus:ring-pink-500"
+                                    className="mt-1 w-5 h-5 shrink-0 text-pink-600 bg-white border-gray-300 rounded focus:ring-pink-500"
 
                                 />
                                 <label htmlFor="mlh-code-conduct" className="text-white text-sm md:text-base">
@@ -933,7 +933,7 @@ export default function PageFormulario() {
                                     type="checkbox"
                                     id="mlh-logistics"
                                     checked={mlhLogistica} onChange={(e) => setMlhLogistica(e.target.checked)}
-                                    className="mt-1 w-5 h-5 flex-shrink-0 text-pink-600 bg-white border-gray-300 rounded focus:ring-pink-500"
+                                    className="mt-1 w-5 h-5 shrink-0 text-pink-600 bg-white border-gray-300 rounded focus:ring-pink-500"
 
                                 />
                                 <label htmlFor="mlh-logistics" className="text-white text-sm md:text-base">
