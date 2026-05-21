@@ -243,7 +243,7 @@ export default function PageFormulario() {
         if (!vegano) nuevosErrores.vegano = "Este campo es requerido";
         if (!restriccionAlimentaria) nuevosErrores.restriccion = "Este campo es requerido";
         if (tieneRestriccion && !especificacionRestriccion) nuevosErrores.especificacion = "Especifica tu restricción";
-        if (!cvFile) nuevosErrores.cv = "El CV es requerido";
+        //if (!cvFile) nuevosErrores.cv = "El CV es requerido";
         if (!mlhConducta) nuevosErrores.mlhConducta = "Debes aceptar el Código de Conducta";
         if (!mlhLogistica) nuevosErrores.mlhLogistica = "Debes aceptar los términos de MLH";
         if (cvFile && cvFile.size > 5 * 1024 * 1024) {nuevosErrores.cv = "El CV no debe superar 5MB";}
@@ -863,7 +863,7 @@ export default function PageFormulario() {
                         <div className="grid gap-y-1.5">
                             <FileUpload 
                                 label="Carga tu CV"
-                                required={true}
+                                required={false}
                                 onFileChange={(file) => {
                                     if (file && file.size > 5 * 1024 * 1024) {
                                         setErrores(prev => ({ ...prev, cv: "El CV no debe superar 5MB" }));
@@ -874,7 +874,7 @@ export default function PageFormulario() {
                                     }
                                 }}
                             />
-                            {errores.cv && <p className="text-red-400 text-sm mt-1">{errores.cv}</p>}
+                            {/* {errores.cv && <p className="text-red-400 text-sm mt-1">{errores.cv}</p>} */}
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
@@ -909,7 +909,7 @@ export default function PageFormulario() {
                                     type="checkbox"
                                     id="mlh-code-conduct"
                                     checked={mlhConducta} onChange={(e) => setMlhConducta(e.target.checked)}
-                                    className="mt-1 w-5 h-5 flex-shrink-0 text-pink-600 bg-white border-gray-300 rounded focus:ring-pink-500"
+                                    className="mt-1 w-5 h-5 shrink-0 text-pink-600 bg-white border-gray-300 rounded focus:ring-pink-500"
 
                                 />
                                 <label htmlFor="mlh-code-conduct" className="text-white text-sm md:text-base">
@@ -933,7 +933,7 @@ export default function PageFormulario() {
                                     type="checkbox"
                                     id="mlh-logistics"
                                     checked={mlhLogistica} onChange={(e) => setMlhLogistica(e.target.checked)}
-                                    className="mt-1 w-5 h-5 flex-shrink-0 text-pink-600 bg-white border-gray-300 rounded focus:ring-pink-500"
+                                    className="mt-1 w-5 h-5 shrink-0 text-pink-600 bg-white border-gray-300 rounded focus:ring-pink-500"
 
                                 />
                                 <label htmlFor="mlh-logistics" className="text-white text-sm md:text-base">

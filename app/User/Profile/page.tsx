@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useFetchProtegido } from '@/app/hooks/utils/useFetchProtegido';
+import FileUpload from '@/app/componentes/registro/FileUpload';
 
 // 
 interface Usuario {
@@ -30,6 +31,7 @@ export default function UserProfile() {
   const { fetchProtegido } = useFetchProtegido();
   const [usuario, setUsuario] = useState<Usuario | null>(null);
   const [loading, setLoading] = useState(true);
+  const [espacioArchivo, setEspacioArchivo] = useState(false);
 
   useEffect(() => {
     const obtenerPerfil = async () => {
@@ -190,10 +192,52 @@ export default function UserProfile() {
 
             <div>
               <p className="text-white/60 text-sm mb-1">CV</p>
+
+              {usuario.cv_url && (
                 <a href={usuario.cv_url} target="_blank" rel="noopener noreferrer"
                   className="text-pink-300 hover:text-pink-200 underline transition-colors text-sm">
                   Ver CV
                 </a>
+              ) || (
+                <div>
+                  {!espacioArchivo && (
+                    <div>
+                      <p className="text-white/40 text-sm">No proporcionado</p>
+                      
+                      {/* Funcionalidad: espacio para subir archivo */}
+                      {/*}
+                      <button
+                        onClick={() => setEspacioArchivo(true)}
+                        className="text-pink-600 hover:text-pink-200 transition-colors text-sm"
+                      >
+                        Subir CV
+                      </button> */}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Funcionalidad: espacio para subir archivo */}
+              {/*{espacioArchivo && (
+                <div>
+                  <FileUpload 
+                    label="Carga tu CV"
+                    required={false}         
+                  />
+                  <div className="flex gap-2 mt-2">
+                     <button type="submit" className="px-3 py-1 text-xs text-white font-semibold rounded-md transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]" style={{ backgroundColor: '#4F123F', borderColor: '#4F123F' }}>
+                        Cargar CV
+                      </button>
+                      <button
+                        onClick={() => setEspacioArchivo(false)}
+                        className="px-3 py-1 text-xs text-white font-semibold rounded-md transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]" style={{ backgroundColor: '#EC407A', borderColor: '#EC407A' }}
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                </div>
+              )} */}
+
             </div>
 
             <div>
