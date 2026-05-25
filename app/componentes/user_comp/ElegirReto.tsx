@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react';
 import { useInfoRetosData } from '@/app/hooks/utils/useInfoRetosData';
+import { useInfoEquipoData } from '@/app/hooks/utils/useInfoEquipoData';
 
 interface EstadoProps {
     tieneReto: boolean;
@@ -8,27 +9,49 @@ interface EstadoProps {
 }
 
 interface ClausulaProps {
+    nombreAceptoClausula: string;
+    onNombreChange: (nombre: string) => void;
+    aceptoTerminos: boolean;
+    onTerminosChange: (terminos: boolean) => void;
     aceptoClausula: boolean;
-    onChange: (checked: boolean) => void;
+    onClausulaChange: (clausula: boolean) => void;
+    yaAceptoClausula: boolean; 
 }
 
 interface Reto {
     id: number;
-    nombre: string;
+    titulo: string;
     descripcion: string;
 }
 
+interface MiEquipoData {
+  tiene_equipo: boolean;
+  equipo_id?: number;
+  es_lider?: boolean;
+  tiene_seleccion?: boolean;
+  retos_disponibles?: boolean;
+  retos?: Reto[];
+  opcion1_reto_id?: number;
+  opcion1_titulo?: string;
+  opcion1_descripcion?: string;
+  opcion2_reto_id?: number;
+  opcion2_titulo?: string;
+  opcion2_descripcion?: string;
+  p_acepto_clausula: boolean;
+}
+
 const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
-    const { DATA, loading } = useInfoRetosData();
+    const { infoRetos, allRetos,  loadingInfoRetos, refetch: fetchMiEquipo  } = useInfoRetosData();
+    const { infoEquipo, loadingInfo } = useInfoEquipoData();
     const [tieneReto, setTieneReto] = useState(tieneRetoInicial);
     const [opcion1, setOpcion1] = useState<Reto | null>(null);
     const [opcion2, setOpcion2] = useState<Reto | null>(null);
-    const [aceptoClausula, setAceptoClausula] = useState(false);
+    const [aceptoTerminos, setAceptoTerminos] = useState(false); //Boton para aceptar terminos y condiciones
+    const [aceptoClausula, setAceptoClausula] = useState(false); //Aceptar Checkbox clausula de patrocinador
+    const [nombreAceptoClausula, setNombreAceptoClausula] = useState(''); //Nombre del integrante que acepto la clausula 
     const [error, setError] = useState('');
-    {/* mock */}
-    const [integrantesAceptaron, setIntegrantesAceptaron] = useState(4);
-    const todosAceptaron = integrantesAceptaron === 4;
-
+    let aceptoTerminosParticipante: boolean = infoRetos?.p_acepto_clausula || false; //bool, determinar si el equipo ya acepto terminos para mostrar estado de aceptación 
+    
     const handleSeleccionar = (reto: Reto, opcion: 1 | 2) => {
         if (opcion === 1) {
             // Si ya es opcion2, quitarlo de ahí
@@ -52,7 +75,7 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
             return;
         }
 
-        if (!todosAceptaron) {
+        if (!verificarEquipoAceptoTerminos()) {
             setError('Todos los integrantes deben aceptar los términos y condiciones.');
             return;
         }   
@@ -74,7 +97,14 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
         return null;
     };
 
-    if (loading) return <div className="p-4 text-[#4A0C32] text-sm">Cargando retos...</div>;
+    const verificarEquipoAceptoTerminos= () => {
+        if(infoEquipo?.lider_acepto_terminos === true && infoEquipo?.participante_2_acepto_terminos === true && infoEquipo?.participante_3_acepto_terminos === true && infoEquipo?.participante_4_acepto_terminos === true) {
+            return true; //true; el equipo acepto terminos
+        }
+        return false; //false; el equipo no acepto terminos
+    }
+
+    if (loadingInfoRetos) return <div className="p-4 text-[#4A0C32] text-sm">Cargando retos...</div>;
 
     return (
         <div className="bg-white border-2 border-[#C4649F] rounded-2xl overflow-hidden w-full max-w-xl">
@@ -100,15 +130,20 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
                                 <div key={i} className="flex items-start justify-between py-3 border-b border-gray-100 last:border-0 gap-4">
                                     <p className="text-[#4A0C32]/60 text-sm shrink-0">{label}</p>
                                     <div className="text-right">
-                                        <p className="text-[#4A0C32] font-medium text-sm">{reto?.nombre}</p>
+                                        <p className="text-[#4A0C32] font-medium text-sm">{reto?.titulo}</p>
                                         <p className="text-[#4A0C32]/50 text-xs mt-0.5">{reto?.descripcion}</p>
                                     </div>
                                 </div>
                             ))}
                         </div>
                         <ClausulaPatrocinador 
-                            aceptoClausula={aceptoClausula} 
-                            onChange={setAceptoClausula} 
+                            aceptoTerminos={aceptoTerminos} 
+                            onTerminosChange={setAceptoTerminos}
+                            nombreAceptoClausula={nombreAceptoClausula}
+                            onNombreChange={setNombreAceptoClausula}
+                            aceptoClausula={aceptoClausula}
+                            onClausulaChange={setAceptoClausula}
+                            yaAceptoClausula={aceptoTerminosParticipante} 
                         />
                     </div>
 
@@ -136,7 +171,7 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
 
                         {/* Lista de retos */}
                         <div className="space-y-3">
-                            {DATA.map((reto) => {
+                            {allRetos.map((reto) => {
                                 const estado = getEstadoReto(reto);
                                 return (
                                     <div
@@ -147,7 +182,7 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
                                     >
                                         <div className="flex items-start justify-between gap-4">
                                             <div className="flex-1">
-                                                <h2 className="text-[#4A0C32] font-bold text-sm mb-1">{reto.nombre}</h2>
+                                                <h2 className="text-[#4A0C32] font-bold text-sm mb-1">{reto.titulo}</h2>
                                                 <p className="text-[#4A0C32]/60 text-xs">{reto.descripcion}</p>
                                             </div>
 
@@ -187,18 +222,18 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
                             <div className="bg-[#F0CEE3]/40 rounded-lg px-4 py-3 space-y-1">
                                 <div className="flex justify-between text-sm">
                                     <p className="text-[#4A0C32]/60">Primera opción (mayor preferencia):</p>
-                                    <p className="text-[#4A0C32] font-medium">{opcion1?.nombre || '—'}</p>
+                                    <p className="text-[#4A0C32] font-medium">{opcion1?.titulo || '—'}</p>
                                 </div>
                                 <div className="flex justify-between text-sm">
                                     <p className="text-[#4A0C32]/60">Segunda opción:</p>
-                                    <p className="text-[#4A0C32] font-medium">{opcion2?.nombre || '—'}</p>
+                                    <p className="text-[#4A0C32] font-medium">{opcion2?.titulo || '—'}</p>
                                 </div>
                             </div>
                         )}
 
                         {error && <p className="text-red-500 text-xs">{error}</p>}
 
-                        {esLider && !todosAceptaron &&(
+                        {esLider &&(
                             <button
                                 onClick={handleConfirmar}
                                 disabled={!opcion1 || !opcion2}
@@ -206,18 +241,20 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
                             >
                                 Confirmar selección
                             </button>
-                            
                         )}
 
 
                         <div className="space-y-2">
                             <ClausulaPatrocinador 
-                                aceptoClausula={aceptoClausula} 
-                                onChange={setAceptoClausula}  
+                                aceptoTerminos={aceptoTerminos} 
+                                onTerminosChange={setAceptoTerminos}
+                                nombreAceptoClausula={nombreAceptoClausula}
+                                onNombreChange={setNombreAceptoClausula}
+                                aceptoClausula={aceptoClausula}
+                                onClausulaChange={setAceptoClausula}
+                                yaAceptoClausula={aceptoTerminosParticipante} 
                             />
                         </div>
-                        
-
                     </div>
                 )}
             </div>
@@ -227,14 +264,15 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
 
 export default ElegirReto;
 
-const ClausulaPatrocinador = ({ aceptoClausula, onChange }: ClausulaProps) => {
+const ClausulaPatrocinador = ({ aceptoTerminos, onTerminosChange, nombreAceptoClausula, onNombreChange, aceptoClausula, onClausulaChange, yaAceptoClausula  }: ClausulaProps) => {
     const [expandido, setExpandido] = useState(false);
+    const mostrarComoAceptado = yaAceptoClausula || aceptoTerminos;
 
     return (
         <div className='space-y-2'>
-            {!aceptoClausula && (
+            {!mostrarComoAceptado  && (
                 <p className="text-[#4A0C32]/50 text-sm bg-yellow-50 border border-yellow-200 rounded-lg px-4 py-3">
-                    Para completar tu participación y selección de reto, es necesario que aceptes los términos y condiciones.
+                    Es necesario que aceptes los términos y condiciones para completar tu participación y selección de reto.
                 </p>
             )}
 
@@ -243,22 +281,12 @@ const ClausulaPatrocinador = ({ aceptoClausula, onChange }: ClausulaProps) => {
                 {/* Header */}
                 <div className="px-4 py-3 border-b transition-colors bg-[#C4649F]/20 border-[#C4649F]/30">
                     <label className="flex items-start gap-3 cursor-pointer">
-
-                        {!aceptoClausula && (
-                        <input
-                            type="checkbox"
-                            checked={aceptoClausula}
-                            onChange={(e) => onChange(e.target.checked)}
-                            className="mt-0.5 w-4 h-4 accent-[#C4649F] shrink-0"
-                        />)}
-
-                        <span className="text-xs leading-relaxed font-semibold text-[#4A0C32]"
-                       >
-                            {aceptoClausula 
+                        <span className="text-xs leading-relaxed font-semibold text-[#4A0C32]">
+                            {mostrarComoAceptado
                                 ? 'Aceptaste los Términos y Condiciones – Hackathon 2026'
                                 : 'Aceptación de Términos y Condiciones – Hackathon 2026'
                             }
-                            {!aceptoClausula && <span className="text-red-500 ml-1">*</span>}
+                            {!mostrarComoAceptado && <span className="text-red-500 ml-1">*</span>}
                         </span>
                     </label>
                 </div>
@@ -279,7 +307,8 @@ const ClausulaPatrocinador = ({ aceptoClausula, onChange }: ClausulaProps) => {
                             Manifiesto que las creaciones que genere no infringen derechos de terceros y que cuento con la capacidad legal para aceptar los presentes términos. Autorizo el tratamiento de mis datos personales conforme al Aviso de Privacidad aplicable de Arca Continental. Los presentes términos se rigen por las leyes de los Estados Unidos Mexicanos y cualquier controversia será sometida a los tribunales competentes de Monterrey, Nuevo León.
                         </p>
                     </div>
-
+                    
+                    {/* Boton "ver mas" leer terminos completos*/}
                     <button
                         type="button"
                         onClick={() => setExpandido(!expandido)}
@@ -287,6 +316,46 @@ const ClausulaPatrocinador = ({ aceptoClausula, onChange }: ClausulaProps) => {
                     >
                         {expandido ? 'Ver menos ▲' : 'Leer términos completos ▼'}
                     </button>
+                    
+                    {/* Se muestra solo cuando no se han aceptado los términos */}
+                    {!mostrarComoAceptado && (
+                        <div className="space-y-2">
+                            <label className="flex items-start gap-2 cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    checked={aceptoClausula}
+                                    onChange={(e) => onClausulaChange(e.target.checked)}
+                                    className="mt-0.5 w-4 h-4 accent-[#C4649F] shrink-0"
+                                />
+                                <span className="text-xs text-[#4A0C32]/70">
+                                    He leído y acepto los términos y condiciones para participar en el Hackathon 2026. <span className="text-red-500 ml-1">*</span>
+                                </span>
+                            </label>
+
+                            <div className="">
+                                <p className="text-xs text-[#4A0C32]/70">
+                                    Escribe tu nombre completo<span className="text-red-500 ml-1">*</span>
+                                </p>
+                            
+                                <input
+                                    type="text"
+                                
+                                    placeholder="Escribe tu nombre completo para confirmar aceptación"
+                                    value={nombreAceptoClausula}
+                                    onChange={(e) => onNombreChange(e.target.value)}
+                                    className="mt-3 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#C4649F] transition-colors"
+                                />
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => onTerminosChange(true)}
+                                className="mt-4 w-full py-2.5 bg-[#C4649F] text-white font-semibold text-sm rounded-lg hover:bg-[#4A0C32] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                            >
+                                Aceptar y continuar
+                            </button>
+                        </div>
+                    )}
+                    
                 </div>
 
             </div>

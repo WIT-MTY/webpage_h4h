@@ -39,7 +39,7 @@ const RetosSection = () => {
                             cursor: "default",
                         }}
                     >
-                        <svg className="w-[min(10vw,2.5rem)] h-[min(10vw,2.5rem)] flex-shrink-0" fill="none" stroke="#ff2871" strokeWidth={1.5} viewBox="0 0 24 24">
+                        <svg className="w-[min(10vw,2.5rem)] h-[min(10vw,2.5rem)] shrink-0" fill="none" stroke="#ff2871" strokeWidth={1.5} viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round"
                                 d="M16.5 10.5V7a4.5 4.5 0 10-9 0v3.5M5 10.5h14a1 1 0 011 1V20a1 1 0 01-1 1H5a1 1 0 01-1-1v-8.5a1 1 0 011-1z" />
                         </svg>
