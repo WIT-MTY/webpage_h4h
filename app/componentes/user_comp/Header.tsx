@@ -1,15 +1,25 @@
-'use client';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+"use client";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 
 const NAV_ITEMS = [
   {
     label: "Home",
     href: "/User",
     icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+      <svg
+        className="w-5 h-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+        />
       </svg>
     ),
   },
@@ -17,8 +27,50 @@ const NAV_ITEMS = [
     label: "Perfil",
     href: "/User/Profile",
     icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+      <svg
+        className="w-5 h-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"
+        />
+      </svg>
+    ),
+  },
+  {
+    label: "Check-in",
+    href: "/User/CheckIn",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="w-5 h-5"
+      >
+        {/* Scan frame */}
+        <path d="M4 7V5a1 1 0 0 1 1-1h2" />
+        <path d="M20 7V5a1 1 0 0 0-1-1h-2" />
+        <path d="M4 17v2a1 1 0 0 0 1 1h2" />
+        <path d="M20 17v2a1 1 0 0 1-1 1h-2" />
+
+        {/* QR blocks */}
+        <rect x="7" y="7" width="3" height="3" rx="0.5" />
+        <rect x="14" y="7" width="3" height="3" rx="0.5" />
+        <rect x="7" y="14" width="3" height="3" rx="0.5" />
+
+        {/* Small QR pattern */}
+        <path d="M15 14h2v2h-2z" />
       </svg>
     ),
   },
@@ -33,7 +85,7 @@ export default function Header() {
     try {
       const token = document.cookie
         .split("; ")
-        .find(row => row.startsWith("token="))
+        .find((row) => row.startsWith("token="))
         ?.split("=")[1];
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
         method: "POST",
@@ -55,8 +107,18 @@ export default function Header() {
         className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-[#F0CEE3] border border-[#4A0C32]/20 text-[#4A0C32] shadow"
         aria-label="Abrir menú"
       >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 6h16M4 12h16M4 18h16"
+          />
         </svg>
       </button>
 
@@ -84,8 +146,18 @@ export default function Header() {
           className="md:hidden self-end m-4 p-1 text-[#4A0C32]"
           aria-label="Cerrar menú"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
 
@@ -108,9 +180,10 @@ export default function Header() {
                 href={href}
                 onClick={() => setIsOpen(false)}
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors
-                  ${isActive
-                    ? "bg-[#4A0C32] text-white"
-                    : "text-[#4A0C32] hover:bg-[#4A0C32]/10"
+                  ${
+                    isActive
+                      ? "bg-[#4A0C32] text-white"
+                      : "text-[#4A0C32] hover:bg-[#4A0C32]/10"
                   }`}
               >
                 {icon}
@@ -126,8 +199,18 @@ export default function Header() {
             onClick={logout}
             className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-[#4A0C32] hover:bg-[#4A0C32]/30 transition-colors"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+              />
             </svg>
             <span>Cerrar sesión</span>
           </button>
