@@ -62,12 +62,18 @@ export default function PageUser() {
 
   const verfificar_Full_Team = () => { //verficar que el equipo este completo
     if(infoRetos?.tiene_equipo === true) { //si el usuario tiene equipo...
-      if (infoEquipo?.lider==null && infoEquipo?.participante2==null && infoEquipo?.participante3==null && infoEquipo?.participante4==null) {
-        return false; //false; el equipo no esta completo
+      if (infoEquipo?.estatus === "Aceptado") {
+        return true; //true; el equipo esta completo, tiene lider y 3 participantes
+      }
+      else{
+        return false; //false; el equipo esta incompleto
       }
     }
-    return true; //true; el equipo esta completo, tiene lider y 3 participantes
+    return false; //false; el equipo esta incompleto
   }
+
+  console.log("infoEquipo:", infoEquipo);
+console.log("infoRetos?.tiene_equipo:", infoRetos?.tiene_equipo);
   
     
   return (
@@ -92,7 +98,7 @@ export default function PageUser() {
             {estatus !== null && <EstadoUser descripcion={estatus.estatus} />}
 
             {/* Elegir reto */}
-            {/* Condicion: El participante ha sido aceptado y tiene un equipo */}
+            {/* Condicion: El participante ha sido aceptado y tiene un equipo completo */}
             {estatus?.estatus ==="Aceptado" && verfificar_Full_Team() && (
                 <div className="flex-1">
                   <h2 className='text-xl font-semibold mb-4'>Llegó el momento de elegir tu reto</h2>

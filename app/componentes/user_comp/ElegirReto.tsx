@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useInfoRetosData } from '@/app/hooks/utils/useInfoRetosData';
 import { useInfoEquipoData } from '@/app/hooks/utils/useInfoEquipoData';
+import { getToken } from '@/app/hooks/utils/getToken';
 
 interface EstadoProps {
     tieneReto: boolean;
@@ -24,21 +25,6 @@ interface Reto {
     descripcion: string;
 }
 
-interface MiEquipoData {
-  tiene_equipo: boolean;
-  equipo_id?: number;
-  es_lider?: boolean;
-  tiene_seleccion?: boolean;
-  retos_disponibles?: boolean;
-  retos?: Reto[];
-  opcion1_reto_id?: number;
-  opcion1_titulo?: string;
-  opcion1_descripcion?: string;
-  opcion2_reto_id?: number;
-  opcion2_titulo?: string;
-  opcion2_descripcion?: string;
-  p_acepto_clausula: boolean;
-}
 
 const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
     const { infoRetos, allRetos,  loadingInfoRetos, refetch: fetchMiEquipo  } = useInfoRetosData();
@@ -51,6 +37,7 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
     const [nombreAceptoClausula, setNombreAceptoClausula] = useState(''); //Nombre del integrante que acepto la clausula 
     const [error, setError] = useState('');
     let aceptoTerminosParticipante: boolean = infoRetos?.p_acepto_clausula || false; //bool, determinar si el equipo ya acepto terminos para mostrar estado de aceptación 
+
     
     const handleSeleccionar = (reto: Reto, opcion: 1 | 2) => {
         if (opcion === 1) {
@@ -65,7 +52,8 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
         setError('');
     };
 
-    const handleConfirmar = () => {
+
+    const handleConfirmar = async () => {
         if (!opcion1 || !opcion2) {
             setError('Debes seleccionar dos opciones de reto.');
             return;
@@ -80,16 +68,39 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
             return;
         }   
 
-        // Simulación — reemplaza con fetch al backend
-        setTieneReto(true);
+        try {
+        const BASE = process.env.NEXT_PUBLIC_API_URL;
+        const token = getToken();
 
-        // Cuando conectes el backend:
-        // await fetch(`${process.env.NEXT_PUBLIC_API_URL}/equipos/retos`, {
-        //     method: "POST",
-        //     body: JSON.stringify({ opcion1_id: opcion1.id, opcion2_id: opcion2.id }),
-        //     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }
-        // });
+        const res = await fetch(`${BASE}/retos/elegir`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                opcion1_reto_id: opcion1.id,
+                opcion2_reto_id: opcion2.id,
+            }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            setError(data.error || 'Error al guardar la selección.');
+            return;
+        }
+
+        setTieneReto(true);
+        await fetchMiEquipo(); 
+
+    } catch (error) {
+        setError('Error de conexión. Intenta de nuevo.');
+    }
+
     };
+
+    
 
     const getEstadoReto = (reto: Reto) => {
         if (opcion1?.id === reto.id) return 1;
@@ -124,15 +135,16 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
 
                         <div className="space-y-2">
                             {[
-                                { label: "Primera opción", reto: opcion1 },
-                                { label: "Segunda opción", reto: opcion2 },
-                            ].map(({ label, reto }, i) => (
+                                { label: "Primera opción", titulo: infoRetos?.opcion1_titulo ? { titulo: infoRetos.opcion1_titulo, descripcion: infoRetos.opcion1_descripcion } : null },
+                                { label: "Segunda opción", titulo: infoRetos?.opcion2_titulo ? { titulo: infoRetos.opcion2_titulo, descripcion: infoRetos.opcion2_descripcion } : null },
+                            ].map(({ label, titulo }, i) => (
                                 <div key={i} className="flex items-start justify-between py-3 border-b border-gray-100 last:border-0 gap-4">
                                     <p className="text-[#4A0C32]/60 text-sm shrink-0">{label}</p>
                                     <div className="text-right">
-                                        <p className="text-[#4A0C32] font-medium text-sm">{reto?.titulo}</p>
-                                        <p className="text-[#4A0C32]/50 text-xs mt-0.5">{reto?.descripcion}</p>
+                                        <p className="text-[#4A0C32] font-medium text-sm">{titulo?.titulo}</p>
+                                        <p className="text-[#4A0C32]/50 text-xs mt-0.5">{titulo?.descripcion}</p>
                                     </div>
+                                    
                                 </div>
                             ))}
                         </div>
@@ -264,9 +276,61 @@ const ElegirReto = ({ tieneReto: tieneRetoInicial, esLider }: EstadoProps) => {
 
 export default ElegirReto;
 
+
+
+{/* Componente Para aceptar clausula de patrocinador antes de la seleccion de reto*/}
 const ClausulaPatrocinador = ({ aceptoTerminos, onTerminosChange, nombreAceptoClausula, onNombreChange, aceptoClausula, onClausulaChange, yaAceptoClausula  }: ClausulaProps) => {
     const [expandido, setExpandido] = useState(false);
+    const [loadingAceptar, setLoadingAceptar] = useState(false);
+    const [errorAceptar, setErrorAceptar] = useState('');
     const mostrarComoAceptado = yaAceptoClausula || aceptoTerminos;
+
+    const handleAceptar = async () => {
+        // Validaciones antes de llamar al backend
+        if (!aceptoClausula) {
+            setErrorAceptar('Debes marcar el checkbox para aceptar los términos.');
+            return;
+        }
+        if (!nombreAceptoClausula.trim()) {
+            setErrorAceptar('Debes escribir tu nombre completo.');
+            return;
+        }
+
+        setLoadingAceptar(true);
+        setErrorAceptar('');
+
+        try {
+            const BASE = process.env.NEXT_PUBLIC_API_URL;
+            const token = getToken();
+
+            const res = await fetch(`${BASE}/retos/aceptarclausula`, {
+                method: 'PUT',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    acepto_clausula_arca: true,
+                    nombre_acepto_clausula_arca: nombreAceptoClausula.trim(),
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                setErrorAceptar(data.error || 'Error al aceptar los términos.');
+                return;
+            }
+
+          
+            onTerminosChange(true);
+
+        } catch (error) {
+            setErrorAceptar('Error de conexión. Intenta de nuevo.');
+        } finally {
+            setLoadingAceptar(false);
+        }
+    };
 
     return (
         <div className='space-y-2'>
@@ -339,19 +403,27 @@ const ClausulaPatrocinador = ({ aceptoTerminos, onTerminosChange, nombreAceptoCl
                             
                                 <input
                                     type="text"
-                                
                                     placeholder="Escribe tu nombre completo para confirmar aceptación"
                                     value={nombreAceptoClausula}
                                     onChange={(e) => onNombreChange(e.target.value)}
                                     className="mt-3 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#C4649F] transition-colors"
                                 />
                             </div>
+                                
+                            {/* Muestra el error si hay alguno */}
+                            {errorAceptar && (
+                                <p className="text-red-500 text-xs">
+                                    {errorAceptar}
+                                </p>
+                            )}
+
                             <button
                                 type="button"
-                                onClick={() => onTerminosChange(true)}
+                                onClick={handleAceptar}
+                                disabled={loadingAceptar || !aceptoClausula || !nombreAceptoClausula.trim()}
                                 className="mt-4 w-full py-2.5 bg-[#C4649F] text-white font-semibold text-sm rounded-lg hover:bg-[#4A0C32] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                             >
-                                Aceptar y continuar
+                                {loadingAceptar ? 'Guardando...' : 'Aceptar y continuar'}
                             </button>
                         </div>
                     )}

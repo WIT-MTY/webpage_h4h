@@ -12,7 +12,6 @@ interface AllRetosResponse {
   mensaje?: string;
 }
 
-
 interface MiEquipoData {
   tiene_equipo: boolean;
   equipo_id?: number;
