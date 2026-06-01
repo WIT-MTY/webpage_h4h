@@ -23,7 +23,7 @@ export const useRetos = () => {
         },
         { id: 4, 
             title: "Always on Shelf: Surtido predictivo para canal moderno", 
-            description:"Diseñar un sistema que prediga el surtido necesario para cada canal moderno, optimizando el inventario y mejorando la satisfacción del cliente."
+            description:"Desarrollar una solución de IA capaz de aprender un proceso entre sistemas web observándolo una sola vez y ejecutarlo de forma autónoma, eliminando tareas manuales, errores y tiempo operativo."
         }
     ]);
 
