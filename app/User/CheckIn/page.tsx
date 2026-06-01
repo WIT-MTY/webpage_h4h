@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+// @ts-expect-error - qrcode ships without bundled TypeScript types in this project.
 import QRCode from "qrcode";
 import { useRouter } from "next/navigation";
 import { useFetchProtegido } from "@/app/hooks/utils/useFetchProtegido";
@@ -96,8 +97,12 @@ export default function CheckInPage() {
               obtener acceso al hackathon.
             </p>
 
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <img src={qrImage} alt="QR de Check-in" className="w-72 h-72" />
+            <div className="bg-white rounded-xl p-4 shadow-lg w-[min(80vw,18rem)]  h-[min(80vw,18rem)]">
+              <img
+                src={qrImage}
+                alt="QR de Check-in"
+                className="h-full w-full object-contain"
+              />
             </div>
 
             <p className="text-white/60 text-sm mt-6">

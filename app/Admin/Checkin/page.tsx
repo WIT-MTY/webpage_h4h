@@ -80,11 +80,6 @@ export default function ScanCheckInPage() {
             <div className="flex flex-col items-center">
               {!scannerActivo && (
                 <>
-                  <p className="text-white/80 mb-6 max-w-xl text-center">
-                    Presiona el botón para habilitar la cámara y comenzar a
-                    registrar la asistencia de los participantes.
-                  </p>
-
                   <button
                     onClick={iniciarScanner}
                     className="px-6 py-3 rounded-lg bg-[#4A0C32] text-white font-semibold hover:opacity-90 transition"
