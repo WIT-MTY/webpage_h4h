@@ -72,8 +72,7 @@ export default function PageUser() {
     return false; //false; el equipo esta incompleto
   }
 
-  console.log("infoEquipo:", infoEquipo);
-console.log("infoRetos?.tiene_equipo:", infoRetos?.tiene_equipo);
+
   
     
   return (
@@ -91,7 +90,7 @@ console.log("infoRetos?.tiene_equipo:", infoRetos?.tiene_equipo);
         </div>
 
         {/* Contenido principal - componentes*/}  
-        <div className="flex gap-6 items-start">
+        <div className="flex flex-col md:flex-row gap-6 items-start">
 
           <div className="flex-1 space-y-4">
             <h2 className='text-xl font-semibold'>Estatus de participación</h2>

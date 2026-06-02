@@ -20,7 +20,7 @@ const RetoCard: React.FC<RetoCardProps> = ({ title, description }) => {
 
             <div className="w-12 md:w-16 h-px bg-white/60 my-2 md:my-3 rounded"></div>
 
-            <p className="font-light text-white text-center leading-normal max-w-[85%] text-[clamp(0.7rem,0.8vw,1.1rem)]">
+            <p className="font-light text-white text-center leading-normal max-w-[85%] text-[clamp(0.6rem,0.8vw,1.1rem)]">
                 {description}
             </p>
         </div>
