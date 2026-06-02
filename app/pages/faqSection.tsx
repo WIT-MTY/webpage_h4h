@@ -25,7 +25,7 @@ const faqs: FaqItem[] = [
     pregunta: "¿Puedo llegar después del registro?",
     respuesta: (
     <p>
-        Solo si hay <strong>2 personas como mínimo</strong> de tu equipo ya registradas podrás ingresar después de la hora asignada, como máximo a las <strong>3:00 pm</strong>.
+        Solo si hay <strong>2 personas como mínimo</strong> de tu equipo ya registradas podrás ingresar después de la hora asignada, como máximo a las <strong>11:00 am</strong>.
     </p>
     ),
 },
@@ -33,7 +33,7 @@ const faqs: FaqItem[] = [
     pregunta: "¿Puedo salir durante el hackathon?",
     respuesta: (
     <p>
-        Claro, solo asegúrate de hacerlo <strong>antes de las 12:00 pm</strong>. Después de esa hora no se dejará entrar a nadie más; si sales después de esa hora no te dejarán entrar de nuevo.
+        Claro, solo asegúrate de hacerlo <strong>antes de las 12:00 am</strong>. Después de esa hora no se dejará entrar a nadie más; si sales después de esa hora no te dejarán entrar de nuevo.
     </p>
     ),
 },
