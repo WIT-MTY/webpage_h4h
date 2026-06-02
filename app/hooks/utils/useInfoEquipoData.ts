@@ -1,16 +1,20 @@
  import { useState, useEffect } from "react";
 
 interface Equipos {
-  id: number;
-  nombre: string;
-  lider: string; 
-  participante2: string; 
-  participante3: string; 
-  participante4: string; 
-  fecha_creacion: string; 
-  fecha_validacion: string; 
-  estatus: string; 
-  codigo: string;
+    id: number;
+    nombre: string;
+    lider: string; 
+    participante2: string; 
+    participante3: string; 
+    participante4: string; 
+    lider_acepto_terminos: boolean;
+    participante_2_acepto_terminos: boolean;
+    participante_3_acepto_terminos: boolean;
+    participante_4_acepto_terminos: boolean;
+    fecha_creacion: string; 
+    fecha_validacion: string; 
+    estatus: string; 
+    codigo: string;
 }
 
 const getToken = (): string | undefined =>

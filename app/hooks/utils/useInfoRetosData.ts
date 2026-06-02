@@ -1,87 +1,97 @@
  import { useState, useEffect } from "react";
 
-interface Retos {
+interface Reto {
   id: number;
-  nombre: string;
+  titulo: string;
   descripcion: string; 
 }
 
+interface AllRetosResponse {
+  retos_disponibles: boolean;
+  retos: Reto[];
+  mensaje?: string;
+}
 
-{/*}
+interface MiEquipoData {
+  tiene_equipo: boolean;
+  equipo_id?: number;
+  es_lider?: boolean;
+  tiene_seleccion?: boolean;
+  retos_disponibles?: boolean;
+  retos?: Reto[];
+  opcion1_reto_id?: number;
+  opcion1_titulo?: string;
+  opcion1_descripcion?: string;
+  opcion2_reto_id?: number;
+  opcion2_titulo?: string;
+  opcion2_descripcion?: string;
+  p_acepto_clausula: boolean;
+}
+
+
 const getToken = (): string | undefined =>
-
   document.cookie
     .split("; ")
     .find(row => row.startsWith("token="))
     ?.split("=")[1];
-*/}
-
-const RETOS_MOCK: Retos[] = [
-  {
-    id: 1,
-    nombre: "Reto dificil",
-    descripcion: "Lorem ipsum dolor sit amet consectetur adipiscing elit nisl laoreet himenaeos, class scelerisque pulvinar turpis sodales porttitor commodo luctus ullamcorper sociosqu, bibendum eu ridiculus iaculis taciti sed nascetur dapibus fusce. Facilisi mattis morbi parturient etiam purus, dignissim sem commodo eu maecenas, luctus ad faucibus nibh.",
-  },
-  {
-    id: 2,
-    nombre: "Reto facil",
-    descripcion: "Lorem ipsum dolor sit amet consectetur adipiscing elit nisl laoreet himenaeos, class scelerisque pulvinar turpis sodales porttitor commodo luctus ullamcorper sociosqu, bibendum eu ridiculus iaculis taciti sed nascetur dapibus fusce. Facilisi mattis morbi parturient etiam purus, dignissim sem commodo eu maecenas, luctus ad faucibus nibh.",
-  },
-  {
-    id: 3,
-    nombre: "Reto muy facil",
-    descripcion: "Lorem ipsum dolor sit amet consectetur adipiscing elit nisl laoreet himenaeos, class scelerisque pulvinar turpis sodales porttitor commodo luctus ullamcorper sociosqu, bibendum eu ridiculus iaculis taciti sed nascetur dapibus fusce. Facilisi mattis morbi parturient etiam purus, dignissim sem commodo eu maecenas, luctus ad faucibus nibh.",
-  },
-  {
-    id: 4,
-    nombre: "Reto muy dificil",
-    descripcion: "Lorem ipsum dolor sit amet consectetur adipiscing elit nisl laoreet himenaeos, class scelerisque pulvinar turpis sodales porttitor commodo luctus ullamcorper sociosqu, bibendum eu ridiculus iaculis taciti sed nascetur dapibus fusce. Facilisi mattis morbi parturient etiam purus, dignissim sem commodo eu maecenas, luctus ad faucibus nibh.",
-  },
-];
 
 
-
-
-    
 
 export const useInfoRetosData = () => {
-  const [DATA, setDATA] = useState<Retos[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [infoRetos, setInfoRetos] = useState<MiEquipoData | null>(null);
+  const [allRetos, setAllRetos] = useState<Reto[]>([]);
+  const [loadingInfoRetos, setLoadingInfoRetos] = useState(true);
 
-  {/*
-  const fetchEquipos = async () => {
-    setLoading(true);
+  
+  const fetchRetos = async () => {
+    setLoadingInfoRetos(true);
     try {
       const BASE = process.env.NEXT_PUBLIC_API_URL;
       const token = getToken();
+   
 
-      const res = await fetch(`${BASE}/participantes`, {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const usuarioBaseId = document.cookie
+        .split("; ")
+        .find(row => row.startsWith("usuarioBaseId="))
+        ?.split("=")[1];
 
-      const data = await res.json();
-      setDATA(Array.isArray(data) ? data : []);
+      const [miEquipoRes, retosRes] = await Promise.all([
+        fetch(`${BASE}/retos/mi-equipo?usuarioBaseId=${usuarioBaseId}`, {  
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }),
+
+        fetch(`${BASE}/retos`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }),
+      ]);
+
+      const [miEquipoData, retosData] = await Promise.all([
+        miEquipoRes.json(),
+        retosRes.json(),
+      ]);
+
+      setInfoRetos(miEquipoData);
+      setAllRetos(retosData.retos ?? []);
 
     } catch (error) {
-      console.error("Error al cargar participantes:", error);
+      console.error("Error al cargar datos de retos:", error);
     } finally {
-      setLoading(false);
+      setLoadingInfoRetos(false);
     } 
-  }; */}
+  };
 
   useEffect(() => {
-    setDATA(RETOS_MOCK);
-    setLoading(false);
-
-    //fetchEquipos);
-
+    fetchRetos();
   }, []);
   
-  //return { DATA, loading, refetch: fetchEquipos };
-  return { DATA, loading };
+  return { infoRetos, allRetos, loadingInfoRetos, refetch: fetchRetos };
+ 
 };
 
 
