@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 interface AsistenciaData {
   participantes: Array <{nombre: string; apellido: string; equipo: string; registro_d1: boolean; hora_llegada?: string;}>
   equipos: Array<{ nombre: string; total: number }>;
+  retos: Array<{ nombre: string}>;
 }
 
 interface AsistenciaCantidadData {
@@ -24,6 +25,12 @@ const HARDCODED_DATA: AsistenciaData = {
     { nombre: "Alfa", total: 4 },
     { nombre: "Beta", total: 3 },
     { nombre: "Gamma", total: 2 }
+  ],
+
+  retos: [
+    { nombre: "Churn Hunters: Anticipándonos al abandono de clientes" },
+    { nombre: "Always on Shelf: Surtido predictivo para canal moderno" },
+    { nombre: "Always on Shelf: Surtido predictivo para canal moderno"}
   ]
 };
 
@@ -43,6 +50,7 @@ const getToken = (): string | undefined =>
 export const useAsistenciaData = () => {
   const [asistencia, setAsistencia] = useState<AsistenciaData | null>(null);
    const [cantidad, setCantidad] = useState<AsistenciaCantidadData | null>(null);
+  const [retos, setRetos] = useState<Array<{ nombre: string }> | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -77,11 +85,12 @@ export const useAsistenciaData = () => {
     setTimeout(() => {
       setAsistencia(HARDCODED_DATA);
       setCantidad(HARDCODED_DATA_CANTIDAD);
+      setRetos(HARDCODED_DATA.retos);
       setLoading(false);
     }, 500);
     //fetchAsistencia();
   }, []);
 
   //return { asistencia, loading, error, refetch: fetchAsistencia };
-  return { asistencia, cantidad, loading, error };
+  return { asistencia, cantidad, retos, loading, error };
 };

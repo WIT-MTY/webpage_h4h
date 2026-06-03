@@ -2,7 +2,7 @@
 import { useAsistenciaData } from "@/app/hooks/utils/useAsistenciaData";
 
 export default function PagePanel() {
-    const { asistencia, cantidad, loading, error } = useAsistenciaData();
+    const { asistencia, cantidad, retos, loading, error } = useAsistenciaData();
 
     if (loading) {
         return (
@@ -65,11 +65,11 @@ export default function PagePanel() {
 
             <div className="flex gap-6 items-start">
                 {/* Tabla de Participantes */}
-                <div className="border-3 border-[#C4649F] bg-white rounded-lg overflow-hidden w-1/2">
+                <div className="border-3 border-[#C4649F] bg-white rounded-lg overflow-hidden w-2/5">
                     <div className="flex">
                         <div className="flex-1 overflow-x-auto">
                             {/* Header */}
-                            <div className="flex min-w-[500px] px-4 py-3 border-b-3 border-[#C4649F] text-[#C4649F] text-xs font-semibold uppercase gap-4">
+                            <div className="flex min-w-1125 px-4 py-3 border-b-3 border-[#C4649F] text-[#C4649F] text-xs font-semibold uppercase gap-4">
                                 <div className="w-40 shrink-0">Participante</div>
                                 <div className="w-40 shrink-0">Equipo</div>
                                 <div className="w-40 shrink-0">Hora de llegada</div>
@@ -83,7 +83,7 @@ export default function PagePanel() {
                             ) : (
                                 asistencia.participantes.map((participante, index) => (
                                     <div key={index} className="border-b border-[#C4649F]/20 last:border-0 hover:bg-pink-50 transition-colors">
-                                        <div className="flex min-w-[500px] px-4 h-14 items-center gap-4">
+                                        <div className="flex min-w-125 px-4 h-14 items-center gap-4">
                                             <div className="w-40 shrink-0">
                                                 <p className="text-black font-medium text-sm">
                                                     {participante.nombre} {participante.apellido}
@@ -111,13 +111,16 @@ export default function PagePanel() {
                 </div>
 
                 {/* Tabla de Equipos */}
-                <div className="border-3 border-[#C4649F] bg-white rounded-lg overflow-hidden w-1/2">
+                <div className="border-3 border-[#C4649F] bg-white rounded-lg overflow-hidden w-3/5">
                     <div className="flex">
                         <div className="flex-1 overflow-x-auto">
                             {/* Header */}
-                            <div className="flex min-w-[300px] px-4 py-3 border-b-3 border-[#C4649F] text-[#C4649F] text-xs font-semibold uppercase gap-4">
+                            <div className="flex min-w-75 px-4 py-3 border-b-3 border-[#C4649F] text-[#C4649F] text-xs font-semibold uppercase gap-4">
                                 <div className="w-40 shrink-0">Nombre del Equipo</div>
-                                <div className="w-40 shrink-0">Cantidad</div>
+                                <div className="w-20 shrink-0">Cantidad</div>
+                                <div className="w-30 shrink-0">Estatus</div>
+                                <div className="w-45 shrink-0">Reto Op.1</div>
+                                <div className="w-45 shrink-0">Reto Op.2</div>
                             </div>
 
                             {/* Filas de Equipos - CORREGIDO */}
@@ -128,10 +131,15 @@ export default function PagePanel() {
                             ) : (
                                 asistencia.equipos.map((equipo, index) => (
                                     <div key={index} className="border-b border-[#C4649F]/20 last:border-0 hover:bg-pink-50 transition-colors">
-                                        <div className="flex min-w-[300px] px-4 h-14 items-center gap-4">
+                                        <div className="flex min-w-75 px-4 h-14 items-center gap-4">
                                             <div className="w-40 shrink-0">
                                                 <p className="text-black font-medium text-sm">
                                                     {equipo.nombre}
+                                                </p>
+                                            </div>
+                                            <div className="w-40 shrink-0">
+                                                <p className="text-black text-sm">
+                                                    {equipo.total} / 4
                                                 </p>
                                             </div>
                                             <div className="w-40 shrink-0">
