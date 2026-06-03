@@ -28,10 +28,12 @@ export default function CheckInPage() {
 
       try {
         const data = await fetchProtegido(
-          `${process.env.NEXT_PUBLIC_API_URL}/participantes/${usuarioBaseId}`,
+          // `${process.env.NEXT_PUBLIC_API_URL}/participantes/${usuarioBaseId}`,
+          `http://localhost:8000/checkin/codigo`,
         );
 
-        if (!data) {
+        if (!data || data == null) {
+          setError(true);
           return "";
         }
 
