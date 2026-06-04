@@ -28,8 +28,7 @@ export default function CheckInPage() {
 
       try {
         const data = await fetchProtegido(
-          // `${process.env.NEXT_PUBLIC_API_URL}/participantes/${usuarioBaseId}`,
-          `http://localhost:8000/checkin/codigo`,
+          `${process.env.NEXT_PUBLIC_API_URL}/participantes/${usuarioBaseId}`,
         );
 
         if (!data || data == null) {

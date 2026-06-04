@@ -82,8 +82,7 @@ export default function ScanCheckInPage() {
                 ?.split("=")[1];
 
               const response = await fetch(
-                // `${process.env.NEXT_PUBLIC_API_URL}/checkin/${decodedText}`,
-                `http://localhost:8000/checkin/${decodedText}`,
+                `${process.env.NEXT_PUBLIC_API_URL}/checkin/${decodedText}`,
                 {
                   method: "POST",
                   headers: {
