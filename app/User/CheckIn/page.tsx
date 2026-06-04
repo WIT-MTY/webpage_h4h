@@ -15,30 +15,16 @@ export default function CheckInPage() {
 
   useEffect(() => {
     const obtenerUUID = async () => {
-      const usuarioBaseId = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("usuarioBaseId="))
-        ?.split("=")[1];
-
-      if (!usuarioBaseId) {
-        setLoading(false);
-        router.push("/registro/iniciosesion");
-        return;
-      }
-
       try {
         const data = await fetchProtegido(
-          `${process.env.NEXT_PUBLIC_API_URL}/participantes/${usuarioBaseId}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/checkin/codigo`,
         );
 
         if (!data || data == null) {
           setError(true);
           return "";
         }
-
-        return String(
-          data.uuid ?? data.id ?? data.usuarioBaseId ?? usuarioBaseId,
-        );
+        return String(data);
       } catch (error) {
         console.error("Error al obtener uuid:", error);
         setError(true);
