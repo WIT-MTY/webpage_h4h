@@ -85,7 +85,7 @@ export default function PagePanel() {
                       </div>
 
                       <div className="w-32 shrink-0">
-                        <p className="text-black font-medium text-sm">{p.id}</p>
+                        <p className="text-black font-medium text-sm">{p.codigo}</p>
                       </div>
 
                       <div className="w-32 shrink-0">
