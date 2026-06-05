@@ -7,6 +7,14 @@ interface ParticipanteCheckin {
   hora_llegada: string;
 }
 
+interface EquipoCheckin {
+  nombre: string;
+  personas_registradas: number;
+  equipo_completo: string;
+  reto_1: string;
+  reto_2: string;
+}
+
 const getToken = (): string | undefined =>
   document.cookie
     .split("; ")
@@ -17,6 +25,7 @@ const getToken = (): string | undefined =>
 
 export const useAsistenciaIndData = () => {
   const [participantes, setParticipantes] = useState<ParticipanteCheckin[]>([]);
+  const [equipos, setEquipos] = useState<EquipoCheckin[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,17 +37,26 @@ export const useAsistenciaIndData = () => {
       const BASE = process.env.NEXT_PUBLIC_API_URL;
       const token = getToken();
 
-      const res = await fetch(`${BASE}/checkin/participantes`, {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const headers = {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
 
-      if (!res.ok) throw new Error(`Error ${res.status}`);
+      const [participantesRes, equiposRes] = await Promise.all([
+        fetch(`${BASE}/checkin/participantes`, { headers }),
+        fetch(`${BASE}/checkin/equipos`, { headers }),
+      ]);
 
-      const data = await res.json();
-      setParticipantes(Array.isArray(data) ? data : []);
+      if (!participantesRes.ok) throw new Error(`Error ${participantesRes.status}`);
+      if (!equiposRes.ok) throw new Error(`Error ${equiposRes.status}`);
+
+      const [participantesData, equiposData] = await Promise.all([
+        participantesRes.json(),
+        equiposRes.json(),
+      ]);
+
+      setParticipantes(Array.isArray(participantesData) ? participantesData : []);
+      setEquipos(Array.isArray(equiposData) ? equiposData : []);
 
     } catch (error) {
       console.error("Error al cargar datos de asistencia:", error);
@@ -52,5 +70,5 @@ export const useAsistenciaIndData = () => {
     fetchAsistencia();
   }, []);
 
-  return { participantes, loading, error, refetch: fetchAsistencia };
+  return { participantes, equipos, loading, error, refetch: fetchAsistencia };
 };

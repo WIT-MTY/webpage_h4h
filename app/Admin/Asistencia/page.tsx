@@ -2,7 +2,7 @@
 import { useAsistenciaIndData } from "@/app/hooks/utils/useAsistenciaIndData";
 
 export default function PagePanel() {
-    const { participantes, loading, error } = useAsistenciaIndData();
+    const { participantes, equipos, loading, error } = useAsistenciaIndData();
 
     if (loading) {
         return (
@@ -71,7 +71,7 @@ export default function PagePanel() {
                     <div className="flex">
                         <div className="flex-1 overflow-x-auto">
                             {/* Header */}
-                            <div className="flex min-w-1125 px-4 py-3 border-b-3 border-[#C4649F] text-[#C4649F] text-xs font-semibold uppercase gap-4">
+                            <div className="flex min-w-100 px-4 py-3 border-b-3 border-[#C4649F] text-[#C4649F] text-xs font-semibold uppercase gap-4">
                                 <div className="w-40 shrink-0">Participante</div>
                                 <div className="w-40 shrink-0">Equipo</div>
                                 <div className="w-40 shrink-0">Hora de llegada</div>
@@ -119,41 +119,70 @@ export default function PagePanel() {
                         <div className="flex-1 overflow-x-auto">
                             {/* Header */}
                             <div className="flex min-w-75 px-4 py-3 border-b-3 border-[#C4649F] text-[#C4649F] text-xs font-semibold uppercase gap-4">
-                                <div className="w-40 shrink-0">Nombre del Equipo</div>
-                                <div className="w-20 shrink-0">Cantidad</div>
+                                <div className="w-45 shrink-0">Nombre del Equipo</div>
+                                <div className="w-15 shrink-0">Cantidad</div>
                                 <div className="w-30 shrink-0">Estatus</div>
                                 <div className="w-45 shrink-0">Reto Op.1</div>
                                 <div className="w-45 shrink-0">Reto Op.2</div>
                             </div>
 
-                        {/*}
-                            {!asistencia || asistencia.equipos.length === 0 ? (
+                        
+                            {!equipos || equipos.length === 0 ? (
                                 <div className="px-4 py-8 text-center text-[#C4649F] text-sm">
                                     No hay equipos registrados.
                                 </div>
                             ) : (
-                                asistencia.equipos.map((equipo, index) => (
+                                equipos.map((equipo, index) => (
                                     <div key={index} className="border-b border-[#C4649F]/20 last:border-0 hover:bg-pink-50 transition-colors">
                                         <div className="flex min-w-75 px-4 h-14 items-center gap-4">
-                                            <div className="w-40 shrink-0">
+                                            <div className="w-45 shrink-0">
                                                 <p className="text-black font-medium text-sm">
                                                     {equipo.nombre}
                                                 </p>
                                             </div>
-                                            <div className="w-40 shrink-0">
+                                            <div className="w-15 shrink-0">
                                                 <p className="text-black text-sm">
-                                                    {equipo.total} / 4
+                                                    {equipo.personas_registradas} / 4
                                                 </p>
                                             </div>
-                                            <div className="w-40 shrink-0">
-                                                <p className="text-black text-sm">
-                                                    {equipo.total} / 4
-                                                </p>
+                                            <div className="w-30 shrink-0">
+                                                {equipo.equipo_completo === "Completo" ? (
+                                                    <p className="text-green-500 text-sm">
+                                                        {equipo.equipo_completo}
+                                                    </p>
+                                                ) : (
+                                                    <p className="text-red-500 text-sm">
+                                                        {equipo.equipo_completo}
+                                                    </p>
+                                                )}
+                                            </div>
+
+                                            <div className="w-45 shrink-0">
+                                                {equipo.reto_1 ? (
+                                                    <p className="text-black text-sm">
+                                                        {equipo.reto_1}
+                                                    </p>
+                                                ) : (
+                                                    <p className="text-black text-sm">
+                                                        ---
+                                                    </p>
+                                                )}
+                                            </div>
+                                            <div className="w-45 shrink-0">
+                                                {equipo.reto_2 ? (
+                                                    <p className="text-black text-sm">
+                                                        {equipo.reto_2}
+                                                    </p>
+                                                ) : (
+                                                    <p className="text-black text-sm">
+                                                        ---
+                                                    </p>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
                                 ))
-                            )} */}
+                            )} 
                         </div>
                     </div>
                 </div>
