@@ -2,7 +2,7 @@
 import { useAsistenciaIndData } from "@/app/hooks/utils/useAsistenciaIndData";
 
 export default function PagePanel() {
-    const { participantes, equipos, totalParticipantes, loading, error } = useAsistenciaIndData();
+    const { participantes, equipos, totalParticipantes, equiposCompletos, loading, error } = useAsistenciaIndData();
 
     if (loading) {
         return (
@@ -49,20 +49,33 @@ export default function PagePanel() {
             )} 
 
             {/* Mostrar cantidad de equipos */}
-            {/*
-            {cantidad && (
-               
+            
+            
+               {equiposCompletos && (
                 <div className="bg-white border-3 rounded-lg p-4 flex items-center justify-between border-[#C4649F] transition-colors">
                     <p className="text-[#4A0C32] font-medium text-sm flex-1 mr-4">
-                        Equipos que han llegado (Completos e Incompletos)
+                        Equipos completos que han llegado
                     </p>
                     <div className="flex items-center gap-2 shrink-0">
                         <div className="bg-[#C4649F] rounded-full w-10 h-10 flex items-center justify-center">
-                            <p className="text-white font-bold text-sm">{cantidad.cantidad_equipos}</p>
+                            <p className="text-white font-bold text-sm">{equiposCompletos.equipos_completos}</p>
                         </div>
                     </div>
                 </div>
-            )} */}
+               )}
+               {equiposCompletos && (
+                <div className="bg-white border-3 rounded-lg p-4 flex items-center justify-between border-[#C4649F] transition-colors">
+                    <p className="text-[#4A0C32] font-medium text-sm flex-1 mr-4">
+                        Equipos incompletos que han llegado 
+                    </p>
+                    <div className="flex items-center gap-2 shrink-0">
+                        <div className="bg-[#C4649F] rounded-full w-10 h-10 flex items-center justify-center">
+                            <p className="text-white font-bold text-sm">{equiposCompletos.equipos_incompletos}</p>
+                        </div>
+                    </div>
+                </div>
+                )}
+         
             </div>
 
             <div className="flex gap-6 items-start">

@@ -19,6 +19,11 @@ interface TotalParticipantesCheckin {
   total_participantes_checkin: string;
 }
 
+interface EquiposCompletosCheckin {
+  equipos_completos: string;
+  equipos_incompletos: string;
+}
+
 const getToken = (): string | undefined =>
   document.cookie
     .split("; ")
@@ -31,6 +36,7 @@ export const useAsistenciaIndData = () => {
   const [participantes, setParticipantes] = useState<ParticipanteCheckin[]>([]);
   const [equipos, setEquipos] = useState<EquipoCheckin[]>([]);
   const [totalParticipantes, setTotalParticipantes] = useState<TotalParticipantesCheckin | null>(null);
+  const [equiposCompletos, setEquiposCompletos] = useState<EquiposCompletosCheckin | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -47,26 +53,30 @@ export const useAsistenciaIndData = () => {
         "Content-Type": "application/json",
       };
 
-      const [participantesRes, equiposRes, totalParticipantesRes] = await Promise.all([
+      const [participantesRes, equiposRes, totalParticipantesRes, equiposCompletosRes] = await Promise.all([
         fetch(`${BASE}/checkin/participantes`, { headers }),
         fetch(`${BASE}/checkin/equipos`, { headers }),
         fetch(`${BASE}/checkin/total-participantes`, { headers }),
+        fetch(`${BASE}/checkin/total-equipos`, { headers }),
       ]);
 
       if (!participantesRes.ok) throw new Error(`Error ${participantesRes.status}`);
       if (!equiposRes.ok) throw new Error(`Error ${equiposRes.status}`);
       if (!totalParticipantesRes.ok) throw new Error(`Error ${totalParticipantesRes.status}`);
+      if (!equiposCompletosRes.ok) throw new Error(`Error ${equiposCompletosRes.status}`);
 
 
-      const [participantesData, equiposData, totalParticipantesData] = await Promise.all([
+      const [participantesData, equiposData, totalParticipantesData, equiposCompletosData] = await Promise.all([
         participantesRes.json(),
         equiposRes.json(),
         totalParticipantesRes.json(),
+        equiposCompletosRes.json(),
       ]);
 
       setParticipantes(Array.isArray(participantesData) ? participantesData : []);
       setEquipos(Array.isArray(equiposData) ? equiposData : []);
       setTotalParticipantes(Array.isArray(totalParticipantesData) ? totalParticipantesData[0] : null);
+      setEquiposCompletos(Array.isArray(equiposCompletosData) ? equiposCompletosData[0] : null);
     } catch (error) {
       console.error("Error al cargar datos de asistencia:", error);
       setError(error instanceof Error ? error.message : "Error desconocido");
@@ -79,5 +89,5 @@ export const useAsistenciaIndData = () => {
     fetchAsistencia();
   }, []);
 
-  return { participantes, equipos, totalParticipantes, loading, error, refetch: fetchAsistencia };
+  return { participantes, equipos, totalParticipantes, equiposCompletos, loading, error, refetch: fetchAsistencia };
 };
