@@ -2,7 +2,7 @@
 import { useAsistenciaIndData } from "@/app/hooks/utils/useAsistenciaIndData";
 
 export default function PagePanel() {
-    const { participantes, equipos, loading, error } = useAsistenciaIndData();
+    const { participantes, equipos, totalParticipantes, loading, error } = useAsistenciaIndData();
 
     if (loading) {
         return (
@@ -33,8 +33,8 @@ export default function PagePanel() {
 
             <div className="flex pb-10 gap-6">
             {/* Mostrar cantidad de participantes */}
-            {/*
-            {cantidad && (
+            
+            {totalParticipantes && (
                
                 <div className="bg-white border-3 rounded-lg p-4 flex items-center justify-between border-[#C4649F] transition-colors">
                     <p className="text-[#4A0C32] font-medium text-sm flex-1 mr-4">
@@ -42,11 +42,11 @@ export default function PagePanel() {
                     </p>
                     <div className="flex items-center gap-2 shrink-0">
                         <div className="bg-[#C4649F] rounded-full w-10 h-10 flex items-center justify-center">
-                            <p className="text-white font-bold text-sm">{cantidad.cantidad_participantes}</p>
+                            <p className="text-white font-bold text-sm">{totalParticipantes.total_participantes_checkin}</p>
                         </div>
                     </div>
                 </div>
-            )} *}/
+            )} 
 
             {/* Mostrar cantidad de equipos */}
             {/*

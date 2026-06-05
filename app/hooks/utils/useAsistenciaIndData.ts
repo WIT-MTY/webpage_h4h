@@ -15,6 +15,10 @@ interface EquipoCheckin {
   reto_2: string;
 }
 
+interface TotalParticipantesCheckin {
+  total_participantes_checkin: string;
+}
+
 const getToken = (): string | undefined =>
   document.cookie
     .split("; ")
@@ -26,6 +30,7 @@ const getToken = (): string | undefined =>
 export const useAsistenciaIndData = () => {
   const [participantes, setParticipantes] = useState<ParticipanteCheckin[]>([]);
   const [equipos, setEquipos] = useState<EquipoCheckin[]>([]);
+  const [totalParticipantes, setTotalParticipantes] = useState<TotalParticipantesCheckin | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,22 +47,26 @@ export const useAsistenciaIndData = () => {
         "Content-Type": "application/json",
       };
 
-      const [participantesRes, equiposRes] = await Promise.all([
+      const [participantesRes, equiposRes, totalParticipantesRes] = await Promise.all([
         fetch(`${BASE}/checkin/participantes`, { headers }),
         fetch(`${BASE}/checkin/equipos`, { headers }),
+        fetch(`${BASE}/checkin/total-participantes`, { headers }),
       ]);
 
       if (!participantesRes.ok) throw new Error(`Error ${participantesRes.status}`);
       if (!equiposRes.ok) throw new Error(`Error ${equiposRes.status}`);
+      if (!totalParticipantesRes.ok) throw new Error(`Error ${totalParticipantesRes.status}`);
 
-      const [participantesData, equiposData] = await Promise.all([
+
+      const [participantesData, equiposData, totalParticipantesData] = await Promise.all([
         participantesRes.json(),
         equiposRes.json(),
+        totalParticipantesRes.json(),
       ]);
 
       setParticipantes(Array.isArray(participantesData) ? participantesData : []);
       setEquipos(Array.isArray(equiposData) ? equiposData : []);
-
+      setTotalParticipantes(Array.isArray(totalParticipantesData) ? totalParticipantesData[0] : null);
     } catch (error) {
       console.error("Error al cargar datos de asistencia:", error);
       setError(error instanceof Error ? error.message : "Error desconocido");
@@ -70,5 +79,5 @@ export const useAsistenciaIndData = () => {
     fetchAsistencia();
   }, []);
 
-  return { participantes, equipos, loading, error, refetch: fetchAsistencia };
+  return { participantes, equipos, totalParticipantes, loading, error, refetch: fetchAsistencia };
 };
