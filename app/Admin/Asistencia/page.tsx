@@ -2,7 +2,7 @@
 import { useAsistenciaIndData } from "@/app/hooks/utils/useAsistenciaIndData";
 
 export default function PagePanel() {
-    const { participantes, equipos, totalParticipantes, equiposCompletos, loading, error } = useAsistenciaIndData();
+    const { participantes, equipos, totalParticipantes, equiposCompletos, retos, loading, error } = useAsistenciaIndData();
 
     if (loading) {
         return (
@@ -76,6 +76,22 @@ export default function PagePanel() {
                 </div>
                 )}
          
+            </div>
+            
+            
+            <div  className="flex pb-10 gap-6">  
+                {retos.map((retos, index) => (
+                    <div key={index}  className="bg-white border-3 rounded-lg p-4 flex items-center justify-between border-[#C4649F] transition-colors">
+                        <p className="text-[#4A0C32] font-medium text-sm flex-1 mr-4">
+                            {retos.reto}
+                        </p>
+                        <div className="flex items-center gap-2 shrink-0">
+                            <div className="bg-[#C4649F] rounded-full w-10 h-10 flex items-center justify-center">
+                                <p className="text-white font-bold text-sm">{retos.equipos_con_checkin}/{retos.equipos_asignados}</p>
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
 
             <div className="flex gap-6 items-start">
