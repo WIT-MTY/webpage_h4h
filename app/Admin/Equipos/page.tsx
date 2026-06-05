@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useEquiposData } from '../../hooks/utils/useEquiposData';
+import { useAsistenciaIndData } from "@/app/hooks/utils/useAsistenciaIndData";
 
 type FiltroEstado = "Incompleto" | "Aceptado";
 
@@ -10,7 +11,7 @@ const FILTROS: { valor: FiltroEstado; label: string; bg: string; activeBg: strin
 ];
 
 export default function PagePanel() {
-
+  const { retos, loadingAsistencia, error } = useAsistenciaIndData();
   const { DATA, loading } = useEquiposData();
   const [filtro, setFiltro] = useState<FiltroEstado>("Incompleto");
   if (loading) return <div className="p-8 text-[#4A0C32]">Cargando...</div>;
@@ -27,6 +28,21 @@ export default function PagePanel() {
         <p className="text-[#4A0C32]">Gestión de equipos</p>
         <div className="w-full h-0.5 bg-[#4A0C32] rounded-full mx-auto my-3">
             {/* Línea decorativa */}
+        </div>
+
+        <div  className="flex pb-10 gap-6">  
+          {retos.map((retos, index) => (
+            <div key={index}  className="bg-white border-3 rounded-lg p-4 flex items-center justify-between border-[#C4649F] transition-colors">
+              <p className="text-[#4A0C32] font-medium text-sm flex-1 mr-4">
+                {retos.reto}
+              </p>
+              <div className="flex items-center gap-2 shrink-0">
+                <div className="bg-[#C4649F] rounded-full w-10 h-10 flex items-center justify-center">
+                  <p className="text-white font-bold text-sm">{retos.equipos_asignados}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
         
 

@@ -2,9 +2,9 @@
 import { useAsistenciaIndData } from "@/app/hooks/utils/useAsistenciaIndData";
 
 export default function PagePanel() {
-    const { participantes, equipos, totalParticipantes, equiposCompletos, retos, loading, error } = useAsistenciaIndData();
+    const { participantes, equipos, totalParticipantes, equiposCompletos, retos, loadingAsistencia, error } = useAsistenciaIndData();
 
-    if (loading) {
+    if (loadingAsistencia) {
         return (
             <div className="p-8">
                 <div className="text-center text-[#4A0C32]">Cargando datos...</div>

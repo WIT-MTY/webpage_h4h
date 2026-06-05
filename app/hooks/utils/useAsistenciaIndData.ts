@@ -44,12 +44,12 @@ export const useAsistenciaIndData = () => {
   const [totalParticipantes, setTotalParticipantes] = useState<TotalParticipantesCheckin | null>(null);
   const [equiposCompletos, setEquiposCompletos] = useState<EquiposCompletosCheckin | null>(null);
   const [retos, setRetos] = useState<RetosCheckin[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingAsistencia, setLoadingAsistencia] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   
   const fetchAsistencia = async () => {
-    setLoading(true);
+    setLoadingAsistencia(true);
     setError(null);
     try {
       const BASE = process.env.NEXT_PUBLIC_API_URL;
@@ -91,7 +91,7 @@ export const useAsistenciaIndData = () => {
       console.error("Error al cargar datos de asistencia:", error);
       setError(error instanceof Error ? error.message : "Error desconocido");
     } finally {
-      setLoading(false);
+      setLoadingAsistencia(false);
     }
   };
 
@@ -99,5 +99,5 @@ export const useAsistenciaIndData = () => {
     fetchAsistencia();
   }, []);
 
-  return { participantes, equipos, totalParticipantes, equiposCompletos, retos, loading, error, refetch: fetchAsistencia };
+  return { participantes, equipos, totalParticipantes, equiposCompletos, retos, loadingAsistencia, error, refetch: fetchAsistencia };
 };
