@@ -31,6 +31,12 @@ export default function PagePanel() {
   const [errorReto, setErrorReto] = useState("");
   const [exitoReto, setExitoReto] = useState("");
 
+  // Estados para eliminar equipo
+  const [modalEliminarEquipo, setModalEliminarEquipo] = useState<{ id: number; nombre: string } | null>(null);
+  const [confirmNombre, setConfirmNombre] = useState("");
+  const [loadingEliminarEquipo, setLoadingEliminarEquipo] = useState(false);
+  const [errorEliminarEquipo, setErrorEliminarEquipo] = useState("");
+
   if (loading) return <div className="p-8 text-[#4A0C32]">Cargando...</div>;
 
   const participantesFiltrados = DATA.filter(p => p.estatus === filtro);
@@ -58,35 +64,22 @@ export default function PagePanel() {
       setErrorAccion("Selecciona una integrante para eliminar.");
       return;
     }
-
     setLoadingAccion(true);
     setErrorAccion("");
     setExitoAccion("");
-
     try {
       const BASE = process.env.NEXT_PUBLIC_API_URL;
       const token = getToken();
-
       const res = await fetch(`${BASE}/equipos/${equipoId}/integrantes`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
         body: JSON.stringify({ usuarioBaseId: integranteSeleccionado }),
       });
-
       const data = await res.json();
-
-      if (!res.ok) {
-        setErrorAccion(data.error || "Error al eliminar integrante.");
-        return;
-      }
-
+      if (!res.ok) { setErrorAccion(data.error || "Error al eliminar integrante."); return; }
       setExitoAccion("Integrante eliminada correctamente.");
       await refetch();
       setTimeout(() => resetAccion(), 1500);
-
     } catch {
       setErrorAccion("Error de conexión. Intenta de nuevo.");
     } finally {
@@ -95,50 +88,69 @@ export default function PagePanel() {
   };
 
   const handleAsignarReto = async (equipoId: number, tieneRetoAsignado: boolean) => {
-  if (!tieneRetoAsignado && !retoSeleccionado) {
-    setErrorReto("Selecciona un reto para asignar.");
+    if (!tieneRetoAsignado && !retoSeleccionado) {
+      setErrorReto("Selecciona un reto para asignar.");
+      return;
+    }
+    setLoadingReto(true);
+    setErrorReto("");
+    setExitoReto("");
+    try {
+      const BASE = process.env.NEXT_PUBLIC_API_URL;
+      const token = getToken();
+      const endpoint = tieneRetoAsignado ? "actualizar-reto" : "asignar-reto";
+      const body = tieneRetoAsignado
+        ? { equipo_id: equipoId }
+        : { equipo_id: equipoId, reto_definitivo_id: retoSeleccionado };
+      const res = await fetch(`${BASE}/retos/${endpoint}`, {
+        method: "PUT",
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (!res.ok) { setErrorReto(data.error || "Error al asignar el reto."); return; }
+      setExitoReto(tieneRetoAsignado ? "Reto actualizado correctamente." : "Reto asignado correctamente.");
+      await refetch();
+      setTimeout(() => resetReto(), 1500);
+    } catch {
+      setErrorReto("Error de conexión. Intenta de nuevo.");
+    } finally {
+      setLoadingReto(false);
+    }
+  };
+
+  const handleEliminarEquipo = async () => {
+  if (!modalEliminarEquipo) return;
+  if (confirmNombre.trim() !== modalEliminarEquipo.nombre.trim()) {
+    setErrorEliminarEquipo("El nombre no coincide. Escríbelo exactamente.");
     return;
   }
-
-  setLoadingReto(true);
-  setErrorReto("");
-  setExitoReto("");
-
+  setLoadingEliminarEquipo(true);
+  setErrorEliminarEquipo("");
   try {
     const BASE = process.env.NEXT_PUBLIC_API_URL;
     const token = getToken();
 
-    // Si ya tiene reto → cambia a la opción restante automáticamente
-    // Si no tiene reto → asigna el seleccionado
-    const endpoint = tieneRetoAsignado ? "actualizar-reto" : "asignar-reto";
-    const body = tieneRetoAsignado
-      ? { equipo_id: equipoId }
-      : { equipo_id: equipoId, reto_definitivo_id: retoSeleccionado };
-
-    const res = await fetch(`${BASE}/retos/${endpoint}`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
+    const res = await fetch(`${BASE}/equipos/delete/${modalEliminarEquipo.id}`, { // 👈 ruta correcta
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     const data = await res.json();
 
     if (!res.ok) {
-      setErrorReto(data.error || "Error al asignar el reto.");
+      setErrorEliminarEquipo(data.error || "Error al eliminar el equipo.");
       return;
     }
 
-    setExitoReto(tieneRetoAsignado ? "Reto actualizado correctamente." : "Reto asignado correctamente.");
+    setModalEliminarEquipo(null);
+    setConfirmNombre("");
+    setExpandida(null);
     await refetch();
-    setTimeout(() => resetReto(), 1500);
-
   } catch {
-    setErrorReto("Error de conexión. Intenta de nuevo.");
+    setErrorEliminarEquipo("Error de conexión. Intenta de nuevo.");
   } finally {
-    setLoadingReto(false);
+    setLoadingEliminarEquipo(false);
   }
 };
 
@@ -199,16 +211,10 @@ export default function PagePanel() {
             </div>
           ) : (
             participantesFiltrados.map((p) => {
-              // Opciones disponibles según si ya tiene reto asignado o no
               const opcionesReto = p.tiene_reto_asignado
                 ? [
-                    // Solo mostrar la opción que NO está asignada actualmente
-                    p.opcion1_reto_id !== p.reto_asignado_id
-                      ? { id: p.opcion1_reto_id, nombre: p.opcion1_reto_nombre }
-                      : null,
-                    p.opcion2_reto_id !== p.reto_asignado_id
-                      ? { id: p.opcion2_reto_id, nombre: p.opcion2_reto_nombre }
-                      : null,
+                    p.opcion1_reto_id !== p.reto_asignado_id ? { id: p.opcion1_reto_id, nombre: p.opcion1_reto_nombre } : null,
+                    p.opcion2_reto_id !== p.reto_asignado_id ? { id: p.opcion2_reto_id, nombre: p.opcion2_reto_nombre } : null,
                   ].filter(Boolean)
                 : [
                     p.opcion1_reto_id ? { id: p.opcion1_reto_id, nombre: p.opcion1_reto_nombre } : null,
@@ -241,7 +247,6 @@ export default function PagePanel() {
                           : "—"}
                       </p>
                     </div>
-                    {/* Columna reto */}
                     <div className="w-32 shrink-0">
                       {p.tiene_reto_asignado ? (
                         <span className="inline-block bg-purple-100 text-purple-700 text-xs font-semibold px-2 py-1 rounded-full">
@@ -265,13 +270,11 @@ export default function PagePanel() {
                           <p className="text-purple-700 font-semibold text-xs">
                             {p.tiene_reto_asignado ? "Cambiar reto asignado" : "Asignar reto"}
                           </p>
-
                           {p.tiene_reto_asignado && (
                             <p className="text-purple-500 text-xs">
                               Reto actual: <span className="font-semibold">{p.reto_asignado_nombre}</span>
                             </p>
                           )}
-
                           <select
                             value={retoSeleccionado}
                             onChange={(e) => setRetoSeleccionado(Number(e.target.value))}
@@ -282,10 +285,8 @@ export default function PagePanel() {
                               <option key={o!.id} value={o!.id!}>{o!.nombre}</option>
                             ))}
                           </select>
-
                           {errorReto && <p className="text-red-500 text-xs">{errorReto}</p>}
                           {exitoReto && <p className="text-green-600 text-xs">{exitoReto}</p>}
-
                           <div className="flex gap-2">
                             <button
                               onClick={() => handleAsignarReto(p.id, p.tiene_reto_asignado)}
@@ -294,10 +295,7 @@ export default function PagePanel() {
                             >
                               {loadingReto ? "Guardando..." : p.tiene_reto_asignado ? "Cambiar reto" : "Asignar reto"}
                             </button>
-                            <button
-                              onClick={resetReto}
-                              className="px-4 py-2 rounded-lg bg-gray-100 text-gray-600 font-semibold text-xs hover:bg-gray-200 transition-colors"
-                            >
+                            <button onClick={resetReto} className="px-4 py-2 rounded-lg bg-gray-100 text-gray-600 font-semibold text-xs hover:bg-gray-200 transition-colors">
                               Cancelar
                             </button>
                           </div>
@@ -307,7 +305,6 @@ export default function PagePanel() {
                       {/* Sección eliminar integrante */}
                       <div className="bg-red-50 border border-red-200 rounded-lg p-4 space-y-3">
                         <p className="text-red-700 font-semibold text-xs">Eliminar integrante</p>
-
                         <select
                           value={integranteSeleccionado}
                           onChange={(e) => setIntegranteSeleccionado(e.target.value)}
@@ -322,13 +319,10 @@ export default function PagePanel() {
                             .filter(i => i.id && i.nombre)
                             .map(i => (
                               <option key={i.id} value={i.id!}>{i.nombre}</option>
-                            ))
-                          }
+                            ))}
                         </select>
-
                         {errorAccion && <p className="text-red-500 text-xs">{errorAccion}</p>}
                         {exitoAccion && <p className="text-green-600 text-xs">{exitoAccion}</p>}
-
                         <div className="flex gap-2">
                           <button
                             onClick={() => handleEliminarIntegrante(p.id)}
@@ -337,24 +331,71 @@ export default function PagePanel() {
                           >
                             {loadingAccion ? "Eliminando..." : "Confirmar"}
                           </button>
-                          <button
-                            onClick={resetAccion}
-                            className="px-4 py-2 rounded-lg bg-gray-100 text-gray-600 font-semibold text-xs hover:bg-gray-200 transition-colors"
-                          >
+                          <button onClick={resetAccion} className="px-4 py-2 rounded-lg bg-gray-100 text-gray-600 font-semibold text-xs hover:bg-gray-200 transition-colors">
                             Cancelar
                           </button>
                         </div>
                       </div>
 
+                      {/* Botón escondido — eliminar equipo completo */}
+                      <div className="flex justify-end pt-2 group">
+                        <button
+                          onClick={() => {
+                            setModalEliminarEquipo({ id: p.id, nombre: p.nombre });
+                            setConfirmNombre("");
+                            setErrorEliminarEquipo("");
+                          }}
+                          className="text-gray-300 text-xs hover:text-red-400 transition-colors duration-200 opacity-0 group-hover:opacity-100"
+                        >
+                          eliminar equipo
+                        </button>
+                      </div>
+
                     </div>
                   )}
-
                 </div>
               );
             })
           )}
         </div>
       </div>
+
+      {/* Modal de confirmación — eliminar equipo */}
+      {modalEliminarEquipo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-sm space-y-4 border border-red-200">
+            <p className="text-red-700 font-semibold text-sm">¿Eliminar equipo?</p>
+            <p className="text-gray-500 text-xs leading-relaxed">
+              Esta acción es irreversible. Escribe el nombre del equipo para confirmar:
+              <span className="block mt-1 font-semibold text-gray-700">"{modalEliminarEquipo.nombre}"</span>
+            </p>
+            <input
+              type="text"
+              value={confirmNombre}
+              onChange={(e) => setConfirmNombre(e.target.value)}
+              placeholder="Nombre del equipo"
+              className="w-full border border-red-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400"
+            />
+            {errorEliminarEquipo && <p className="text-red-500 text-xs">{errorEliminarEquipo}</p>}
+            <div className="flex gap-2 justify-end">
+              <button
+                onClick={() => { setModalEliminarEquipo(null); setConfirmNombre(""); setErrorEliminarEquipo(""); }}
+                className="px-4 py-2 rounded-lg bg-gray-100 text-gray-600 font-semibold text-xs hover:bg-gray-200 transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleEliminarEquipo}
+                disabled={loadingEliminarEquipo || confirmNombre.trim() !== modalEliminarEquipo.nombre.trim()}
+                className="px-4 py-2 rounded-lg bg-red-500 text-white font-semibold text-xs hover:bg-red-600 transition-colors disabled:opacity-40"
+              >
+                {loadingEliminarEquipo ? "Eliminando..." : "Eliminar equipo"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
