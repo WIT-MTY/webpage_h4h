@@ -1,8 +1,8 @@
 'use client';
-import { useAsistenciaData } from "@/app/hooks/utils/useAsistenciaData";
+import { useAsistenciaIndData } from "@/app/hooks/utils/useAsistenciaIndData";
 
 export default function PagePanel() {
-    const { asistencia, cantidad, retos, loading, error } = useAsistenciaData();
+    const { participantes, loading, error } = useAsistenciaIndData();
 
     if (loading) {
         return (
@@ -33,6 +33,7 @@ export default function PagePanel() {
 
             <div className="flex pb-10 gap-6">
             {/* Mostrar cantidad de participantes */}
+            {/*
             {cantidad && (
                
                 <div className="bg-white border-3 rounded-lg p-4 flex items-center justify-between border-[#C4649F] transition-colors">
@@ -45,9 +46,10 @@ export default function PagePanel() {
                         </div>
                     </div>
                 </div>
-            )}
+            )} *}/
 
             {/* Mostrar cantidad de equipos */}
+            {/*
             {cantidad && (
                
                 <div className="bg-white border-3 rounded-lg p-4 flex items-center justify-between border-[#C4649F] transition-colors">
@@ -60,7 +62,7 @@ export default function PagePanel() {
                         </div>
                     </div>
                 </div>
-            )}
+            )} */}
             </div>
 
             <div className="flex gap-6 items-start">
@@ -76,12 +78,12 @@ export default function PagePanel() {
                             </div>
 
                             {/* Filas de Participantes - CORREGIDO */}
-                            {!asistencia || asistencia.participantes.length === 0 ? (
+                            {!participantes || participantes.length === 0 ? (
                                 <div className="px-4 py-8 text-center text-[#C4649F] text-sm">
                                     No hay participantes registrados.
                                 </div>
                             ) : (
-                                asistencia.participantes.map((participante, index) => (
+                                participantes.map((participante, index) => (
                                     <div key={index} className="border-b border-[#C4649F]/20 last:border-0 hover:bg-pink-50 transition-colors">
                                         <div className="flex min-w-125 px-4 h-14 items-center gap-4">
                                             <div className="w-40 shrink-0">
@@ -111,6 +113,7 @@ export default function PagePanel() {
                 </div>
 
                 {/* Tabla de Equipos */}
+                
                 <div className="border-3 border-[#C4649F] bg-white rounded-lg overflow-hidden w-3/5">
                     <div className="flex">
                         <div className="flex-1 overflow-x-auto">
@@ -123,7 +126,7 @@ export default function PagePanel() {
                                 <div className="w-45 shrink-0">Reto Op.2</div>
                             </div>
 
-                            {/* Filas de Equipos - CORREGIDO */}
+                        {/*}
                             {!asistencia || asistencia.equipos.length === 0 ? (
                                 <div className="px-4 py-8 text-center text-[#C4649F] text-sm">
                                     No hay equipos registrados.
@@ -150,7 +153,7 @@ export default function PagePanel() {
                                         </div>
                                     </div>
                                 ))
-                            )}
+                            )} */}
                         </div>
                     </div>
                 </div>

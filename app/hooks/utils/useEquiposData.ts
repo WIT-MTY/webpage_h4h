@@ -2,6 +2,7 @@
 
 interface Equipos {
   id: number;
+  codigo: number;
   nombre: string;
   lider: string; 
   participante2: string; 
