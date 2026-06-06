@@ -108,7 +108,7 @@ export default function PagePanel() {
       const endpoint = tieneRetoAsignado ? "actualizar-reto" : "asignar-reto";
       const body = tieneRetoAsignado
         ? { equipo_id: equipoId }
-        : { equipo_id: equipoId, reto_definitivo_id: retoSeleccionado };
+        : { equipo_id: equipoId, reto_id: retoSeleccionado };
       const res = await fetch(`${BASE}/retos/${endpoint}`, {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
