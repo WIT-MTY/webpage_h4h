@@ -7,7 +7,7 @@ import CrearEquipo from '../componentes/user_comp/CrearEquipo';
 import ElegirReto from '../componentes/user_comp/ElegirReto';
 import { useInfoEquipoData } from '../hooks/utils/useInfoEquipoData';
 import { useInfoRetosData } from '../hooks/utils/useInfoRetosData';
-
+import { useRetoAsignadoUser } from '../hooks/utils/useRetoAsignadoUser';
 
 // 
 interface EstatusParticipante {
@@ -20,6 +20,7 @@ export default function PageUser() {
   const { fetchProtegido } = useFetchProtegido();
   const { infoEquipo, loadingInfo } = useInfoEquipoData();
   const { infoRetos, allRetos, loadingInfoRetos } = useInfoRetosData();
+  const { myReto, loadingReto } = useRetoAsignadoUser();
   const [estatus, setEstatus] = useState<EstatusParticipante | null>(null);
   const [loading, setLoading] = useState(true);
   const verificar_es_lider: boolean = infoRetos?.es_lider || false; //bool, determinar si el usuario es líder del equipo para mostrar opciones 
@@ -94,15 +95,19 @@ export default function PageUser() {
 
           <div className="flex-1 space-y-4">
 
-            <div className="bg-white border-3 rounded-lg p-4 flex items-center justify-between border-[#C4649F] transition-colors">
-                    <p className="text-[#4A0C32] font-medium text-sm flex-1 mr-4">
-                        Reto asignado: 
-                    </p>
-                    <p className="text-[#4A0C32] font-medium text-sm flex-1 mr-4">
-                        blabaklaba
-                    </p>
-                    
-                </div>
+            {/* Reto asignado */}
+<div className="bg-white border-3 rounded-lg p-4 flex items-center justify-between border-[#C4649F] transition-colors">
+  <p className="text-[#4A0C32] font-medium text-sm">
+    Reto asignado:
+  </p>
+  {loadingReto ? (
+    <p className="text-[#C4649F] text-sm">Cargando...</p>
+  ) : myReto ? (
+    <p className="text-[#4A0C32] font-medium text-sm">{myReto.titulo}</p>
+  ) : (
+    <p className="text-gray-400 text-sm">Aún no asignado</p>
+  )}
+</div>
             
             <h2 className='text-xl font-semibold'>Estatus de participación</h2>
             {estatus !== null && <EstadoUser descripcion={estatus.estatus} />}
