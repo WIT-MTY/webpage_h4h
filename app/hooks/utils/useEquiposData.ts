@@ -2,14 +2,27 @@
 
 interface Equipos {
   id: number;
+  codigo: number;
   nombre: string;
-  lider: string; 
-  participante2: string; 
-  participante3: string; 
-  participante4: string; 
-  fecha_creacion: string; 
-  fecha_validacion: string; 
-  estatus: string; 
+  lider_id: string;
+  lider: string;
+  participante2_id: string | null;
+  participante2: string | null;
+  participante3_id: string | null;
+  participante3: string | null;
+  participante4_id: string | null;
+  participante4: string | null;
+  fecha_creacion: string;
+  fecha_validacion: string | null;
+  estatus: string;
+  tiene_reto_asignado: boolean;
+  tiene_dos_opciones: boolean;
+  opcion1_reto_id: number | null;
+  opcion1_reto_nombre: string | null;
+  opcion2_reto_id: number | null;
+  opcion2_reto_nombre: string | null;
+  reto_asignado_id: number | null;
+  reto_asignado_nombre: string | null;
 }
 
 

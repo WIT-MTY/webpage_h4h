@@ -93,6 +93,17 @@ export default function PageUser() {
         <div className="flex flex-col md:flex-row gap-6 items-start">
 
           <div className="flex-1 space-y-4">
+
+            <div className="bg-white border-3 rounded-lg p-4 flex items-center justify-between border-[#C4649F] transition-colors">
+                    <p className="text-[#4A0C32] font-medium text-sm flex-1 mr-4">
+                        Reto asignado: 
+                    </p>
+                    <p className="text-[#4A0C32] font-medium text-sm flex-1 mr-4">
+                        blabaklaba
+                    </p>
+                    
+                </div>
+            
             <h2 className='text-xl font-semibold'>Estatus de participación</h2>
             {estatus !== null && <EstadoUser descripcion={estatus.estatus} />}
 
