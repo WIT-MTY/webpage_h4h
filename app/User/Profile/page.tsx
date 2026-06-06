@@ -33,6 +33,11 @@ export default function UserProfile() {
   const [loading, setLoading] = useState(true);
   const [espacioArchivo, setEspacioArchivo] = useState(false);
 
+  const [archivoCV, setArchivoCV] = useState<File | null>(null);
+  const [loadingCV, setLoadingCV] = useState(false);
+  const [errorCV, setErrorCV] = useState("");
+  const [exitoCV, setExitoCV] = useState("");
+
   useEffect(() => {
     const obtenerPerfil = async () => {
         const usuarioBaseId = document.cookie
@@ -59,6 +64,58 @@ export default function UserProfile() {
 
       obtenerPerfil();
     }, []);
+
+    const handleUploadCV = async () => {
+  if (!archivoCV) {
+    setErrorCV("Selecciona un archivo primero.");
+    return;
+  }
+
+  setLoadingCV(true);
+  setErrorCV("");
+  setExitoCV("");
+
+  try {
+    const token = document.cookie
+      .split("; ")
+      .find(row => row.startsWith("token="))
+      ?.split("=")[1];
+
+    const formData = new FormData();
+    formData.append("cv_file", archivoCV);
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/participantes/upload-cv`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      setErrorCV(data.error || "Error al subir el CV.");
+      return;
+    }
+
+    setExitoCV("CV subido correctamente.");
+    setEspacioArchivo(false);
+    setArchivoCV(null);
+  
+    const usuarioBaseId = document.cookie
+      .split("; ")
+      .find(row => row.startsWith("usuarioBaseId="))
+      ?.split("=")[1];
+    const updated = await fetchProtegido(
+      `${process.env.NEXT_PUBLIC_API_URL}/participantes/${usuarioBaseId}`
+    );
+    if (updated) setUsuario(updated);
+
+  } catch {
+    setErrorCV("Error de conexión. Intenta de nuevo.");
+  } finally {
+    setLoadingCV(false);
+  }
+};
 
 
   if (loading) {
@@ -191,54 +248,59 @@ export default function UserProfile() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
             <div>
-              <p className="text-white/60 text-sm mb-1">CV</p>
+  <p className="text-white/60 text-sm mb-1">CV</p>
 
-              {usuario.cv_url && (
-                <a href={usuario.cv_url} target="_blank" rel="noopener noreferrer"
-                  className="text-pink-300 hover:text-pink-200 underline transition-colors text-sm">
-                  Ver CV
-                </a>
-              ) || (
-                <div>
-                  {!espacioArchivo && (
-                    <div>
-                      <p className="text-white/40 text-sm">No proporcionado</p>
-                      
-                      {/* Funcionalidad: espacio para subir archivo */}
-                      {/*}
-                      <button
-                        onClick={() => setEspacioArchivo(true)}
-                        className="text-pink-600 hover:text-pink-200 transition-colors text-sm"
-                      >
-                        Subir CV
-                      </button> */}
-                    </div>
-                  )}
-                </div>
-              )}
+  {usuario.cv_url ? (
+    <a href={usuario.cv_url} target="_blank" rel="noopener noreferrer"
+      className="text-pink-300 hover:text-pink-200 underline transition-colors text-sm">
+      Ver CV
+    </a>
+  ) : (
+    <div>
+      {!espacioArchivo && (
+        <div>
+          <p className="text-white/40 text-sm">No proporcionado</p>
+          <button
+            onClick={() => setEspacioArchivo(true)}
+            className="text-pink-600 hover:text-pink-200 transition-colors text-sm"
+          >
+            Subir CV
+          </button>
+        </div>
+      )}
+    </div>
+  )}
 
-              {/* Funcionalidad: espacio para subir archivo */}
-              {/*{espacioArchivo && (
-                <div>
-                  <FileUpload 
-                    label="Carga tu CV"
-                    required={false}         
-                  />
-                  <div className="flex gap-2 mt-2">
-                     <button type="submit" className="px-3 py-1 text-xs text-white font-semibold rounded-md transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]" style={{ backgroundColor: '#4F123F', borderColor: '#4F123F' }}>
-                        Cargar CV
-                      </button>
-                      <button
-                        onClick={() => setEspacioArchivo(false)}
-                        className="px-3 py-1 text-xs text-white font-semibold rounded-md transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]" style={{ backgroundColor: '#EC407A', borderColor: '#EC407A' }}
-                      >
-                        Cancelar
-                      </button>
-                    </div>
-                </div>
-              )} */}
-
-            </div>
+  {espacioArchivo && (
+    <div className="space-y-2">
+      <input
+        type="file"
+        accept=".pdf,.doc,.docx"
+        onChange={(e) => setArchivoCV(e.target.files?.[0] ?? null)}
+        className="text-white text-sm"
+      />
+      {errorCV && <p className="text-red-300 text-xs">{errorCV}</p>}
+      {exitoCV && <p className="text-green-300 text-xs">{exitoCV}</p>}
+      <div className="flex gap-2 mt-2">
+        <button
+          onClick={handleUploadCV}
+          disabled={loadingCV || !archivoCV}
+          className="px-3 py-1 text-xs text-white font-semibold rounded-md transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40"
+          style={{ backgroundColor: '#4F123F' }}
+        >
+          {loadingCV ? "Subiendo..." : "Cargar CV"}
+        </button>
+        <button
+          onClick={() => { setEspacioArchivo(false); setArchivoCV(null); setErrorCV(""); }}
+          className="px-3 py-1 text-xs text-white font-semibold rounded-md transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+          style={{ backgroundColor: '#EC407A' }}
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  )}
+</div>
 
             <div>
               <p className="text-white/60 text-sm mb-1">LinkedIn</p>
