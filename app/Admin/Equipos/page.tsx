@@ -60,32 +60,39 @@ export default function PagePanel() {
   };
 
   const handleEliminarIntegrante = async (equipoId: number) => {
-    if (!integranteSeleccionado) {
-      setErrorAccion("Selecciona una integrante para eliminar.");
+  if (!integranteSeleccionado) {
+    setErrorAccion("Selecciona una integrante para eliminar.");
+    return;
+  }
+  setLoadingAccion(true);
+  setErrorAccion("");
+  setExitoAccion("");
+  try {
+    const BASE = process.env.NEXT_PUBLIC_API_URL;
+    const token = getToken();
+
+    const res = await fetch(`${BASE}/equipos/${equipoId}/integrantes/${integranteSeleccionado}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+      // 👆 ya no necesita body ni Content-Type
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      setErrorAccion(data.error || "Error al eliminar integrante.");
       return;
     }
-    setLoadingAccion(true);
-    setErrorAccion("");
-    setExitoAccion("");
-    try {
-      const BASE = process.env.NEXT_PUBLIC_API_URL;
-      const token = getToken();
-      const res = await fetch(`${BASE}/equipos/${equipoId}/integrantes`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ usuarioBaseId: integranteSeleccionado }),
-      });
-      const data = await res.json();
-      if (!res.ok) { setErrorAccion(data.error || "Error al eliminar integrante."); return; }
-      setExitoAccion("Integrante eliminada correctamente.");
-      await refetch();
-      setTimeout(() => resetAccion(), 1500);
-    } catch {
-      setErrorAccion("Error de conexión. Intenta de nuevo.");
-    } finally {
-      setLoadingAccion(false);
-    }
-  };
+
+    setExitoAccion("Integrante eliminada correctamente.");
+    await refetch();
+    setTimeout(() => resetAccion(), 1500);
+  } catch {
+    setErrorAccion("Error de conexión. Intenta de nuevo.");
+  } finally {
+    setLoadingAccion(false);
+  }
+};
 
   const handleAsignarReto = async (equipoId: number, tieneRetoAsignado: boolean) => {
     if (!tieneRetoAsignado && !retoSeleccionado) {
