@@ -283,15 +283,21 @@ export default function PagePanel() {
                             </p>
                           )}
                           <select
-                            value={retoSeleccionado}
-                            onChange={(e) => setRetoSeleccionado(Number(e.target.value))}
-                            className="w-full border border-purple-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
-                          >
-                            <option value="">Selecciona un reto</option>
-                            {opcionesReto.map(o => (
-                              <option key={o!.id} value={o!.id!}>{o!.nombre}</option>
-                            ))}
-                          </select>
+  value={retoSeleccionado}
+  onChange={(e) => setRetoSeleccionado(Number(e.target.value))}
+  className="w-full border border-purple-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+>
+  <option value="">Selecciona un reto</option>
+  {opcionesReto.map(o => {
+    const esOpcion1 = o!.id === p.opcion1_reto_id;
+    const label = esOpcion1 ? "1ª opción" : "2ª opción";
+    return (
+      <option key={o!.id} value={o!.id!}>
+        {label} — {o!.nombre}
+      </option>
+    );
+  })}
+</select>
                           {errorReto && <p className="text-red-500 text-xs">{errorReto}</p>}
                           {exitoReto && <p className="text-green-600 text-xs">{exitoReto}</p>}
                           <div className="flex gap-2">
