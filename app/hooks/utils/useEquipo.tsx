@@ -230,7 +230,7 @@ export const useEquipo = () => {
             linkedin:"https://mx.linkedin.com/in/valeria-l%C3%B3pez-cort%C3%A9s"
             }
         },
-
+        /*
         {img:"/images/equipo_images/Samantha Carmona.png",
         nombre: "samantha carmona",
         puesto: "coordinadora",
@@ -239,7 +239,7 @@ export const useEquipo = () => {
             correo:"a00841258@tec.mx",
             linkedin:"https://www.linkedin.com/in/samantha-carmona-santos-14443a3b2/"
             }
-        },
+        },*/
 
         {img:"/images/equipo_images/Mariana Azamar.png",
         nombre: "mariana azamar ",
