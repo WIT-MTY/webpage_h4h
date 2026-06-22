@@ -171,11 +171,12 @@ const HomeSection = () => {
                 </div>
 
                 {/* Botones extra grandes; esquinas poco redondeadas */}
+                {/*
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 md:gap-5 w-full max-w-4xl mt-1 sm:mt-2 px-0 sm:px-1">
-                    {/* Register Button */}
+                    
                     <BotonForms />
 
-                    {/* Discord Button */}
+                  
                     <a href="https://discord.gg/nPj88kyzkm" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
                         <button
                             type="button"
@@ -186,6 +187,7 @@ const HomeSection = () => {
                         </button>
                     </a>
                 </div>
+                */}
 
                 {/* Logo WIT centrado abajo */}
                 <div className="w-full flex justify-center mt-4 sm:mt-5 md:mt-6">
