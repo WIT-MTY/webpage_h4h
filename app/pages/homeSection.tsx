@@ -171,7 +171,7 @@ const HomeSection = () => {
                 </div>
 
                 {/* Botones extra grandes; esquinas poco redondeadas */}
-                {/*}
+                {/*
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 md:gap-5 w-full max-w-4xl mt-1 sm:mt-2 px-0 sm:px-1">
                     
                     <BotonForms />
